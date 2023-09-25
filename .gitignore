@@ -1,5 +1,6 @@
 bin/
 *.a
-.vs_code
+.vscode
 .DS_Store
 minishell
+.gitignore
