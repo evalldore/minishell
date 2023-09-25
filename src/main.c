@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/09/25 15:59:21 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/09/25 16:43:26 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_minishell	g_ms;
 static void	init(void)
 {
 	g_ms.running = true;
-	g_ms.name = "minishit > ";
+	g_ms.name = "\x1b[32mminishit > \x1b[0m";
 }
 
 int	main(int argc, char **argv)
@@ -30,6 +30,7 @@ int	main(int argc, char **argv)
 	while (g_ms.running)
 	{
 		input = readline(g_ms.name);
-		ft_printf("%s\n", input);
+		add_history(input);
+		printf("%s\n", input);
 	}
 }
