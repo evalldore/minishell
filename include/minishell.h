@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/09/25 16:40:31 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/09/26 15:18:11 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,13 @@ typedef struct s_minishell
 	bool	running;
 	char	*name;
 }	t_minishell;
+
+typedef struct s_token
+{
+	char	*str;
+	int		type;
+}	t_token;
+
+void	ms_token_init(void);
 
 #endif

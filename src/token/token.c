@@ -1,37 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/09/26 14:32:07 by evallee-         ###   ########.fr       */
+/*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
+/*   Updated: 2023/09/26 14:31:37 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "minishell.h"
 
-static t_minishell	g_ms;
-
-static void	init(void)
+void	ms_token_init(void)
 {
-	g_ms.running = true;
-	g_ms.name = "\x1b[32mminishit > \x1b[0m";
-	ms_token_init();
-}
-
-int	main(int argc, char **argv)
-{
-	char	*input;
-
-	(void)argc;
-	(void)argv;
-	init();
-	while (g_ms.running)
-	{
-		input = readline(g_ms.name);
-		add_history(input);
-		printf("%s\n", input);
-	}
+	printf("token\n");
 }
