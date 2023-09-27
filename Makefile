@@ -2,16 +2,19 @@ NAME			:= minishell
 CFLAGS			:= -Wall -Wextra -Werror
 SRCS			:= main.c
 TOKENSRCS		:= token.c
+ENVSRCS			:= get_env.c env.c set_env.c
 INCDIR			:= include/
 BINDIR			:= bin/
 SRCDIR			:= src/
 TOKENDIR		:= token/
+ENVDIR			:= env/
 LIBFT			:= ./lib/libft
 RM				:= rm -f
 HEADERS			:= -I ./include -I $(LIBFT)/include
 CC				:= gcc
 LIBS			:= $(LIBFT)/libft.a
 SRCS			+= $(addprefix $(TOKENDIR), $(TOKENSRCS))
+SRCS			+= $(addprefix $(ENVDIR), $(ENVSRCS))
 OBJS			:= $(addprefix $(BINDIR), $(SRCS:.c=.o))
 
 all : libraries $(NAME)
@@ -29,6 +32,7 @@ $(NAME) : $(BINDIR) $(OBJS)
 $(BINDIR) :
 	@mkdir $(BINDIR)
 	@mkdir $(BINDIR)$(TOKENDIR)
+	@mkdir $(BINDIR)$(ENVDIR)
 
 clean:
 	@$(MAKE) -C $(LIBFT) fclean
