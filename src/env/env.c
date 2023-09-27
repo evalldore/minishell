@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 04:00:19 by niceguy           #+#    #+#             */
-/*   Updated: 2023/09/27 05:10:47 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/09/27 14:45:00 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ms_env_init(char **env)
 {
 	t_list	*env_list;
 	char	*copy;
+	t_list	*new;
 
 	env_list = ms_env_get();
 	while (*env)
@@ -30,7 +31,10 @@ void	ms_env_init(char **env)
 		copy = ft_strdup(*env);
 		if (!copy)
 			return ;
-		ft_lstadd_back(&env_list, ft_lstnew(copy));
+		new = ft_lstnew(copy);
+		if (!new)
+			return ;
+		ft_lstadd_back(&env_list, new);
 		env++;
 	}
 }
