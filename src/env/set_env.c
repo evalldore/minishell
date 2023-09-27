@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 04:03:42 by niceguy           #+#    #+#             */
-/*   Updated: 2023/09/27 04:53:02 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/09/27 04:57:57 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ void	ms_env_set_var(const char *arg, const char *var)
 		ft_strlcat(buff, var, len + 1);
 		node->content = buff;
 		free(str);
-		printf("var set and free: %s\n", buff);
 	}
 }
