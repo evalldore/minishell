@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/09/27 05:08:34 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/09/29 18:12:52 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,53 @@
 # include <readline/history.h>
 # include <libft.h>
 # include <stdbool.h>
-# define COLOR_RED     "\x1b[31m"
-# define COLOR_GREEN   "\x1b[32m"
-# define COLOR_YELLOW  "\x1b[33m"
-# define COLOR_BLUE    "\x1b[34m"
-# define COLOR_MAGENTA "\x1b[35m"
-# define COLOR_CYAN    "\x1b[36m"
-# define COLOR_RESET   "\x1b[0m"
+# include <stdio.h>
+# include <signal.h>
+# define COLOR_RED		"\x1b[31m"
+# define COLOR_GREEN	"\x1b[32m"
+# define COLOR_YELLOW	"\x1b[33m"
+# define COLOR_BLUE		"\x1b[34m"
+# define COLOR_MAGENTA	"\x1b[35m"
+# define COLOR_CYAN		"\x1b[36m"
+# define COLOR_RESET	"\x1b[0m"
+# define PROMPT			"\x1b[32mminishit > \x1b[0m"
 
-typedef struct s_minishell
+enum	e_token
 {
-	bool	running;
-	char	*name;
-}	t_minishell;
+	TOK_NONE,
+	TOK_TRUNC,
+	TOK_APPEND,
+	TOK_INPUT,
+	TOK_PIPE,
+	TOK_END,
+	TOK_CMD,
+	TOK_ARG,
+	MAX_TOK
+};
 
 typedef struct s_token
 {
-	char	*str;
-	int		type;
+	char			*str;
+	int				type;
+	struct s_token	*next;
+	struct s_token	*prev;
 }	t_token;
 
+typedef struct s_minishell
+{
+	bool		running;
+	int			status;
+	t_token		*tokens;
+}	t_minishell;
+
+t_minishell	*ms_get(void);
+
+void		ms_builtin_env(char **envp);
+void		ms_builtin_echo(bool nl, char **msg);
+void		ms_builtin_exit(int status);
+
 void		ms_token_init(void);
+
 void		ms_env_init(char **env);
 t_list		*ms_env_get();
 void		ms_env_clear();

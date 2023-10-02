@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/09/29 00:58:31 by niceguy          ###   ########.fr       */
+/*   Created: 2023/09/29 00:17:59 by niceguy           #+#    #+#             */
+/*   Updated: 2023/09/29 00:58:17 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_token_init(void)
+void	ms_builtin_pwd(void)
 {
-	printf("token\n");
+	char	*path;
+
+	path = ms_env_get_var("PWD");
+	if (path)
+		printf("%s\n", path);
 }

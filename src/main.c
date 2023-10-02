@@ -6,37 +6,48 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/09/27 14:42:36 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/09/29 17:56:50 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_minishell	g_ms;
-
 static void	init(char **argv, char **env)
 {
+	t_minishell		*ms;
+
 	(void)argv;
-	g_ms.running = true;
-	g_ms.name = "\x1b[32mminishit > \x1b[0m";
+	ms = ms_get();
+	ms->running = true;
 	ms_token_init();
 	ms_env_init(env);
+}
+
+t_minishell	*ms_get(void)
+{
+	static t_minishell minishell;
+
+	return (&minishell);
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	char			*input;
 	const char		*var;
+	t_minishell		*ms;
 
 	(void)argc;
+	signal(SIGQUIT, SIG_IGN);
 	init(argv, env);
-	while (g_ms.running)
+	ms = ms_get();
+	while (ms->running)
 	{
-		input = readline(g_ms.name);
+		input = readline(PROMPT);
 		add_history(input);
 		var = ms_env_get_var(input);
 		if (var)
 			printf("%s\n", var);
+		free(input);
 	}
 	ms_env_clear();
 }

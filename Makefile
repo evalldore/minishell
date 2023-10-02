@@ -3,10 +3,12 @@ CFLAGS			:= -Wall -Wextra -Werror
 SRCS			:= main.c
 TOKENSRCS		:= token.c
 ENVSRCS			:= get_env.c env.c set_env.c
+BUILTSRCS		:= env.c echo.c pwd.c
 INCDIR			:= include/
 BINDIR			:= bin/
 SRCDIR			:= src/
 TOKENDIR		:= token/
+BUILTDIR		:= builtins/
 ENVDIR			:= env/
 LIBFT			:= ./lib/libft
 RM				:= rm -f
@@ -15,11 +17,12 @@ CC				:= gcc
 LIBS			:= $(LIBFT)/libft.a
 SRCS			+= $(addprefix $(TOKENDIR), $(TOKENSRCS))
 SRCS			+= $(addprefix $(ENVDIR), $(ENVSRCS))
+SRCS			+= $(addprefix $(BUILTDIR), $(BUILTSRCS))
 OBJS			:= $(addprefix $(BINDIR), $(SRCS:.c=.o))
 
 all : libraries $(NAME)
 
-libraries:
+libraries :
 	@$(MAKE) -C $(LIBFT)
 
 $(BINDIR)%.o : $(SRCDIR)%.c
@@ -33,6 +36,7 @@ $(BINDIR) :
 	@mkdir $(BINDIR)
 	@mkdir $(BINDIR)$(TOKENDIR)
 	@mkdir $(BINDIR)$(ENVDIR)
+	@mkdir $(BINDIR)$(BUILTDIR)
 
 clean:
 	@$(MAKE) -C $(LIBFT) fclean

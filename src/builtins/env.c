@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.c                                            :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/09/29 00:58:31 by niceguy          ###   ########.fr       */
+/*   Created: 2023/09/28 18:09:57 by niceguy           #+#    #+#             */
+/*   Updated: 2023/09/29 00:58:12 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_token_init(void)
+void	ms_builtin_env(char **envp)
 {
-	printf("token\n");
+	while (*envp)
+		printf("%s\n", *envp++);
 }

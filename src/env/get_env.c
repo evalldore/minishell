@@ -6,12 +6,11 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 02:38:37 by niceguy           #+#    #+#             */
-/*   Updated: 2023/09/27 04:44:30 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/09/29 00:58:24 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
 static bool	is_var(const char *arg, const char *env)
 {
