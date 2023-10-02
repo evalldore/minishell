@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/09/29 18:12:52 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:29:54 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ void		ms_builtin_exit(int status);
 void		ms_token_init(void);
 
 void		ms_env_init(char **env);
-t_list		*ms_env_get();
-void		ms_env_clear();
+t_list		*ms_env_get(void);
+void		ms_env_clear(void);
 t_list		*ms_env_get_node(const char *arg);
 char		*ms_env_get_var(const char *arg);
 void		ms_env_set_var(const char *arg, const char *var);
+void		ms_env_del_var(const char *arg);
 
 #endif

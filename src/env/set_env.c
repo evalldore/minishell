@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 04:03:42 by niceguy           #+#    #+#             */
-/*   Updated: 2023/09/29 00:58:27 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:30:53 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,25 @@ void	ms_env_set_var(const char *arg, const char *var)
 	}
 	else
 		add_var(arg, var);
+}
+
+void	ms_env_del_var(const char *arg)
+{
+	t_list	*node;
+	t_list	*env_list;
+
+	node = ms_env_get_node(arg);
+	env_list = ms_env_get();
+	if (!node)
+		return ;
+	while (env_list->next)
+	{
+		if (env_list->next && env_list->next == node)
+		{
+			env_list->next = node->next;
+			ft_lstdelone(node, free);
+			return ;
+		}
+		env_list = env_list->next;
+	}
 }

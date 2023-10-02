@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 04:00:19 by niceguy           #+#    #+#             */
-/*   Updated: 2023/09/27 14:45:00 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:20:02 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list	*ms_env_get()
+t_list	*ms_env_get(void)
 {
-	static t_list env_list;
+	static t_list	env_list;
 
 	return (&env_list);
 }
@@ -39,7 +39,7 @@ void	ms_env_init(char **env)
 	}
 }
 
-void	ms_env_clear()
+void	ms_env_clear(void)
 {
 	t_list	*env_list;
 

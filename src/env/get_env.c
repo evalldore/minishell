@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 02:38:37 by niceguy           #+#    #+#             */
-/*   Updated: 2023/09/29 00:58:24 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:17:34 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	is_var(const char *arg, const char *env)
 	if (!arg || !env)
 		return (false);
 	i = 0;
-	while(env[i])
+	while (env[i])
 	{
 		if (env[i] == '=' && !arg[i])
 			return (true);
@@ -55,4 +55,3 @@ char	*ms_env_get_var(const char *arg)
 		return (ft_strchr(node->content, '=') + 1);
 	return (NULL);
 }
-
