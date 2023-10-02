@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/29 00:17:59 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/02 17:05:41 by evallee-         ###   ########.fr       */
+/*   Created: 2023/10/02 17:10:46 by evallee-          #+#    #+#             */
+/*   Updated: 2023/10/02 17:22:38 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_builtin_pwd(void)
+void	ms_builtin_cd(char	*path)
 {
-	char	*path;
+	t_list	*node;
 
-	path = ms_env_get_var("PWD");
-	if (path)
-		printf("%s\n", path);
+	node = ms_env_get_node("PWD");
+	if (node)
+	{
+		free(node->content);
+		node->content = (void *)path; //check is path if valid XD
+	}
 }
