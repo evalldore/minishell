@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/03 16:38:47 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:20:28 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int argc, char **argv, char **env)
 		input = readline(PROMPT);
 		input_len = ft_strlen(input);
 		add_history(input);
+		ms_token_init(input);
 		input_args = ft_split(input, ' ');
 		if (input_args)
 		{
