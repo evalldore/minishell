@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/02 15:29:54 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/03 00:26:22 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ t_minishell	*ms_get(void);
 void		ms_builtin_env(char **envp);
 void		ms_builtin_echo(bool nl, char **msg);
 void		ms_builtin_exit(int status);
+void		ms_builtin_cd(char	*path);
 
 void		ms_token_init(void);
 

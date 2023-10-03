@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/02 16:58:12 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/03 00:38:06 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	init(char **argv, char **env)
 	ms->running = true;
 	ms_token_init();
 	ms_env_init(env);
+	ms_builtin_cd("/home/");
 }
 
 t_minishell	*ms_get(void)
