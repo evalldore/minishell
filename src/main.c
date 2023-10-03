@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/03 14:23:16 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:33:24 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	main(int argc, char **argv, char **env)
 		input = readline(PROMPT);
 		input_len = ft_strlen(input);
 		add_history(input);
+		printf("lol\n");
 		free(input);
 	}
 	ms_env_clear();
