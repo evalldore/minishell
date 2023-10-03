@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 01:03:17 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/03 01:04:17 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/03 16:21:23 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 void	ms_builtin_unset(const char *arg)
 {
 	if (!arg)
-		return;
+		return ;
 	ms_env_del_var(arg);
 }

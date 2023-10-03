@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 00:58:57 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/03 15:57:19 by evallee-         ###   ########.fr       */
+/*   Created: 2023/10/03 14:55:10 by evallee-          #+#    #+#             */
+/*   Updated: 2023/10/03 15:46:04 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_builtin_export(const char *name, const char *var)
+void	ms_free_array(void **array)
 {
-	if (!name || !var)
-		return ;
-	ms_env_set_var(name, var);
+	while (*array)
+		free(*array++);
 }

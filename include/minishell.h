@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/03 13:19:34 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:47:41 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,14 @@ typedef struct s_token
 typedef struct s_minishell
 {
 	bool		running;
-	int			status;
+	uint8_t		status;
 	t_token		*tokens;
 	t_list		*env_list;
 }	t_minishell;
 
 t_minishell	*ms_get(void);
 
+bool		ms_builtin_exec(char **args);
 void		ms_builtin_env(void);
 void		ms_builtin_echo(bool nl, char **msg);
 void		ms_builtin_exit(int status);
@@ -76,5 +77,7 @@ t_list		*ms_env_get_node(const char *arg);
 char		*ms_env_get_var(const char *arg);
 void		ms_env_set_var(const char *arg, const char *var);
 void		ms_env_del_var(const char *arg);
+
+void		ms_free_array(void **array);
 
 #endif

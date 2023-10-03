@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/03 14:41:03 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:39:34 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ int	main(int argc, char **argv, char **env)
 	char			*input;
 	t_minishell		*ms;
 	size_t			input_len;
+	char			**input_args;
 
 	(void)argc;
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 	init(argv, env);
 	ms = ms_get();
 	while (ms->running)
@@ -44,10 +45,15 @@ int	main(int argc, char **argv, char **env)
 		input = readline(PROMPT);
 		input_len = ft_strlen(input);
 		add_history(input);
-		ms_token_init(input);
-		printf("lol\n");
+		input_args = ft_split(input, ' ');
+		if (input_args)
+		{
+			ms_builtin_exec(input_args);
+			ms_free_array((void **)input_args);
+		}
 		free(input);
 	}
 	ms_env_clear();
+	printf("exit status: %d\n", ms->status);
 	return (ms->status);
 }
