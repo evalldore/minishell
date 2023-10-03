@@ -6,10 +6,11 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/03 15:39:34 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:38:47 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <execinfo.h>
 #include "minishell.h"
 
 static void	init(char **argv, char **env)
