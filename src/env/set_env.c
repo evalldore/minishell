@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 04:03:42 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/02 15:30:53 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/03 01:59:38 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 static void	add_var(const char *arg, const char *var)
 {
-	t_list	*env_list;
 	size_t	len;
 	char	*buff;
 	t_list	*node;
 
-	env_list = ms_env_get();
 	len = ft_strlen(arg) + ft_strlen(var) + 1;
 	buff = ft_calloc(len + 1, sizeof(char));
 	if (!buff)
@@ -33,7 +31,7 @@ static void	add_var(const char *arg, const char *var)
 		free(buff);
 		return ;
 	}
-	ft_lstadd_back(&env_list, node);
+	ft_lstadd_back(&ms_get()->env_list, node);
 }
 
 void	ms_env_set_var(const char *arg, const char *var)
@@ -66,7 +64,7 @@ void	ms_env_del_var(const char *arg)
 	t_list	*env_list;
 
 	node = ms_env_get_node(arg);
-	env_list = ms_env_get();
+	env_list = ms_get()->env_list;
 	if (!node)
 		return ;
 	while (env_list->next)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 02:38:37 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/02 16:48:09 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/03 01:58:13 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_list	*ms_env_get_node(const char *arg)
 
 	if (!arg)
 		return (NULL);
-	env_list = ms_env_get();
+	env_list = ms_get()->env_list;
 	while (env_list)
 	{
 		if (is_var(arg, env_list->content))
