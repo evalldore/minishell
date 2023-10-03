@@ -1,5 +1,5 @@
 NAME			:= minishell
-CFLAGS			:= -Wall -Wextra -Werror
+CFLAGS			:= -Wall -Wextra -Werror -g
 SRCS			:= main.c
 TOKENSRCS		:= token.c parsing.c
 ENVSRCS			:= get_env.c env.c set_env.c

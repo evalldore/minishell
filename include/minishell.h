@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/03 02:01:01 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/03 13:19:34 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,9 @@ void		ms_builtin_export(const char *name, const char *var);
 void		ms_builtin_unset(const char *arg);
 void		ms_builtin_pwd(void);
 
-void		ms_token_init(void);
+void		ms_token_init(char *input);
+
+char		**parsing(char *input);
 
 void		ms_env_init(char **env);
 void		ms_env_clear(void);
