@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/03 14:23:16 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:31:24 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	init(char **argv, char **env)
 	(void)argv;
 	ms = ms_get();
 	ms->running = true;
-	ms_token_init();
 	ms_env_init(env);
 }
 
@@ -45,6 +44,7 @@ int	main(int argc, char **argv, char **env)
 		input = readline(PROMPT);
 		input_len = ft_strlen(input);
 		add_history(input);
+		ms_token_init(input);
 		free(input);
 	}
 	ms_env_clear();
