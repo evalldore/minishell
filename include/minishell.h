@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/04 01:57:27 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/04 15:18:29 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char		*ms_env_get_var(const char *arg);
 void		ms_env_set_var(const char *arg, const char *var);
 void		ms_env_del_var(const char *arg);
 
-void		ms_free_array(void **array);
-size_t		ms_count_array(void **array);
+void		ms_array_free(void **array);
+size_t		ms_array_count(void **array);
 
 #endif

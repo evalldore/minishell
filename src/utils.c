@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:55:10 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/04 01:51:28 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/04 15:18:08 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_free_array(void **array)
+void	ms_array_free(void **array)
 {
 	while (*array)
 		free(*array++);
 }
 
-size_t	ms_count_array(void **array)
+size_t	ms_array_count(void **array)
 {
 	size_t	i;
 
