@@ -3,22 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:20:17 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/03 16:38:30 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/03 20:28:04 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_builtin_echo(bool nl, char **msg)
+void	ms_builtin_echo(char **args)
 {
-	while (*msg)
+	bool	nl;
+
+	nl = true;
+	if (ft_strnstr(*args, "-n", ft_strlen(*args)))
 	{
-		ft_putstr_fd(*msg, 1);
-		msg++;
-		if (*msg)
+		nl = false;
+		args++;
+	}
+	while (*args)
+	{
+		ft_putstr_fd(*args, 1);
+		args++;
+		if (*args)
 			ft_putchar_fd(' ', 1);
 	}
 	if (nl)

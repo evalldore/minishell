@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/03 17:20:28 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/10/03 19:20:54 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	main(int argc, char **argv, char **env)
 {
 	char			*input;
 	t_minishell		*ms;
-	size_t			input_len;
 	char			**input_args;
 
 	(void)argc;
@@ -44,7 +43,6 @@ int	main(int argc, char **argv, char **env)
 	while (ms->running)
 	{
 		input = readline(PROMPT);
-		input_len = ft_strlen(input);
 		add_history(input);
 		ms_token_init(input);
 		input_args = ft_split(input, ' ');
