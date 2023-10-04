@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/03 20:25:37 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/04 01:57:27 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ typedef struct s_minishell
 
 t_minishell	*ms_get(void);
 
-bool		ms_builtin_exec(char **args);
+bool		ms_builtin_exec(size_t argc, char **args);
 void		ms_builtin_env(void);
 void		ms_builtin_echo(char **args);
-void		ms_builtin_exit(int status);
-void		ms_builtin_cd(char *path);
+void		ms_builtin_exit(size_t argc, char **args);
+void		ms_builtin_cd(size_t argc, char **args);
 void		ms_builtin_export(const char *name, const char *var);
 void		ms_builtin_unset(const char *arg);
 void		ms_builtin_pwd(void);
@@ -79,5 +79,6 @@ void		ms_env_set_var(const char *arg, const char *var);
 void		ms_env_del_var(const char *arg);
 
 void		ms_free_array(void **array);
+size_t		ms_count_array(void **array);
 
 #endif

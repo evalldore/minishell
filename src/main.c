@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/03 19:20:54 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/04 01:52:32 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv, char **env)
 		input_args = ft_split(input, ' ');
 		if (input_args)
 		{
-			ms_builtin_exec(input_args);
+			ms_builtin_exec(ms_count_array((void **)input_args), input_args);
 			ms_free_array((void **)input_args);
 		}
 		free(input);

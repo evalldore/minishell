@@ -3,19 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:10:46 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/03 16:50:21 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/04 01:57:18 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_builtin_cd(char	*path)
+void	ms_builtin_cd(size_t argc, char	**args)
 {
 	t_list	*node;
+	char	*path;
 
+	if (argc > 2)
+	{
+		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
+		return ;
+	}
+	path = args[1];
 	if (access(path, F_OK) != 0)
 	{
 		perror("cd");

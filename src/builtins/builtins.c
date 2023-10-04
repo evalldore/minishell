@@ -6,13 +6,13 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:49:52 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/03 20:32:37 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/04 01:57:59 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	ms_builtin_exec(char **args)
+bool	ms_builtin_exec(size_t argc, char **args)
 {
 	char		*bi;
 	size_t		bi_len;
@@ -22,9 +22,9 @@ bool	ms_builtin_exec(char **args)
 	bi = args[0];
 	bi_len = ft_strlen(bi);
 	if (ft_strncmp(bi, "exit", bi_len) == 0)
-		ms_builtin_exit(ft_atoi(args[1]));
+		ms_builtin_exit(argc, args);
 	if (ft_strncmp(bi, "cd", bi_len) == 0)
-		ms_builtin_cd(args[1]);
+		ms_builtin_cd(argc, args);
 	if (ft_strncmp(bi, "echo", bi_len) == 0)
 		ms_builtin_echo(&args[1]);
 	if (ft_strncmp(bi, "env", bi_len) == 0)
