@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/05 00:33:56 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/05 03:13:22 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	init(char **argv, char **env)
 	(void)argv;
 	ms = ms_get();
 	ms->running = true;
+	ms->tokens = NULL;
 	ms_env_init(env);
 }
 
