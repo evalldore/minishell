@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/05 03:02:04 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/07 18:11:49 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,54 @@
 # define COLOR_CYAN "\x1b[36m"
 # define COLOR_RESET "\x1b[0m"
 # define PROMPT	COLOR_GREEN	"Minishit " COLOR_RESET "> "
+# define MAX_ARGS 10
+# define WHITESPACES " \t\r\n\v"
+# define OPERATORS "<|>"
+
+enum	e_cmd
+{
+	CMD_EXEC,
+	CMD_REDIR,
+	CDM_PIPE,
+	CMD_LIST,
+	CMD_BACK,
+	MAX_CMD
+};
+
+typedef struct s_cmd
+{
+	int type;
+}	t_cmd;
+
+typedef struct s_cmd_exec
+{
+	int		type;
+	char	*argv[MAX_ARGS];
+	char	*eargv[MAX_ARGS];
+}	t_cmd_exec;
+
+typedef struct s_cmd_redir
+{
+	int		type;
+	t_cmd	*cmd;
+	char	*file;
+	int		fd;
+	int		mode;
+}	t_cmd_redir;
+
+typedef struct s_cmd_pipe
+{
+	int		type;
+	t_cmd	*left;
+	t_cmd	*right;
+}	t_cmd_pipe;
 
 enum	e_token
 {
 	TOK_NONE,
-	TOK_TRUNC,
-	TOK_APPEND,
-	TOK_INPUT,
+	TOK_TEXT,
 	TOK_PIPE,
-	TOK_END,
-	TOK_CMD,
-	TOK_ARG,
+	TOK_REDIR,
 	MAX_TOK
 };
 
@@ -44,19 +81,25 @@ typedef struct s_token
 {
 	char			*str;
 	int				type;
-	struct s_token	*next;
-	struct s_token	*prev;
 }	t_token;
 
 typedef struct s_minishell
 {
 	bool		running;
 	uint8_t		status;
-	t_token		*tokens;
+	t_list		*tokens;
 	t_list		*env_list;
+	int			fd[2];
 }	t_minishell;
 
+t_cmd		*ms_node_exec(void);
+t_cmd		*ms_node_pipe(t_cmd *left, t_cmd *right);
+t_cmd		*ms_node_redir(t_cmd *next, char *file, int fd);
+
 t_minishell	*ms_get(void);
+
+t_cmd		*ms_cmd_parse(t_list *tokens);
+void		ms_cmd_run(t_cmd *cmd);
 
 bool		ms_builtin_exec(size_t argc, char **args);
 void		ms_builtin_env(void);
@@ -67,9 +110,7 @@ void		ms_builtin_export(const char *name, const char *var);
 void		ms_builtin_unset(const char *arg);
 void		ms_builtin_pwd(void);
 
-void		ms_token_init(char *input);
-
-char		**parsing(char *input);
+t_list		*ms_tokens_init(char *input);
 
 void		ms_env_init(char **env);
 void		ms_env_clear(void);
