@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/07 18:51:06 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/07 19:04:46 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list)
 		/*if (!list_get(list)->type == TOK_TEXT)
 			exit(1);*/
 		if (token->str[0] == '<')
-			return (ms_node_redir(cmd, ft_strdup(path), 1));
+			return (ms_node_redir(cmd, path, 1));
 		if (token->str[0] == '>')
-			return (ms_node_redir(cmd, ft_strdup(path), 0));
+			return (ms_node_redir(cmd, path, 0));
 	}
 	return (cmd);
 }
@@ -69,7 +69,7 @@ static t_cmd	*parse_exec(t_list	**list)
 			break;
 		/*if (token->type != TOK_TEXT)
 			exit(1);*/
-		exec->argv[argc] = ft_strdup(token->str);
+		exec->argv[argc] = token->str;
 		argc++;
 		/*if(argc >= MAX_ARGS)
 			exit(1);*/

@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/07 05:48:22 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/07 19:03:33 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ static void cmd_exec(t_cmd_exec *cmd)
 	argi = 0;
 	printf("executing command:\n");
 	while(cmd->argv[argi])
-	{
-		printf("%s$\n", cmd->argv[argi]);
-		argi++;
-	}
+		printf("%s$\n", cmd->argv[argi++]);
+	free(cmd);
 }
 
 static void cmd_pipe(t_cmd_pipe *cmd)
@@ -51,12 +49,14 @@ static void cmd_pipe(t_cmd_pipe *cmd)
 	printf("piping comands \n");
 	ms_cmd_run(cmd->right);
 	ms_cmd_run(cmd->left);
+	free(cmd);
 }
 
 static void cmd_redir(t_cmd_redir *cmd)
 {
 	printf("redirection from %s to %d\n", cmd->file, cmd->fd);
 	ms_cmd_run(cmd->cmd);
+	free(cmd);
 }
 //never returns since its done on a child process
 
