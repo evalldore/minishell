@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/08 19:21:43 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/09 01:27:52 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list)
 		if (list_get(list)->type != TOK_TEXT)
 			ms_terminate(1, "Minishell: Missing file for redirection!\n");
 		if (token->str[0] == '<')
-			return (ms_node_redir(cmd, path, 1));
+			return (ms_node_redir(cmd, path, STDIN_FILENO));
 		if (token->str[0] == '>')
-			return (ms_node_redir(cmd, path, 0));
+			return (ms_node_redir(cmd, path, STDOUT_FILENO));
 	}
 	return (cmd);
 }

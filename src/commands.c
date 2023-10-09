@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/09 00:26:06 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/09 01:36:33 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,50 @@ static void cmd_exec(t_cmd_exec *cmd)
 
 static void cmd_pipe(t_cmd_pipe *cmd)
 {
-	printf("piping comands \n");
-	ms_cmd_run(cmd->right);
-	ms_cmd_run(cmd->left);
+	int		p_id;
+	int		fd_pipe[2];
+
+	if (pipe(fd_pipe) < 0)
+		exit(0);
+	p_id = fork();
+	if (p_id < 0)
+		ms_terminate(1, "Minishell: pipe failed to init!");
+	if (p_id == 0)
+	{
+		close(fd_pipe[1]);
+		dup2(fd_pipe[0], STDIN_FILENO);
+		ms_cmd_run(cmd->right);
+		close(fd_pipe[0]);
+	}
+	else
+	{
+		close(fd_pipe[0]);
+		dup2(fd_pipe[1], STDOUT_FILENO);
+		ms_cmd_run(cmd->left);
+		close(fd_pipe[1]);
+		waitpid(p_id, NULL, 0);
+	}
 	free(cmd);
 }
 
 static void cmd_redir(t_cmd_redir *cmd)
 {
-	printf("redirection from %s to %d\n", cmd->file, cmd->fd);
+	int	fd_redirect;
+
+	if (cmd->fd == STDOUT_FILENO)
+	{
+		fd_redirect = open(cmd->file, cmd->mode, 0666);
+		if (fd_redirect < 0)
+			exit(1);
+	}
+	else if (cmd->fd == STDIN_FILENO)
+	{
+		fd_redirect = open(cmd->file, cmd->mode);
+		if (fd_redirect < 0)
+			exit(1);
+	}
+	if (dup2(fd_redirect, cmd->fd) < 0)
+		exit(1);
 	ms_cmd_run(cmd->cmd);
 	free(cmd);
 }
