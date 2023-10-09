@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 04:00:19 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/03 02:01:55 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/08 23:58:27 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,26 @@ void	ms_env_clear(void)
 	env_list = ms_get()->env_list;
 	if (env_list)
 		ft_lstclear(&env_list, free);
+}
+
+char	**ms_env_path(void)
+{
+	char		**arr;
+	char		*temp;
+	size_t		index;
+	char		*paths;
+
+	paths = ms_env_get_var("PATH");
+	if (!paths)
+		return (NULL);
+	arr = ft_split(paths + 5, ':');
+	index = 0;
+	while (arr[index])
+	{
+		temp = arr[index];
+		arr[index] = ft_strjoin(temp, "/");
+		free(temp);
+		index++;
+	}
+	return (arr);
 }

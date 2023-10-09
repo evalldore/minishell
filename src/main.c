@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/07 18:45:08 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/08 23:52:10 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ t_minishell	*ms_get(void)
 	return (&minishell);
 }
 
-static void print_token(void *p)
+/*/static void print_token(void *p)
 {
 	t_token		*token;
 
 	token = p;
 	printf("%s:%d\n", token->str, token->type);
-}
+}*/
 
 int	main(int argc, char **argv, char **env)
 {
@@ -55,12 +55,19 @@ int	main(int argc, char **argv, char **env)
 		input = readline(PROMPT);
 		add_history(input);
 		tokens = ms_tokens_init(input);
-		ft_lstiter(tokens, print_token);
-		ms_cmd_run(ms_cmd_parse(tokens));
+		//ft_lstiter(tokens, print_token);
+		ms->pid = fork();
+		if (ms->pid == 0)
+			ms_cmd_run(ms_cmd_parse(tokens));
+		waitpid(ms->pid, &ms->pid_status, 0);
+		if (WIFEXITED(ms->pid_status))
+			printf("Child process (PID %d) exited with status: %d\n", ms->pid, WEXITSTATUS(ms->pid_status));
+		else
+			printf("Child process did not exit normally.\n");
 		free(input);
 		ft_lstclear(&tokens, free);
 	}
-	ms_env_clear();
 	printf("exit status: %d\n", ms->status);
+	ms_env_clear();
 	return (ms->status);
 }

@@ -6,12 +6,14 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/07 18:11:49 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/08 23:42:43 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <libft.h>
@@ -89,6 +91,8 @@ typedef struct s_minishell
 	uint8_t		status;
 	t_list		*tokens;
 	t_list		*env_list;
+	pid_t		pid;
+	int			pid_status;
 	int			fd[2];
 }	t_minishell;
 
@@ -118,8 +122,12 @@ t_list		*ms_env_get_node(const char *arg);
 char		*ms_env_get_var(const char *arg);
 void		ms_env_set_var(const char *arg, const char *var);
 void		ms_env_del_var(const char *arg);
+char		**ms_env_path(void);
+char		**ms_env_array(void);
 
 void		ms_array_free(void **array);
 size_t		ms_array_count(void **array);
+
+int			ms_terminate(int status, char *msg);
 
 #endif

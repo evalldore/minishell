@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/07 19:04:46 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/08 19:21:43 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list)
 	{
 		token = list_get(list);
 		path = list_get(list)->str;
-		/*if (!list_get(list)->type == TOK_TEXT)
-			exit(1);*/
+		if (list_get(list)->type != TOK_TEXT)
+			ms_terminate(1, "Minishell: Missing file for redirection!\n");
 		if (token->str[0] == '<')
 			return (ms_node_redir(cmd, path, 1));
 		if (token->str[0] == '>')
@@ -67,12 +67,12 @@ static t_cmd	*parse_exec(t_list	**list)
 		token = list_get(list);
 		if (!token || token->type == TOK_NONE)
 			break;
-		/*if (token->type != TOK_TEXT)
-			exit(1);*/
+		if (token->type != TOK_TEXT)
+			ms_terminate(1, "Minishell: Syntax error\n");
 		exec->argv[argc] = token->str;
 		argc++;
-		/*if(argc >= MAX_ARGS)
-			exit(1);*/
+		if(argc >= MAX_ARGS)
+			ms_terminate(1, "Minishell: Too many arguments!\n");
 		cmd = parse_redir(cmd, list);
 	}
 	exec->argv[argc] = NULL;

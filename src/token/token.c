@@ -6,12 +6,11 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/07 18:44:56 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/08 22:47:10 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static char	*find_separator(char *str)
 {
@@ -22,16 +21,10 @@ static char	*find_separator(char *str)
 	is_op = ft_strchr(OPERATORS, *str) != NULL;
 	while (*str)
 	{
-		if (is_op)
-		{
-			if (!ft_strchr(OPERATORS, *str))
-				return (str);
-		}
-		else
-		{
-			if (ft_strrchr(WHITESPACES, *str) || ft_strchr(OPERATORS, *str))
-				return (str);
-		}
+		if (is_op && !ft_strchr(OPERATORS, *str))
+			return (str);
+		if (!is_op && (ft_strrchr(WHITESPACES, *str) || ft_strchr(OPERATORS, *str)))
+			return (str);
 		str++;
 	}
 	return (str);
@@ -54,7 +47,7 @@ static t_token	*create_token(char *str)
 {
 	t_token	*token;
 	char	*sub;
-	char	len;
+	size_t	len;
 
 	if (!str)
 		return (NULL);
@@ -88,7 +81,11 @@ t_list	*ms_tokens_init(char	*input)
 		if (!*input)
 			break;
 		token = create_token(input);
+		if (!token)
+			ms_terminate(1, "Minishell: Couldnt allocate memory for token!\n");
 		node = ft_lstnew(token);
+		if (!node)
+			ms_terminate(1, "Minishell: Couldnt allocate memory for token!\n");
 		ft_lstadd_back(&list, node);
 		input = find_separator(input);
 	}
