@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/09 23:51:10 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/10 14:35:13 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static t_token	*create_token(char *str)
 	return (token);
 }
 
-void ms_tokens_init(char	*input)
+void	ms_tokens_init(char	*input)
 {
 	t_minishell	*ms;
 	t_list		*list;
@@ -81,7 +81,7 @@ void ms_tokens_init(char	*input)
 		while (*input && ft_strchr(WHITESPACES, *input))
 			input++;
 		if (!*input)
-			break;
+			break ;
 		token = create_token(input);
 		if (!token)
 			ms_terminate(1, "Minishell: Couldnt allocate memory for token!\n");
