@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:55:10 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/10 01:25:13 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/10 15:36:23 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	ms_terminate(int status, char	*msg)
 	if (msg)
 		ft_putstr_fd(msg, 2);
 	ms_env_clear();
+	free(ms->input);
 	if (ms->tokens)
 		ft_lstclear(&ms->tokens, free);
 	exit(status);

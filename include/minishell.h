@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/09 23:55:02 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/10 16:50:56 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ enum	e_cmd
 
 typedef struct s_cmd
 {
-	int type;
+	int	type;
 }	t_cmd;
 
 typedef struct s_cmd_exec
@@ -93,6 +93,7 @@ typedef struct s_minishell
 	t_list		*env_list;
 	pid_t		pid;
 	int			pid_status;
+	char		*input;
 }	t_minishell;
 
 t_cmd		*ms_node_exec(void);
@@ -128,5 +129,7 @@ void		ms_array_free(void **array);
 size_t		ms_array_count(void **array);
 
 int			ms_terminate(int status, char *msg);
+
+void		ms_debug_child(int pid, int status);
 
 #endif
