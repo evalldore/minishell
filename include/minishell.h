@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/05 03:02:04 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/06 14:40:32 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		ms_builtin_pwd(void);
 
 void		ms_token_init(char *input);
 
-char		**parsing(char *input);
+t_token		*parsing(char *input);
 
 void		ms_env_init(char **env);
 void		ms_env_clear(void);
