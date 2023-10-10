@@ -3,75 +3,93 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/03 16:48:24 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/10/09 23:51:10 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	add_prev(t_token *token, t_token *last)
+static char	*find_separator(char *str)
 {
-	while (token->next->prev)
-	{
-		token = token->next;
-	}
-	last->prev = token;
-}
+	bool	is_op;
 
-static t_token	*last_token(t_token *lst)
-{
-	if (!lst)
+	if (!str)
 		return (NULL);
-	while (lst->next)
+	is_op = ft_strchr(OPERATORS, *str) != NULL;
+	while (*str)
 	{
-		lst = lst->next;
+		if (is_op && !ft_strchr(OPERATORS, *str))
+			return (str);
+		if (!is_op && (ft_strrchr(WHITESPACES, *str) || ft_strchr(OPERATORS, *str)))
+			return (str);
+		str++;
 	}
-	return (lst);
+	return (str);
 }
 
-static void	add_list(t_token **token, t_token *new)
+static int	token_type(char *str)
 {
-	if (!new)
-		return ;
-	if (!(*token))
-	{
-		*token = new;
-		return ;
-	}
-	last_token(*token)->next = new;
+	if (!str || !*str)
+		return (TOK_NONE);
+	if (*str == '>')
+		return (TOK_REDIR);
+	if (*str == '<')
+		return (TOK_REDIR);
+	if (*str == '|')
+		return (TOK_PIPE);
+	return (TOK_TEXT);
 }
 
-static t_token	*creat_token(char *string)
+static t_token	*create_token(char *str)
 {
 	t_token	*token;
-	
+	char	*sub;
+	size_t	len;
+
+	if (!str)
+		return (NULL);
+	len = find_separator(str) - str;
+	sub = ft_calloc(len + 1, sizeof(char));
+	if (!sub)
+		return (NULL);
 	token = ft_calloc(1, sizeof(t_token));
 	if (!token)
-		return NULL;
-	token->str = string;
+	{
+		free(sub);
+		return (NULL);
+	}
+	ft_strlcpy(sub, str, len + 1);
+	token->type = token_type(sub);
+	token->str = sub;
 	return (token);
 }
 
-void	ms_token_init(char *input)
+void ms_tokens_init(char	*input)
 {
-	int			i;
-	char		**strings;
 	t_minishell	*ms;
+	t_list		*list;
+	t_list		*node;
 	t_token		*token;
-	
-	token = NULL;
+
+	list = NULL;
 	ms = ms_get();
-	strings = parsing(input);
-	i = 0;
-	while(strings[i])
+	while (*input)
 	{
-		add_list(&token, creat_token(strings[i]));
-		if (i != 0)
-			add_prev(token, last_token(token));
-		i++;
+		while (*input && ft_strchr(WHITESPACES, *input))
+			input++;
+		if (!*input)
+			break;
+		token = create_token(input);
+		if (!token)
+			ms_terminate(1, "Minishell: Couldnt allocate memory for token!\n");
+		node = ft_lstnew(token);
+		if (!node)
+			ms_terminate(1, "Minishell: Couldnt allocate memory for token!\n");
+		ft_lstadd_back(&list, node);
+		input = find_separator(input);
 	}
-	ms->tokens = token;
+	ms->tokens = list;
 }
