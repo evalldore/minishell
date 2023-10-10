@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/09 23:42:33 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/10 14:39:59 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void cmd_exec(t_cmd_exec *cmd);
-static void cmd_pipe(t_cmd_pipe *cmd);
-static void cmd_redir(t_cmd_redir *cmd);
+static void	cmd_exec(t_cmd_exec *cmd);
+static void	cmd_pipe(t_cmd_pipe *cmd);
+static void	cmd_redir(t_cmd_redir *cmd);
 
-static char *find_path(char *cmd)
+static char	*find_path(char *cmd)
 {
 	char	*cmd_path;
 	char	**paths;
@@ -51,7 +51,7 @@ void	ms_cmd_run(t_cmd *cmd)
 	ms_terminate(0, NULL);
 }
 
-static void cmd_exec(t_cmd_exec *cmd)
+static void	cmd_exec(t_cmd_exec *cmd)
 {
 	char	*cmd_path;
 	char	**env;
@@ -71,7 +71,7 @@ static void cmd_exec(t_cmd_exec *cmd)
 	free(cmd);
 }
 
-static void cmd_pipe(t_cmd_pipe *cmd)
+static void	cmd_pipe(t_cmd_pipe *cmd)
 {
 	int		p_id;
 	int		fd_pipe[2];
@@ -99,10 +99,11 @@ static void cmd_pipe(t_cmd_pipe *cmd)
 	free(cmd);
 }
 
-static void cmd_redir(t_cmd_redir *cmd)
+static void	cmd_redir(t_cmd_redir *cmd)
 {
 	int	fd_redirect;
 
+	fd_redirect = -1;
 	if (cmd->fd == STDOUT_FILENO)
 	{
 		fd_redirect = open(cmd->file, cmd->mode, 0666);

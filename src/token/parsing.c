@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/10 14:43:58 by aroussea         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/10/10 15:20:24 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "minishell.h"
 
@@ -23,7 +25,7 @@ static t_token	*list_get(t_list **list)
 	return (token);
 }
 
-static bool		list_peek(t_list **list, int type)
+static bool	list_peek(t_list **list, int type)
 {
 	t_token		*token;
 
@@ -66,12 +68,12 @@ static t_cmd	*parse_exec(t_list	**list)
 	{
 		token = list_get(list);
 		if (!token || token->type == TOK_NONE)
-			break;
+			break ;
 		if (token->type != TOK_TEXT)
 			ms_terminate(1, "Minishell: Syntax error\n");
 		exec->argv[argc] = token->str;
 		argc++;
-		if(argc >= MAX_ARGS)
+		if (argc >= MAX_ARGS)
 			ms_terminate(1, "Minishell: Too many arguments!\n");
 		cmd = parse_redir(cmd, list);
 	}
@@ -91,5 +93,3 @@ t_cmd	*ms_cmd_parse(t_list	*list)
 	}
 	return (cmd);
 }
-
-
