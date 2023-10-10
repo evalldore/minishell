@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/08 22:47:10 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/09 23:51:10 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,15 @@ static t_token	*create_token(char *str)
 	return (token);
 }
 
-t_list	*ms_tokens_init(char	*input)
+void ms_tokens_init(char	*input)
 {
+	t_minishell	*ms;
 	t_list		*list;
 	t_list		*node;
 	t_token		*token;
 
 	list = NULL;
+	ms = ms_get();
 	while (*input)
 	{
 		while (*input && ft_strchr(WHITESPACES, *input))
@@ -89,5 +91,5 @@ t_list	*ms_tokens_init(char	*input)
 		ft_lstadd_back(&list, node);
 		input = find_separator(input);
 	}
-	return (list);
+	ms->tokens = list;
 }

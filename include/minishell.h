@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/08 23:42:43 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/09 23:55:02 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ typedef struct s_minishell
 	t_list		*env_list;
 	pid_t		pid;
 	int			pid_status;
-	int			fd[2];
 }	t_minishell;
 
 t_cmd		*ms_node_exec(void);
@@ -114,7 +113,7 @@ void		ms_builtin_export(const char *name, const char *var);
 void		ms_builtin_unset(const char *arg);
 void		ms_builtin_pwd(void);
 
-t_list		*ms_tokens_init(char *input);
+void		ms_tokens_init(char	*input);
 
 void		ms_env_init(char **env);
 void		ms_env_clear(void);

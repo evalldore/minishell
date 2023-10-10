@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:55:10 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/08 23:49:19 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/10 01:25:13 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,14 @@
 
 int	ms_terminate(int status, char	*msg)
 {
+	t_minishell		*ms;
+
+	ms = ms_get();
 	if (msg)
 		ft_putstr_fd(msg, 2);
 	ms_env_clear();
+	if (ms->tokens)
+		ft_lstclear(&ms->tokens, free);
 	exit(status);
 }
 

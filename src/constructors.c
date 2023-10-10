@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 15:56:24 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/09 01:41:31 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/09 19:32:26 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_cmd	*ms_node_redir(t_cmd *next, char *file, int fd)
 		return (NULL);
 	memset(cmd, 0, sizeof(t_cmd_redir));
 	mode = O_WRONLY|O_CREAT|O_TRUNC;
-	if (fd < STDOUT_FILENO)
+	if (fd == STDIN_FILENO)
 		mode = O_RDONLY;
 	cmd->type = CMD_REDIR;
 	cmd->file = file;
