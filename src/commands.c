@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/10 19:47:39 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/11 01:10:14 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,35 +74,7 @@ static void	cmd_exec(t_cmd_exec *cmd)
 
 static void	cmd_pipe(t_cmd_pipe *cmd)
 {
-	int		p_id[2];
-	int		fd_pipe[2];
-
-	if (pipe(fd_pipe) < 0)
-		ms_terminate(1, "Minishell: pipe failed to init!\n");
-	p_id[0] = fork();
-	if (p_id[0] < 0)
-		ms_terminate(1, "Minishell: fork failed to init!\n");
-	if (p_id[0] == 0)
-	{
-		dup2(fd_pipe[0], STDIN_FILENO);
-		close(fd_pipe[0]);
-		close(fd_pipe[1]);
-		ms_cmd_run(cmd->right);
-	}
-	p_id[1] = fork();
-	if (p_id[1] < 0)
-		ms_terminate(1, "Minishell: fork failed to init!\n");
-	if (p_id[1] == 0)
-	{
-		dup2(fd_pipe[1], STDOUT_FILENO);
-		close(fd_pipe[0]);
-		close(fd_pipe[1]);
-		ms_cmd_run(cmd->left);
-	}
-	close(fd_pipe[0]);
-	close(fd_pipe[1]);
-	waitpid(p_id[0], NULL, 0);
-	waitpid(p_id[1], NULL, 0);
+	ms_pipe(cmd->left, cmd->right);
 	free(cmd);
 }
 
@@ -112,19 +84,16 @@ static void	cmd_redir(t_cmd_redir *cmd)
 
 	fd_redirect = -1;
 	if (cmd->fd == STDOUT_FILENO)
-	{
 		fd_redirect = open(cmd->file, cmd->mode, 0666);
-		if (fd_redirect < 0)
-			ms_terminate(1, "Minishell: Redirection file error!\n");
-	}
 	else if (cmd->fd == STDIN_FILENO)
-	{
 		fd_redirect = open(cmd->file, cmd->mode);
-		if (fd_redirect < 0)
+	if (fd_redirect < 0)
 			ms_terminate(1, "Minishell: Redirection file error!\n");
-	}
 	if (dup2(fd_redirect, cmd->fd) < 0)
+	{
+		close(fd_redirect);
 		ms_terminate(1, "Minishell: Cannot duplicate redirection file!\n");
+	}
 	ms_cmd_run(cmd->cmd);
 	free(cmd);
 }

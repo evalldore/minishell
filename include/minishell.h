@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/10 16:50:56 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/10 20:39:05 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,7 @@ size_t		ms_array_count(void **array);
 int			ms_terminate(int status, char *msg);
 
 void		ms_debug_child(int pid, int status);
+
+void		ms_pipe(t_cmd *left, t_cmd *right);
 
 #endif

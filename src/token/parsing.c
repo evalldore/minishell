@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/10 16:16:01 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/11 01:17:35 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ static bool	list_peek(t_list **list, int type)
 static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list)
 {
 	t_token		*token;
-	char		*path;
+	t_token		*path;
 
 	if (list_peek(list, TOK_REDIR))
 	{
 		token = list_get(list);
-		path = list_get(list)->str;
-		if (list_get(list)->type != TOK_TEXT)
+		path = list_get(list);
+		if (!path || path->type != TOK_TEXT)
 			ms_terminate(1, "Minishell: Missing file for redirection!\n");
 		if (token->str[0] == '<')
-			return (ms_node_redir(cmd, path, STDIN_FILENO));
+			return (ms_node_redir(cmd, path->str, STDIN_FILENO));
 		if (token->str[0] == '>')
-			return (ms_node_redir(cmd, path, STDOUT_FILENO));
+			return (ms_node_redir(cmd, path->str, STDOUT_FILENO));
 	}
 	return (cmd);
 }
