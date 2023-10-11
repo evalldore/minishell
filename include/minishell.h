@@ -6,7 +6,7 @@
 /*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/11 16:41:31 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/10/11 16:44:25 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,4 +136,5 @@ void		ms_debug_child(int pid, int status);
 
 void		ms_pipe(t_cmd *left, t_cmd *right);
 
+#endif
 #endif
