@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/10 20:39:05 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/11 15:45:22 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define COLOR_CYAN "\x1b[36m"
 # define COLOR_RESET "\x1b[0m"
 # define PROMPT	COLOR_GREEN	"Minishit " COLOR_RESET "> "
-# define MAX_ARGS 10
+# define MAX_ARGS 1024
 # define WHITESPACES " \t\r\n\v"
 # define OPERATORS "<|>"
 
@@ -98,7 +98,7 @@ typedef struct s_minishell
 
 t_cmd		*ms_node_exec(void);
 t_cmd		*ms_node_pipe(t_cmd *left, t_cmd *right);
-t_cmd		*ms_node_redir(t_cmd *next, char *file, int fd);
+t_cmd		*ms_node_redir(t_cmd *next, char *file, int fd, int mode);
 
 t_minishell	*ms_get(void);
 

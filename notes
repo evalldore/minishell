@@ -1,0 +1,5 @@
+READLINE 1.33 update a 8.2
+here docs a implémenter
+expansions de strings 
+double et single quotes
+leaks de fd/memoire a cause des forks

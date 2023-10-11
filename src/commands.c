@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/11 01:35:49 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/11 16:37:05 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ static void	cmd_pipe(t_cmd_pipe *cmd)
 	free(cmd);
 }
 
+/*
+fd leaks for fd_redirect
+*/
 static void	cmd_redir(t_cmd_redir *cmd)
 {
 	int	fd_redirect;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/11 01:17:35 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/11 16:05:49 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list)
 {
 	t_token		*token;
 	t_token		*path;
+	int			mode;
 
 	if (list_peek(list, TOK_REDIR))
 	{
@@ -45,9 +46,16 @@ static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list)
 		if (!path || path->type != TOK_TEXT)
 			ms_terminate(1, "Minishell: Missing file for redirection!\n");
 		if (token->str[0] == '<')
-			return (ms_node_redir(cmd, path->str, STDIN_FILENO));
+			return (ms_node_redir(cmd, path->str, STDIN_FILENO, O_RDONLY));
 		if (token->str[0] == '>')
-			return (ms_node_redir(cmd, path->str, STDOUT_FILENO));
+		{
+			mode = O_WRONLY | O_CREAT;
+			if (!token->str[1])
+				mode = mode | O_TRUNC;
+			else if (token->str[1] == '>')
+				mode = mode | O_APPEND;
+			return (ms_node_redir(cmd, path->str, STDOUT_FILENO, mode));
+		}
 	}
 	return (cmd);
 }
