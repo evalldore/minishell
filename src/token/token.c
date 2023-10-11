@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/10 16:15:58 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/11 15:34:41 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*find_separator(char *str)
+char	*find_separator(char *str)
 {
 	bool	is_op;
 
@@ -51,17 +51,21 @@ static t_token	*create_token(char *str)
 
 	if (!str)
 		return (NULL);
-	len = find_separator(str) - str;
-	sub = ft_calloc(len + 1, sizeof(char));
+	sub = parse_quotes(str);
 	if (!sub)
-		return (NULL);
-	token = ft_calloc(1, sizeof(t_token));
-	if (!token)
 	{
-		free(sub);
-		return (NULL);
+		len = find_separator(str) - str;
+		sub = ft_calloc(len + 1, sizeof(char));
+		if (!sub)
+			return (NULL);
+		token = ft_calloc(1, sizeof(t_token));
+		if (!token)
+		{
+			free(sub);
+			return (NULL);
+		}
+		ft_strlcpy(sub, str, len + 1);
 	}
-	ft_strlcpy(sub, str, len + 1);
 	token->type = token_type(sub);
 	token->str = sub;
 	return (token);

@@ -1,7 +1,7 @@
 NAME			:= minishell
 CFLAGS			:= -Wall -Wextra -Werror -g
 SRCS			:= main.c utils.c constructors.c commands.c debug.c pipe.c
-TOKENSRCS		:= token.c parsing.c
+TOKENSRCS		:= token.c parsing.c quotes.c
 ENVSRCS			:= get_env.c env.c set_env.c
 BUILTSRCS		:= env.c echo.c pwd.c cd.c unset.c export.c exit.c builtins.c
 INCDIR			:= include/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/10 20:39:05 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/11 15:31:12 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void		ms_builtin_unset(const char *arg);
 void		ms_builtin_pwd(void);
 
 void		ms_tokens_init(char	*input);
+char		*parse_quotes(char *string);
+char		*find_separator(char *str);
 
 void		ms_env_init(char **env);
 void		ms_env_clear(void);
