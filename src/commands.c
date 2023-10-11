@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/11 01:10:14 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/11 01:35:49 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	cmd_redir(t_cmd_redir *cmd)
 	else if (cmd->fd == STDIN_FILENO)
 		fd_redirect = open(cmd->file, cmd->mode);
 	if (fd_redirect < 0)
-			ms_terminate(1, "Minishell: Redirection file error!\n");
+		ms_terminate(1, "Minishell: Redirection file error!\n");
 	if (dup2(fd_redirect, cmd->fd) < 0)
 	{
 		close(fd_redirect);

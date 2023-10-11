@@ -22,6 +22,9 @@ OBJS			:= $(addprefix $(BINDIR), $(SRCS:.c=.o))
 
 all : libraries $(NAME)
 
+leaks:
+	valgrind --track-fds=yes --show-leak-kinds=all --trace-children=yes --leak-check=full ./minishell
+
 libraries :
 	@$(MAKE) -C $(LIBFT)
 
