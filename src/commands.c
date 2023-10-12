@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/11 16:37:05 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/12 02:40:36 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,27 +69,22 @@ static void	cmd_exec(t_cmd_exec *cmd)
 		free(cmd_path);
 		free(env);
 	}
-	free(cmd);
 }
 
 static void	cmd_pipe(t_cmd_pipe *cmd)
 {
 	ms_pipe(cmd->left, cmd->right);
-	free(cmd);
 }
 
-/*
-fd leaks for fd_redirect
-*/
 static void	cmd_redir(t_cmd_redir *cmd)
 {
-	int	fd_redirect;
+	int			fd_redirect;
 
 	fd_redirect = -1;
 	if (cmd->fd == STDOUT_FILENO)
-		fd_redirect = open(cmd->file, cmd->mode, 0666);
+		fd_redirect = open(cmd->file, cmd->mode | O_CLOEXEC, 0666);
 	else if (cmd->fd == STDIN_FILENO)
-		fd_redirect = open(cmd->file, cmd->mode);
+		fd_redirect = open(cmd->file, cmd->mode | O_CLOEXEC);
 	if (fd_redirect < 0)
 		ms_terminate(1, "Minishell: Redirection file error!\n");
 	if (dup2(fd_redirect, cmd->fd) < 0)
@@ -98,5 +93,4 @@ static void	cmd_redir(t_cmd_redir *cmd)
 		ms_terminate(1, "Minishell: Cannot duplicate redirection file!\n");
 	}
 	ms_cmd_run(cmd->cmd);
-	free(cmd);
 }

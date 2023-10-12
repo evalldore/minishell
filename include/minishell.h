@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/11 15:45:22 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/12 03:36:09 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define COLOR_RESET "\x1b[0m"
 # define PROMPT	COLOR_GREEN	"Minishit " COLOR_RESET "> "
 # define MAX_ARGS 1024
+# define MAX_NODE 1024
 # define WHITESPACES " \t\r\n\v"
 # define OPERATORS "<|>"
 
@@ -93,8 +94,16 @@ typedef struct s_minishell
 	t_list		*env_list;
 	pid_t		pid;
 	int			pid_status;
-	char		*input;
+	t_cmd		*cmd;
 }	t_minishell;
+
+typedef struct s_allocator
+{
+	size_t			index[MAX_CMD];
+	t_cmd_exec		exec[MAX_NODE];
+	t_cmd_pipe		pipe[MAX_NODE];
+	t_cmd_redir		redir[MAX_NODE];
+}	t_allocator;
 
 t_cmd		*ms_node_exec(void);
 t_cmd		*ms_node_pipe(t_cmd *left, t_cmd *right);
@@ -133,5 +142,7 @@ int			ms_terminate(int status, char *msg);
 void		ms_debug_child(int pid, int status);
 
 void		ms_pipe(t_cmd *left, t_cmd *right);
+
+t_cmd		*ms_alloc_node(int type);
 
 #endif
