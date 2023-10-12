@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/12 03:39:23 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/12 15:27:32 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	init(char **argv, char **env)
 	ms_env_init(env);
 }
 
-static void fork_cmd(void)
+static void	fork_cmd(void)
 {
 	t_minishell		*ms;
 

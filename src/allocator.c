@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   allocator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 01:41:55 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/12 14:31:52 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/12 15:02:30 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_allocator	*get_alloc()
+static t_allocator	*get_alloc(void)
 {
 	static t_allocator	alloc;
 
@@ -25,6 +25,7 @@ void	ms_alloc_reset(void)
 	uint32_t		i;
 
 	i = 0;
+	alloc = get_alloc();
 	while (i < MAX_NODE)
 		alloc->index[i++] = 0; 
 }
@@ -39,6 +40,7 @@ t_cmd	*ms_alloc_node(int type)
 		return (NULL);
 	alloc = get_alloc();
 	index = alloc->index[type];
+	cmd = NULL;
 	if (type == CMD_EXEC)
 		cmd = (t_cmd *)(&alloc->exec[index]);
 	else if (type == CDM_PIPE)
