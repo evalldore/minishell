@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/12 03:36:09 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/12 14:32:05 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,6 @@ void		ms_debug_child(int pid, int status);
 void		ms_pipe(t_cmd *left, t_cmd *right);
 
 t_cmd		*ms_alloc_node(int type);
+void		ms_alloc_reset(void);
 
 #endif
