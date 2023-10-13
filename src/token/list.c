@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   list.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 14:55:10 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/12 22:24:11 by niceguy          ###   ########.fr       */
+/*   Created: 2023/10/12 22:39:03 by niceguy           #+#    #+#             */
+/*   Updated: 2023/10/12 22:40:18 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_array_free(void **array)
+t_token	*ms_token_get(t_list **list)
 {
-	size_t	i;
+	t_token		*token;
 
-	i = 0;
-	while (array[i])
-		free(array[i++]);
-	free(array);
+	if (!(*list))
+		return (NULL);
+	token = (*list)->content;
+	*list = (*list)->next;
+	return (token);
 }
 
-size_t	ms_array_count(void **array)
+bool	ms_token_peek(t_list **list, int type)
 {
-	size_t	i;
+	t_token		*token;
 
-	if (!array)
-		return (0);
-	i = 0;
-	while (array[i])
-		i++;
-	return (i);
+	if (!(*list))
+		return (false);
+	token = (*list)->content;
+	return (token->type == type);
 }

@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/12 14:32:05 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/12 22:40:40 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,10 @@ void		ms_builtin_unset(const char *arg);
 void		ms_builtin_pwd(void);
 
 void		ms_tokens_init(char	*input);
+bool		ms_token_peek(t_list **list, int type);
+t_token		*ms_token_get(t_list **list);
 
-void		ms_env_init(char **env);
+bool		ms_env_init(char **env);
 void		ms_env_clear(void);
 t_list		*ms_env_get_node(const char *arg);
 char		*ms_env_get_var(const char *arg);
@@ -137,7 +139,7 @@ char		**ms_env_array(void);
 void		ms_array_free(void **array);
 size_t		ms_array_count(void **array);
 
-int			ms_terminate(int status, char *msg);
+void		ms_terminate(int status, char *msg);
 
 void		ms_debug_child(int pid, int status);
 

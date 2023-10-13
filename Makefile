@@ -1,14 +1,16 @@
 NAME			:= minishell
 CFLAGS			:= -Wall -Wextra -Werror -g
-SRCS			:= main.c utils.c constructors.c commands.c debug.c pipe.c allocator.c
-TOKENSRCS		:= token.c parsing.c
+SRCS			:= main.c utils.c constructors.c debug.c pipe.c allocator.c minishell.c
+TOKENSRCS		:= token.c list.c
 ENVSRCS			:= get_env.c env.c set_env.c
 BUILTSRCS		:= env.c echo.c pwd.c cd.c unset.c export.c exit.c builtins.c
+CMDSRCS			:= commands.c parsing.c 
 INCDIR			:= include/
 BINDIR			:= bin/
 SRCDIR			:= src/
 TOKENDIR		:= token/
 BUILTDIR		:= builtins/
+CMDSDIR			:= commands/
 ENVDIR			:= env/
 LIBFT			:= ./lib/libft
 RM				:= rm -f
@@ -18,6 +20,7 @@ LIBS			:= $(LIBFT)/libft.a
 SRCS			+= $(addprefix $(TOKENDIR), $(TOKENSRCS))
 SRCS			+= $(addprefix $(ENVDIR), $(ENVSRCS))
 SRCS			+= $(addprefix $(BUILTDIR), $(BUILTSRCS))
+SRCS			+= $(addprefix $(CMDSDIR), $(CMDSRCS))
 OBJS			:= $(addprefix $(BINDIR), $(SRCS:.c=.o))
 
 all : libraries $(NAME)
@@ -40,6 +43,7 @@ $(BINDIR) :
 	@mkdir $(BINDIR)$(TOKENDIR)
 	@mkdir $(BINDIR)$(ENVDIR)
 	@mkdir $(BINDIR)$(BUILTDIR)
+	@mkdir $(BINDIR)$(CMDSDIR)
 
 clean:
 	@$(MAKE) -C $(LIBFT) fclean
