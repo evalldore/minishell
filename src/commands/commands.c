@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/12 22:39:15 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/13 17:34:01 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,11 @@ void	ms_cmd_run(t_cmd *cmd)
 //should return an indication if path isnt valid
 static void	cmd_exec(t_cmd_exec *cmd)
 {
-	char	*cmd_path;
-	char	**env;
+	t_minishell	*ms;
+	char		*cmd_path;
+	char		**env;
 
+	ms = ms_get();
 	if (!cmd)
 		ms_terminate(1, "Minishell: No exec node!\n");
 	if (!cmd->argv[0])

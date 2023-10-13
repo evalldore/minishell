@@ -6,3 +6,4 @@ minishell
 .gitignore
 input
 output
+*.dSYM
