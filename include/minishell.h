@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/13 15:48:50 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/13 22:44:08 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ bool		ms_init(char **argv, char **env);
 
 t_cmd		*ms_cmd_parse(t_list *tokens);
 void		ms_cmd_run(t_cmd *cmd);
+void		ms_cmd_pipe(t_cmd *left, t_cmd *right);
 
 bool		ms_builtin_exec(size_t argc, char **args);
 void		ms_builtin_env(void);
@@ -143,8 +144,6 @@ size_t		ms_array_count(void **array);
 void		ms_terminate(int status, char *msg);
 
 void		ms_debug_child(int pid, int status);
-
-void		ms_pipe(t_cmd *left, t_cmd *right);
 
 t_cmd		*ms_alloc_node(int type);
 void		ms_alloc_reset(void);

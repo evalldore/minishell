@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/13 17:34:01 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/13 22:43:51 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,9 @@ void	ms_cmd_run(t_cmd *cmd)
 //should return an indication if path isnt valid
 static void	cmd_exec(t_cmd_exec *cmd)
 {
-	t_minishell	*ms;
 	char		*cmd_path;
 	char		**env;
 
-	ms = ms_get();
 	if (!cmd)
 		ms_terminate(1, "Minishell: No exec node!\n");
 	if (!cmd->argv[0])
@@ -71,11 +69,12 @@ static void	cmd_exec(t_cmd_exec *cmd)
 		free(cmd_path);
 		free(env);
 	}
+	ms_terminate(127, "Minishell: Command doesnt exist!\n");
 }
 
 static void	cmd_pipe(t_cmd_pipe *cmd)
 {
-	ms_pipe(cmd->left, cmd->right);
+	ms_cmd_pipe(cmd->left, cmd->right);
 }
 
 static void	cmd_redir(t_cmd_redir *cmd)

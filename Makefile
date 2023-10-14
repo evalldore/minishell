@@ -1,10 +1,10 @@
 NAME			:= minishell
 CFLAGS			:= -Wall -Wextra -Werror -g
-SRCS			:= main.c utils.c constructors.c debug.c pipe.c allocator.c minishell.c
+SRCS			:= main.c utils.c constructors.c debug.c allocator.c minishell.c
 TOKENSRCS		:= token.c list.c
 ENVSRCS			:= get_env.c env.c set_env.c
 BUILTSRCS		:= env.c echo.c pwd.c cd.c unset.c export.c exit.c builtins.c
-CMDSRCS			:= commands.c parsing.c 
+CMDSRCS			:= commands.c parsing.c pipe.c
 INCDIR			:= include/
 BINDIR			:= bin/
 SRCDIR			:= src/

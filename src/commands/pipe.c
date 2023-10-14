@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 20:21:18 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/13 17:25:42 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/13 22:43:55 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	close_pipe(int fd_pipe[2], int pid[2])
 	ms_debug_child(pid[1], status[1]);
 }
 
-void	ms_pipe(t_cmd *left, t_cmd *right)
+void	ms_cmd_pipe(t_cmd *left, t_cmd *right)
 {
 	int		p_id[2];
 	int		fd_pipe[2];
