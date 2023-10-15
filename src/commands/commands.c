@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/13 22:43:51 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/14 22:49:48 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ static char	*find_path(char *cmd)
 		cmd_path = ft_strjoin(paths[path_i++], cmd);
 		if (access(cmd_path, F_OK | X_OK) == 0)
 		{
-			free(paths);
+			ms_array_free((void **)paths);
 			return (cmd_path);
 		}
 		free(cmd_path);
 	}
-	free(paths);
+	ms_array_free((void **)paths);
 	return (NULL);
 }
 
@@ -68,6 +68,7 @@ static void	cmd_exec(t_cmd_exec *cmd)
 		execve(cmd_path, &cmd->argv[0], env);
 		free(cmd_path);
 		free(env);
+		ms_terminate(1, "Minishell: Command failed to run!\n");
 	}
 	ms_terminate(127, "Minishell: Command doesnt exist!\n");
 }

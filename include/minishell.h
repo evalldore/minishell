@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/13 22:44:08 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/14 22:41:12 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define PROMPT	COLOR_GREEN	"Minishit " COLOR_RESET "> "
 # define MAX_ARGS 1024
 # define MAX_NODE 1024
+# define MB 1048576
 # define WHITESPACES " \t\r\n\v"
 # define OPERATORS "<|>"
 
@@ -97,14 +98,6 @@ typedef struct s_minishell
 	t_cmd		*cmd;
 }	t_minishell;
 
-typedef struct s_allocator
-{
-	size_t			index[MAX_CMD];
-	t_cmd_exec		exec[MAX_NODE];
-	t_cmd_pipe		pipe[MAX_NODE];
-	t_cmd_redir		redir[MAX_NODE];
-}	t_allocator;
-
 t_cmd		*ms_node_exec(void);
 t_cmd		*ms_node_pipe(t_cmd *left, t_cmd *right);
 t_cmd		*ms_node_redir(t_cmd *next, char *file, int fd, int mode);
@@ -128,6 +121,7 @@ void		ms_builtin_pwd(void);
 void		ms_tokens_init(char	*input);
 bool		ms_token_peek(t_list **list, int type);
 t_token		*ms_token_get(t_list **list);
+void		ms_tokens_del(void	*ptr);
 
 bool		ms_env_init(char **env);
 void		ms_env_clear(void);
@@ -145,7 +139,7 @@ void		ms_terminate(int status, char *msg);
 
 void		ms_debug_child(int pid, int status);
 
-t_cmd		*ms_alloc_node(int type);
+void		*ms_alloc(size_t size);
 void		ms_alloc_reset(void);
 
 #endif

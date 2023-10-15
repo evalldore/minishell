@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/13 15:45:15 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:43:49 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argc, char **argv, char **env)
 		ms_tokens_init(input);
 		free(input);
 		fork_cmd();
-		ft_lstclear(&ms->tokens, free);
+		ft_lstclear(&ms->tokens, ms_tokens_del);
 	}
 	printf("exit status: %d\n", ms->status);
 	ms_terminate(ms->status, NULL);

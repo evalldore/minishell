@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 22:22:40 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/13 17:27:03 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/14 22:41:46 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ms_terminate(int status, char	*msg)
 		ft_putstr_fd(msg, 2);
 	ms_env_clear();
 	if (ms->tokens)
-		ft_lstclear(&ms->tokens, free);
+		ft_lstclear(&ms->tokens, ms_tokens_del);
 	if (ms->cmd)
 		cmd_free(ms->cmd);
 	exit(status);
