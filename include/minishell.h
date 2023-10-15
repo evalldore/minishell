@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/14 22:41:12 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/14 22:59:03 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ bool		ms_init(char **argv, char **env);
 
 t_cmd		*ms_cmd_parse(t_list *tokens);
 void		ms_cmd_run(t_cmd *cmd);
+void		ms_cmd_free(t_cmd *cmd);
 void		ms_cmd_pipe(t_cmd *left, t_cmd *right);
 
 bool		ms_builtin_exec(size_t argc, char **args);
