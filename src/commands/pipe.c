@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 20:21:18 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/13 23:07:02 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/15 17:11:40 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	ms_cmd_pipe(t_cmd *left, t_cmd *right)
 	int		p_id[2];
 	int		fd_pipe[2];
 
-	if (pipe(fd_pipe) < 0)
-		ms_terminate(1, "Minishell: pipe failed to init!\n");
+	if (!left || !right || pipe(fd_pipe) < 0)
+		ms_terminate(1, "Minishell: Pipe failed to init!\n");
 	p_id[0] = fork();
 	if (p_id[0] < 0)
-		ms_terminate(1, "Minishell: fork failed to init!\n");
+		ms_terminate(1, "Minishell: Pipe fork failed to init!\n");
 	if (p_id[0] == 0)
 	{
 		dup2(fd_pipe[0], STDIN_FILENO);
@@ -47,7 +47,7 @@ void	ms_cmd_pipe(t_cmd *left, t_cmd *right)
 	}
 	p_id[1] = fork();
 	if (p_id[1] < 0)
-		ms_terminate(1, "Minishell: fork failed to init!\n");
+		ms_terminate(1, "Minishell: Pipe fork failed to init!\n");
 	if (p_id[1] == 0)
 	{
 		dup2(fd_pipe[1], STDOUT_FILENO);

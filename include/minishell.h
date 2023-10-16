@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/14 22:59:03 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/15 17:14:45 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # define PROMPT	COLOR_GREEN	"Minishit " COLOR_RESET "> "
 # define MAX_ARGS 1024
 # define MAX_NODE 1024
-# define MB 1048576
 # define WHITESPACES " \t\r\n\v"
 # define OPERATORS "<|>"
 
@@ -103,7 +102,7 @@ t_cmd		*ms_node_pipe(t_cmd *left, t_cmd *right);
 t_cmd		*ms_node_redir(t_cmd *next, char *file, int fd, int mode);
 
 t_minishell	*ms_get(void);
-bool		ms_init(char **argv, char **env);
+bool		ms_init(char **env);
 
 t_cmd		*ms_cmd_parse(t_list *tokens);
 void		ms_cmd_run(t_cmd *cmd);

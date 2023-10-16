@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 22:58:11 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/14 23:00:00 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/15 17:08:14 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ms_cmd_free(t_cmd *cmd)
 	t_cmd_pipe	*cmd_pipe;
 	t_cmd_redir	*cmd_redir;
 
+	if (!cmd)
+		return ;
 	if (cmd->type == CDM_PIPE)
 	{
 		cmd_pipe = (t_cmd_pipe *)cmd;

@@ -6,17 +6,16 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 22:22:40 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/14 22:59:26 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/15 17:14:32 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	ms_init(char **argv, char **env)
+bool	ms_init(char **env)
 {
 	t_minishell		*ms;
 
-	(void)argv;
 	ms = ms_get();
 	ms->running = true;
 	ms->tokens = NULL;

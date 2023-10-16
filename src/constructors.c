@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 15:56:24 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/14 21:11:23 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/15 17:14:12 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_cmd	*ms_node_pipe(t_cmd *left, t_cmd *right)
 {
 	t_cmd_pipe	*cmd;
 
+	if (!left || !right)
+		return (NULL);
 	cmd = malloc(sizeof(t_cmd_pipe));
 	if (!cmd)
 		return (NULL);
@@ -42,6 +44,8 @@ t_cmd	*ms_node_redir(t_cmd *next, char *file, int fd, int mode)
 {
 	t_cmd_redir	*cmd;
 
+	if (!next || !file)
+		return (NULL);
 	cmd = malloc(sizeof(t_cmd_redir));
 	if (!cmd)
 		return (NULL);

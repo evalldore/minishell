@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 04:03:42 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/03 01:59:38 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/15 17:13:04 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static void	add_var(const char *arg, const char *var)
 	char	*buff;
 	t_list	*node;
 
+	if (!arg || var)
+		return ;
 	len = ft_strlen(arg) + ft_strlen(var) + 1;
 	buff = ft_calloc(len + 1, sizeof(char));
 	if (!buff)
@@ -41,6 +43,8 @@ void	ms_env_set_var(const char *arg, const char *var)
 	char	*buff;
 	size_t	len;
 
+	if (!arg || !var)
+		return ;
 	node = ms_env_get_node(arg);
 	if (node)
 	{
@@ -63,6 +67,8 @@ void	ms_env_del_var(const char *arg)
 	t_list	*node;
 	t_list	*env_list;
 
+	if (!arg)
+		return ;
 	node = ms_env_get_node(arg);
 	env_list = ms_get()->env_list;
 	if (!node)

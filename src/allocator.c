@@ -6,11 +6,12 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 01:41:55 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/14 21:16:51 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/15 17:13:25 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define MB 1048576
 
 static char	*get_alloc(void)
 {

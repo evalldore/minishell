@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:55:10 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/12 22:24:11 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/15 17:17:02 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ms_array_free(void **array)
 {
 	size_t	i;
 
+	if (!array)
+		return ;
 	i = 0;
 	while (array[i])
 		free(array[i++]);

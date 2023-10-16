@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/14 22:43:49 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/15 17:17:37 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int	main(int argc, char **argv, char **env)
 	char			*input;
 
 	(void)argc;
-	if (!ms_init(argv, env))
+	(void)argv;
+	if (!ms_init(env))
 		return (EXIT_FAILURE);
 	ms = ms_get();
 	while (ms->running)

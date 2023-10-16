@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/12 22:42:08 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/15 17:10:24 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list)
 	t_token		*path;
 	int			mode;
 
+	if (!cmd || !list)
+		ms_terminate(1, "Minishell: Cannot parsing a redirection!\n");
 	if (ms_token_peek(list, TOK_REDIR))
 	{
 		token = ms_token_get(list);
@@ -46,6 +48,8 @@ static t_cmd	*parse_exec(t_list	**list)
 	t_token		*token;
 	size_t		argc;
 
+	if (!list)
+		ms_terminate(1, "Minishell: Tokens list is null!\n");
 	exec = (t_cmd_exec *)ms_node_exec();
 	cmd = parse_redir((t_cmd *)exec, list);
 	argc = 0;
@@ -69,6 +73,8 @@ t_cmd	*ms_cmd_parse(t_list	*list)
 {
 	t_cmd	*cmd;
 
+	if (!list)
+		ms_terminate(1, "Minishell: Tokens list is null!\n");
 	cmd = parse_exec(&list);
 	if (ms_token_peek(&list, TOK_PIPE))
 	{
