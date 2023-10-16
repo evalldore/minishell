@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 02:38:37 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/08 23:43:56 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/16 14:08:09 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	**ms_env_array(void)
 	i = 0;
 	if (!array)
 		return (NULL);
-	while(env_list)
+	while (env_list)
 	{
 		array[i++] = (char *)env_list->content;
 		env_list = env_list->next;

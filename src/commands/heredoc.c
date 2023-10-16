@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/14 22:39:26 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/16 14:08:18 by evallee-         ###   ########.fr       */
+/*   Created: 2023/10/16 14:20:03 by evallee-          #+#    #+#             */
+/*   Updated: 2023/10/16 14:34:11 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_tokens_del(void	*ptr)
+void	ms_cmd_heredoc(void)
 {
-	t_token		*token;
-
-	token = ptr;
-	if (token->str)
-		free(token->str);
-	free(ptr);
+	printf("lol xd \n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/15 17:14:45 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/16 14:20:57 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ t_cmd		*ms_cmd_parse(t_list *tokens);
 void		ms_cmd_run(t_cmd *cmd);
 void		ms_cmd_free(t_cmd *cmd);
 void		ms_cmd_pipe(t_cmd *left, t_cmd *right);
+void		ms_cmd_heredoc(void);
 
 bool		ms_builtin_exec(size_t argc, char **args);
 void		ms_builtin_env(void);
