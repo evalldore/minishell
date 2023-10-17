@@ -6,7 +6,7 @@
 /*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/11 16:44:25 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:53:35 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,10 @@ void		ms_builtin_export(const char *name, const char *var);
 void		ms_builtin_unset(const char *arg);
 void		ms_builtin_pwd(void);
 
-void		ms_tokens_init(char	*input);
-char		*parse_quotes(char *string);
-char		*find_separator(char *str);
+void		ms_tokens_init(char	*input, int *check);
+char		*parse_quotes(char *str, int *check);
+char		*find_separator(char *str, int i);
+char		*find_next_quote(char *str);
 
 void		ms_env_init(char **env);
 void		ms_env_clear(void);
@@ -136,5 +137,4 @@ void		ms_debug_child(int pid, int status);
 
 void		ms_pipe(t_cmd *left, t_cmd *right);
 
-#endif
 #endif

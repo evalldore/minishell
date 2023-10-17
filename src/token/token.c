@@ -6,18 +6,24 @@
 /*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/11 15:34:41 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:56:47 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*find_separator(char *str)
+char	*find_separator(char *str, int i)
 {
 	bool	is_op;
 
 	if (!str)
 		return (NULL);
+	if (i == 1 && (*str == '"' || *str == '\''))
+	{
+		str = find_next_quote(str);
+		str++;
+		return (str);
+	}
 	is_op = ft_strchr(OPERATORS, *str) != NULL;
 	while (*str)
 	{
@@ -43,7 +49,7 @@ static int	token_type(char *str)
 	return (TOK_TEXT);
 }
 
-static t_token	*create_token(char *str)
+static t_token	*create_token(char *str, int *check)
 {
 	t_token	*token;
 	char	*sub;
@@ -51,10 +57,10 @@ static t_token	*create_token(char *str)
 
 	if (!str)
 		return (NULL);
-	sub = parse_quotes(str);
-	if (!sub)
+	sub = parse_quotes(str, check);
+	if (!sub && *check == 0)
 	{
-		len = find_separator(str) - str;
+		len = find_separator(str, 0) - str;
 		sub = ft_calloc(len + 1, sizeof(char));
 		if (!sub)
 			return (NULL);
@@ -66,12 +72,14 @@ static t_token	*create_token(char *str)
 		}
 		ft_strlcpy(sub, str, len + 1);
 	}
+	else
+		token = ft_calloc(1, sizeof(t_token));
 	token->type = token_type(sub);
 	token->str = sub;
 	return (token);
 }
 
-void	ms_tokens_init(char	*input)
+void	ms_tokens_init(char	*input, int *check)
 {
 	t_minishell	*ms;
 	t_list		*list;
@@ -86,14 +94,14 @@ void	ms_tokens_init(char	*input)
 			input++;
 		if (!*input)
 			break ;
-		token = create_token(input);
+		token = create_token(input, check);
 		if (!token)
 			ms_terminate(1, "Minishell: Couldnt allocate memory for token!\n");
 		node = ft_lstnew(token);
 		if (!node)
 			ms_terminate(1, "Minishell: Couldnt allocate memory for token!\n");
 		ft_lstadd_back(&list, node);
-		input = find_separator(input);
+		input = find_separator(input, 1);
 	}
 	ms->tokens = list;
 }
