@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:25:44 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/13 15:31:19 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/10/17 14:36:42 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ char	*parse_quotes(char *str, int *check)
 	char	*s;
 	size_t	len;
 	char	*dst;
-	
 
 	s = NULL;
 	len = 0;

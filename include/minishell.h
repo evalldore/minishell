@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/17 13:44:15 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/17 14:50:32 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_cmd_exec
 {
 	int		type;
 	char	*argv[MAX_ARGS];
-	char	*eargv[MAX_ARGS];
 }	t_cmd_exec;
 
 typedef struct s_cmd_redir
