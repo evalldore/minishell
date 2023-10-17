@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/13 14:53:35 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/10/17 13:44:15 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 # define COLOR_CYAN "\x1b[36m"
 # define COLOR_RESET "\x1b[0m"
 # define PROMPT	COLOR_GREEN	"Minishit " COLOR_RESET "> "
-# define MAX_ARGS 10
+# define MAX_ARGS 1024
+# define MAX_NODE 1024
 # define WHITESPACES " \t\r\n\v"
 # define OPERATORS "<|>"
 
@@ -93,17 +94,21 @@ typedef struct s_minishell
 	t_list		*env_list;
 	pid_t		pid;
 	int			pid_status;
-	char		*input;
+	t_cmd		*cmd;
 }	t_minishell;
 
 t_cmd		*ms_node_exec(void);
 t_cmd		*ms_node_pipe(t_cmd *left, t_cmd *right);
-t_cmd		*ms_node_redir(t_cmd *next, char *file, int fd);
+t_cmd		*ms_node_redir(t_cmd *next, char *file, int fd, int mode);
 
 t_minishell	*ms_get(void);
+bool		ms_init(char **env);
 
 t_cmd		*ms_cmd_parse(t_list *tokens);
 void		ms_cmd_run(t_cmd *cmd);
+void		ms_cmd_free(t_cmd *cmd);
+void		ms_cmd_pipe(t_cmd *left, t_cmd *right);
+void		ms_cmd_heredoc(void);
 
 bool		ms_builtin_exec(size_t argc, char **args);
 void		ms_builtin_env(void);
@@ -118,8 +123,11 @@ void		ms_tokens_init(char	*input, int *check);
 char		*parse_quotes(char *str, int *check);
 char		*find_separator(char *str, int i);
 char		*find_next_quote(char *str);
+bool		ms_token_peek(t_list **list, int type);
+t_token		*ms_token_get(t_list **list);
+void		ms_tokens_del(void	*ptr);
 
-void		ms_env_init(char **env);
+bool		ms_env_init(char **env);
 void		ms_env_clear(void);
 t_list		*ms_env_get_node(const char *arg);
 char		*ms_env_get_var(const char *arg);
@@ -131,10 +139,11 @@ char		**ms_env_array(void);
 void		ms_array_free(void **array);
 size_t		ms_array_count(void **array);
 
-int			ms_terminate(int status, char *msg);
+void		ms_terminate(int status, char *msg);
 
 void		ms_debug_child(int pid, int status);
 
-void		ms_pipe(t_cmd *left, t_cmd *right);
+void		*ms_alloc(size_t size);
+void		ms_alloc_reset(void);
 
 #endif

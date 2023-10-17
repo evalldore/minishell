@@ -6,28 +6,34 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 04:00:19 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/08 23:58:27 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/14 22:22:13 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_env_init(char **env)
+bool	ms_env_init(char **env)
 {
 	char	*copy;
 	t_list	*new;
 
+	if (!env)
+		return (false);
 	while (*env)
 	{
 		copy = ft_strdup(*env);
 		if (!copy)
-			return ;
+			return (false);
 		new = ft_lstnew(copy);
 		if (!new)
-			return ;
+		{
+			free(copy);
+			return (false);
+		}
 		ft_lstadd_back(&ms_get()->env_list, new);
 		env++;
 	}
+	return (true);
 }
 
 void	ms_env_clear(void)

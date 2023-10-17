@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 14:55:10 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/15 17:17:02 by niceguy          ###   ########.fr       */
+/*   Created: 2023/10/14 22:58:11 by niceguy           #+#    #+#             */
+/*   Updated: 2023/10/15 17:08:14 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_array_free(void **array)
+void	ms_cmd_free(t_cmd *cmd)
 {
-	size_t	i;
+	t_cmd_pipe	*cmd_pipe;
+	t_cmd_redir	*cmd_redir;
 
-	if (!array)
+	if (!cmd)
 		return ;
-	i = 0;
-	while (array[i])
-		free(array[i++]);
-	free(array);
-}
-
-size_t	ms_array_count(void **array)
-{
-	size_t	i;
-
-	if (!array)
-		return (0);
-	i = 0;
-	while (array[i])
-		i++;
-	return (i);
+	if (cmd->type == CDM_PIPE)
+	{
+		cmd_pipe = (t_cmd_pipe *)cmd;
+		ms_cmd_free(cmd_pipe->left);
+		ms_cmd_free(cmd_pipe->right);
+	}
+	else if (cmd->type == CMD_REDIR)
+	{
+		cmd_redir = (t_cmd_redir *)cmd;
+		ms_cmd_free(cmd_redir->cmd);
+	}
+	else if (cmd->type == CMD_EXEC)
+		free(cmd);
 }

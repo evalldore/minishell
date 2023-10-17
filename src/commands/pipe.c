@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 20:21:18 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/10 20:38:45 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/15 17:11:40 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,25 @@ static void	close_fds(int fd[2])
 
 static void	close_pipe(int fd_pipe[2], int pid[2])
 {
+	int		status[2];
+
 	close_fds(fd_pipe);
-	waitpid(pid[0], NULL, 0);
-	waitpid(pid[1], NULL, 0);
+	waitpid(pid[0], &status[0], 0);
+	waitpid(pid[1], &status[1], 0);
+	ms_debug_child(pid[0], status[0]);
+	ms_debug_child(pid[1], status[1]);
 }
 
-void	ms_pipe(t_cmd *left, t_cmd *right)
+void	ms_cmd_pipe(t_cmd *left, t_cmd *right)
 {
 	int		p_id[2];
 	int		fd_pipe[2];
 
-	if (pipe(fd_pipe) < 0)
-		ms_terminate(1, "Minishell: pipe failed to init!\n");
+	if (!left || !right || pipe(fd_pipe) < 0)
+		ms_terminate(1, "Minishell: Pipe failed to init!\n");
 	p_id[0] = fork();
 	if (p_id[0] < 0)
-		ms_terminate(1, "Minishell: fork failed to init!\n");
+		ms_terminate(1, "Minishell: Pipe fork failed to init!\n");
 	if (p_id[0] == 0)
 	{
 		dup2(fd_pipe[0], STDIN_FILENO);
@@ -43,7 +47,7 @@ void	ms_pipe(t_cmd *left, t_cmd *right)
 	}
 	p_id[1] = fork();
 	if (p_id[1] < 0)
-		ms_terminate(1, "Minishell: fork failed to init!\n");
+		ms_terminate(1, "Minishell: Pipe fork failed to init!\n");
 	if (p_id[1] == 0)
 	{
 		dup2(fd_pipe[1], STDOUT_FILENO);
