@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/17 15:05:49 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/17 19:48:43 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_cmd	*redir_out(t_cmd	*cmd, char *tok_str, char *path_str)
+static t_cmd	*redir_out(t_cmd *cmd, char *tok_str, char *path_str)
 {
 	int		mode;
 
@@ -28,9 +28,12 @@ static t_cmd	*redir_in(t_cmd	*cmd, char *tok_str, char *path_str)
 {
 	int		mode;
 
-	(void)tok_str;
 	mode = O_RDONLY;
-	return (ms_node_redir(cmd, path_str, STDIN_FILENO, mode));
+	if (!tok_str[1])
+		return (ms_node_redir(cmd, path_str, STDIN_FILENO, mode));
+	else if (tok_str[1] == '<')
+		return (ms_node_heredoc(cmd, path_str));
+	return (NULL);
 }
 
 static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list)

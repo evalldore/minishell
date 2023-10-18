@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:55:10 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/15 17:17:02 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/17 19:47:23 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,28 @@ size_t	ms_array_count(void **array)
 	while (array[i])
 		i++;
 	return (i);
+}
+
+char	*ms_find_path(char *cmd)
+{
+	char	*cmd_path;
+	char	**paths;
+	size_t	path_i;
+
+	if (!cmd)
+		return (NULL);
+	paths = ms_env_path();
+	path_i = 0;
+	while (paths[path_i])
+	{
+		cmd_path = ft_strjoin(paths[path_i++], cmd);
+		if (access(cmd_path, F_OK | X_OK) == 0)
+		{
+			ms_array_free((void **)paths);
+			return (cmd_path);
+		}
+		free(cmd_path);
+	}
+	ms_array_free((void **)paths);
+	return (NULL);
 }

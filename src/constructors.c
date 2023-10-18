@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 15:56:24 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/15 17:14:12 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/17 19:15:17 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,20 @@ t_cmd	*ms_node_exec(void)
 		return (NULL);
 	ft_memset(cmd, 0, sizeof(t_cmd_exec));
 	cmd->type = CMD_EXEC;
+	return ((t_cmd *)cmd);
+}
+
+t_cmd	*ms_node_heredoc(t_cmd *next, char *eof)
+{
+	t_cmd_heredoc	*cmd;
+
+	cmd = malloc(sizeof(t_cmd_heredoc));
+	if (!cmd)
+		return (NULL);
+	ft_memset(cmd, 0, sizeof(t_cmd_heredoc));
+	cmd->type = CMD_HEREDOC;
+	cmd->eof = eof;
+	cmd->cmd = next;
 	return ((t_cmd *)cmd);
 }
 

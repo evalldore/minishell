@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/17 14:50:32 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/17 19:47:45 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ enum	e_cmd
 	CMD_EXEC,
 	CMD_REDIR,
 	CDM_PIPE,
-	CMD_LIST,
-	CMD_BACK,
+	CMD_HEREDOC,
 	MAX_CMD
 };
 
@@ -47,6 +46,14 @@ typedef struct s_cmd
 {
 	int	type;
 }	t_cmd;
+
+typedef struct s_cmd_heredoc
+{
+	int		type;
+	char	*eof;
+	t_cmd	*cmd;
+}	t_cmd_heredoc;
+
 
 typedef struct s_cmd_exec
 {
@@ -99,6 +106,7 @@ typedef struct s_minishell
 t_cmd		*ms_node_exec(void);
 t_cmd		*ms_node_pipe(t_cmd *left, t_cmd *right);
 t_cmd		*ms_node_redir(t_cmd *next, char *file, int fd, int mode);
+t_cmd		*ms_node_heredoc(t_cmd *next, char *eof);
 
 t_minishell	*ms_get(void);
 bool		ms_init(char **env);
@@ -107,7 +115,7 @@ t_cmd		*ms_cmd_parse(t_list *tokens);
 void		ms_cmd_run(t_cmd *cmd);
 void		ms_cmd_free(t_cmd *cmd);
 void		ms_cmd_pipe(t_cmd *left, t_cmd *right);
-void		ms_cmd_heredoc(void);
+void		ms_cmd_heredoc(t_cmd *cmd, char *eof);
 
 bool		ms_builtin_exec(size_t argc, char **args);
 void		ms_builtin_env(void);
@@ -137,6 +145,7 @@ char		**ms_env_array(void);
 
 void		ms_array_free(void **array);
 size_t		ms_array_count(void **array);
+char		*ms_find_path(char *cmd);
 
 void		ms_terminate(int status, char *msg);
 

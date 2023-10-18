@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/15 17:07:35 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/17 19:46:52 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,13 @@
 static void	cmd_exec(t_cmd_exec *cmd);
 static void	cmd_pipe(t_cmd_pipe *cmd);
 static void	cmd_redir(t_cmd_redir *cmd);
+static void cmd_heredoc(t_cmd_heredoc *cmd);
 
-static char	*find_path(char *cmd)
+static void cmd_heredoc(t_cmd_heredoc *cmd)
 {
-	char	*cmd_path;
-	char	**paths;
-	size_t	path_i;
-
 	if (!cmd)
-		return (NULL);
-	paths = ms_env_path();
-	path_i = 0;
-	while (paths[path_i])
-	{
-		cmd_path = ft_strjoin(paths[path_i++], cmd);
-		if (access(cmd_path, F_OK | X_OK) == 0)
-		{
-			ms_array_free((void **)paths);
-			return (cmd_path);
-		}
-		free(cmd_path);
-	}
-	ms_array_free((void **)paths);
-	return (NULL);
+		ms_terminate(1, "Minishell: Heredoc node is null!\n");
+	ms_cmd_heredoc(cmd->cmd, cmd->eof);
 }
 
 void	ms_cmd_run(t_cmd *cmd)
@@ -50,10 +34,11 @@ void	ms_cmd_run(t_cmd *cmd)
 		cmd_redir((t_cmd_redir *)cmd);
 	if (cmd->type == CDM_PIPE)
 		cmd_pipe((t_cmd_pipe *)cmd);
+	if (cmd->type == CMD_HEREDOC)
+		cmd_heredoc((t_cmd_heredoc *)cmd);
 	ms_terminate(0, NULL);
 }
 
-//should return an indication if path isnt valid
 static void	cmd_exec(t_cmd_exec *cmd)
 {
 	char		*cmd_path;
@@ -63,7 +48,7 @@ static void	cmd_exec(t_cmd_exec *cmd)
 		ms_terminate(1, "Minishell: Exec node is null!\n");
 	if (!cmd->argv[0])
 		ms_terminate(1, "Minishell: Exec node has no argument!\n");
-	cmd_path = find_path(cmd->argv[0]);
+	cmd_path = ms_find_path(cmd->argv[0]);
 	if (cmd_path)
 	{
 		env = ms_env_array();
