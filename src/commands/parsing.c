@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/17 19:48:43 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/23 23:49:03 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_cmd	*redir_out(t_cmd *cmd, char *tok_str, char *path_str)
 
 static t_cmd	*redir_in(t_cmd	*cmd, char *tok_str, char *path_str)
 {
-	int		mode;
+	int			mode;
 
 	mode = O_RDONLY;
 	if (!tok_str[1])
@@ -41,48 +41,36 @@ static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list)
 	t_token		*token;
 	t_token		*path;
 
-	if (!cmd || !list)
-		ms_terminate(1, "Minishell: Cannot parsing a redirection!\n");
-	if (ms_token_peek(list, TOK_REDIR))
-	{
-		token = ms_token_get(list);
-		path = ms_token_get(list);
-		if (!path || path->type != TOK_TEXT)
-			ms_terminate(1, "Minishell: Missing file for redirection!\n");
-		if (token->str[0] == '<')
-			return (redir_in(cmd, token->str, path->str));
-		if (token->str[0] == '>')
-			return (redir_out(cmd, token->str, path->str));
-	}
+	if (!ms_token_peek(list, TOK_REDIR))
+		return (cmd);
+	token = ms_token_get(list);
+	path = ms_token_get(list);
+	if (!path || path->type != TOK_TEXT)
+		ms_terminate(1, "Minishell: No path for redirection!\n");
+	if (token->str[0] == '<')
+		return(redir_in(cmd, token->str, path->str));
+	if (token->str[0] == '>')
+		return(redir_out(cmd, token->str, path->str));
 	return (cmd);
 }
 
 static t_cmd	*parse_exec(t_list	**list)
 {
-	t_cmd		*cmd;
 	t_cmd_exec	*exec;
 	t_token		*token;
 	size_t		argc;
 
-	if (!list)
-		ms_terminate(1, "Minishell: Tokens list is null!\n");
-	exec = (t_cmd_exec *)ms_node_exec();
-	cmd = parse_redir((t_cmd *)exec, list);
+	if (!ms_token_peek(list, TOK_TEXT))
+		return (NULL);
 	argc = 0;
-	while (!ms_token_peek(list, TOK_PIPE))
+	exec = (t_cmd_exec *)ms_node_exec();
+	while (ms_token_peek(list, TOK_TEXT) && argc < MAX_ARGS)
 	{
 		token = ms_token_get(list);
-		if (!token || token->type == TOK_NONE)
-			break ;
-		if (token->type != TOK_TEXT)
-			ms_terminate(1, "Minishell: Syntax error\n");
 		exec->argv[argc++] = token->str;
-		if (argc >= MAX_ARGS)
-			ms_terminate(1, "Minishell: Too many arguments!\n");
-		cmd = parse_redir(cmd, list);
 	}
 	exec->argv[argc] = NULL;
-	return (cmd);
+	return ((t_cmd *)exec);
 }
 
 t_cmd	*ms_cmd_parse(t_list	*list)
@@ -90,8 +78,10 @@ t_cmd	*ms_cmd_parse(t_list	*list)
 	t_cmd	*cmd;
 
 	if (!list)
-		ms_terminate(1, "Minishell: Tokens list is null!\n");
+		ms_terminate(1, "Minishell: No tokens list to parse!\n");
 	cmd = parse_exec(&list);
+	while (ms_token_peek(&list, TOK_REDIR))
+		cmd = parse_redir(cmd, &list);
 	if (ms_token_peek(&list, TOK_PIPE))
 	{
 		ms_token_get(&list);

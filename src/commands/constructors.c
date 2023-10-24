@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 15:56:24 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/17 19:15:17 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/24 02:13:10 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ t_cmd	*ms_node_heredoc(t_cmd *next, char *eof)
 		return (NULL);
 	ft_memset(cmd, 0, sizeof(t_cmd_heredoc));
 	cmd->type = CMD_HEREDOC;
-	cmd->eof = eof;
 	cmd->cmd = next;
+	ms_heredoc_write(cmd->buffer, eof);
 	return ((t_cmd *)cmd);
 }
 

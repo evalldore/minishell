@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/17 19:47:45 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/24 02:15:21 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define PROMPT	COLOR_GREEN	"Minishit " COLOR_RESET "> "
 # define MAX_ARGS 1024
 # define MAX_NODE 1024
+# define HEREDOC_BUFFER 1024
 # define WHITESPACES " \t\r\n\v"
 # define OPERATORS "<|>"
 
@@ -50,7 +51,7 @@ typedef struct s_cmd
 typedef struct s_cmd_heredoc
 {
 	int		type;
-	char	*eof;
+	char	buffer[HEREDOC_BUFFER];
 	t_cmd	*cmd;
 }	t_cmd_heredoc;
 
@@ -108,6 +109,8 @@ t_cmd		*ms_node_pipe(t_cmd *left, t_cmd *right);
 t_cmd		*ms_node_redir(t_cmd *next, char *file, int fd, int mode);
 t_cmd		*ms_node_heredoc(t_cmd *next, char *eof);
 
+void		ms_heredoc_write(char *buffer, char *eof);
+
 t_minishell	*ms_get(void);
 bool		ms_init(char **env);
 
@@ -115,7 +118,7 @@ t_cmd		*ms_cmd_parse(t_list *tokens);
 void		ms_cmd_run(t_cmd *cmd);
 void		ms_cmd_free(t_cmd *cmd);
 void		ms_cmd_pipe(t_cmd *left, t_cmd *right);
-void		ms_cmd_heredoc(t_cmd *cmd, char *eof);
+void		ms_cmd_heredoc(char *buffer, t_cmd *cmd);
 
 bool		ms_builtin_exec(size_t argc, char **args);
 void		ms_builtin_env(void);

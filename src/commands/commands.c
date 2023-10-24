@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/17 19:46:52 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/24 02:13:57 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void cmd_heredoc(t_cmd_heredoc *cmd)
 {
 	if (!cmd)
 		ms_terminate(1, "Minishell: Heredoc node is null!\n");
-	ms_cmd_heredoc(cmd->cmd, cmd->eof);
+	ms_cmd_heredoc(cmd->buffer, cmd->cmd);
 }
 
 void	ms_cmd_run(t_cmd *cmd)
@@ -44,8 +44,6 @@ static void	cmd_exec(t_cmd_exec *cmd)
 	char		*cmd_path;
 	char		**env;
 
-	if (!cmd)
-		ms_terminate(1, "Minishell: Exec node is null!\n");
 	if (!cmd->argv[0])
 		ms_terminate(1, "Minishell: Exec node has no argument!\n");
 	cmd_path = ms_find_path(cmd->argv[0]);
@@ -62,8 +60,6 @@ static void	cmd_exec(t_cmd_exec *cmd)
 
 static void	cmd_pipe(t_cmd_pipe *cmd)
 {
-	if (!cmd)
-		ms_terminate(1, "Minishell: Pipe node is null!\n");
 	ms_cmd_pipe(cmd->left, cmd->right);
 }
 
@@ -71,8 +67,6 @@ static void	cmd_redir(t_cmd_redir *cmd)
 {
 	int			fd_redirect;
 
-	if (!cmd)
-		ms_terminate(1, "Minishell: Redirection node is null!\n");
 	fd_redirect = -1;
 	if (cmd->fd == STDOUT_FILENO)
 		fd_redirect = open(cmd->file, cmd->mode | O_CLOEXEC, 0666);
@@ -85,5 +79,6 @@ static void	cmd_redir(t_cmd_redir *cmd)
 		close(fd_redirect);
 		ms_terminate(1, "Minishell: Cannot duplicate redirection file!\n");
 	}
+	close(fd_redirect);
 	ms_cmd_run(cmd->cmd);
 }
