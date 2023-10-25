@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/25 03:03:16 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/25 18:57:14 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_cmd_heredoc
 	int		type;
 	char	buffer[HEREDOC_BUFFER];
 	t_cmd	*cmd;
+	char	*eof;
 }	t_cmd_heredoc;
 
 

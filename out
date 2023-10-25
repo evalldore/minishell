@@ -1,5 +1,0 @@
-READLINE 1.33 update a 8.2
-here docs a implémenter, expansions doit etre supporter
-expansions de strings 
-double et single quotes
-reimplementer les builtins de facon correcte sur le main process ou child

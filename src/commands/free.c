@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 22:58:11 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/15 17:08:14 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/25 15:31:13 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	ms_cmd_free(t_cmd *cmd)
 {
-	t_cmd_pipe	*cmd_pipe;
-	t_cmd_redir	*cmd_redir;
+	t_cmd_pipe		*cmd_pipe;
+	t_cmd_redir		*cmd_redir;
+	t_cmd_heredoc	*cmd_heredoc;
 
 	if (!cmd)
 		return ;
@@ -29,6 +30,11 @@ void	ms_cmd_free(t_cmd *cmd)
 	{
 		cmd_redir = (t_cmd_redir *)cmd;
 		ms_cmd_free(cmd_redir->cmd);
+	}
+	else if (cmd->type == CMD_HEREDOC)
+	{
+		cmd_heredoc = (t_cmd_heredoc *)cmd;
+		ms_cmd_free(cmd_heredoc->cmd);
 	}
 	else if (cmd->type == CMD_EXEC)
 		free(cmd);
