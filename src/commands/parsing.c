@@ -6,39 +6,42 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/23 23:49:03 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/25 00:58:49 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_cmd	*redir_out(t_cmd *cmd, char *tok_str, char *path_str)
+static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list);
+static t_cmd	*create_redir(t_cmd *cmd, t_list **list, char *tok, char *path);
+
+static t_cmd	*create_redir(t_cmd *cmd, t_list **list, char *tok, char *path)
 {
 	int		mode;
 
-	mode = O_WRONLY | O_CREAT;
-	if (!tok_str[1])
-		mode = mode | O_TRUNC;
-	else if (tok_str[1] == '>')
-		mode = mode | O_APPEND;
-	return (ms_node_redir(cmd, path_str, STDOUT_FILENO, mode));
-}
-
-static t_cmd	*redir_in(t_cmd	*cmd, char *tok_str, char *path_str)
-{
-	int			mode;
-
-	mode = O_RDONLY;
-	if (!tok_str[1])
-		return (ms_node_redir(cmd, path_str, STDIN_FILENO, mode));
-	else if (tok_str[1] == '<')
-		return (ms_node_heredoc(cmd, path_str));
-	return (NULL);
+	if (tok[0] == '<')
+	{
+		mode = O_RDONLY;
+		if (!tok[1])
+			return (ms_node_redir(parse_redir(cmd, list), path, STDIN_FILENO, mode));
+		else if (tok[1] == '<')
+			return (parse_redir(ms_node_heredoc(cmd, path), list));
+	}
+	else if (tok[0] == '>')
+	{
+		mode = O_WRONLY | O_CREAT;
+		if (!tok[1])
+			mode = mode | O_TRUNC;
+		else if (tok[1] == '>')
+			mode = mode | O_APPEND;
+		return (ms_node_redir(parse_redir(cmd, list), path, STDOUT_FILENO, mode));
+	}
+	return (cmd);
 }
 
 static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list)
 {
-	t_token		*token;
+	t_token		*token; 
 	t_token		*path;
 
 	if (!ms_token_peek(list, TOK_REDIR))
@@ -47,11 +50,7 @@ static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list)
 	path = ms_token_get(list);
 	if (!path || path->type != TOK_TEXT)
 		ms_terminate(1, "Minishell: No path for redirection!\n");
-	if (token->str[0] == '<')
-		return(redir_in(cmd, token->str, path->str));
-	if (token->str[0] == '>')
-		return(redir_out(cmd, token->str, path->str));
-	return (cmd);
+	return (create_redir(cmd, list, token->str, path->str));
 }
 
 static t_cmd	*parse_exec(t_list	**list)
@@ -80,8 +79,7 @@ t_cmd	*ms_cmd_parse(t_list	*list)
 	if (!list)
 		ms_terminate(1, "Minishell: No tokens list to parse!\n");
 	cmd = parse_exec(&list);
-	while (ms_token_peek(&list, TOK_REDIR))
-		cmd = parse_redir(cmd, &list);
+	cmd = parse_redir(cmd, &list);
 	if (ms_token_peek(&list, TOK_PIPE))
 	{
 		ms_token_get(&list);
