@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/17 13:53:29 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/23 16:48:38 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	fork_cmd(void)
 
 	ms = ms_get();
 	ms->pid = fork();
+	// ms->pid = 0; //test
 	if (ms->pid == 0)
 	{
 		ms->cmd = ms_cmd_parse(ms->tokens);
