@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/24 02:15:21 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/25 03:03:16 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,20 @@ enum	e_token
 	TOK_PIPE,
 	TOK_REDIR,
 	MAX_TOK
+};
+
+enum	e_builtin
+{
+	BI_NONE,
+	BI_CAT,
+	BI_PWD,
+	BI_CD,
+	BI_ENV,
+	BI_EXIT,
+	BI_EXPORT,
+	BI_ECHO,
+	BI_UNSET,
+	MAX_BI
 };
 
 typedef struct s_token
