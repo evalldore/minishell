@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/25 18:57:14 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/26 16:45:28 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,9 @@ typedef struct s_cmd_heredoc
 
 typedef struct s_cmd_exec
 {
-	int		type;
-	char	*argv[MAX_ARGS];
+	int			type;
+	char		*argv[MAX_ARGS];
+	uint32_t	argc;
 }	t_cmd_exec;
 
 typedef struct s_cmd_redir
@@ -128,6 +129,7 @@ void		ms_heredoc_write(char *buffer, char *eof);
 
 t_minishell	*ms_get(void);
 bool		ms_init(char **env);
+char		*ms_input(void);
 
 t_cmd		*ms_cmd_parse(t_list *tokens);
 void		ms_cmd_run(t_cmd *cmd);

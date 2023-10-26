@@ -3,38 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/25 19:26:07 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/26 16:11:45 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list);
-static t_cmd	*create_redir(t_cmd *cmd, t_list **list, char *tok, char *path);
 
 static t_cmd	*create_redir(t_cmd *cmd, t_list **list, char *tok, char *path)
 {
 	int		mode;
+	int		std;
 
 	if (tok[0] == '<')
 	{
+		std = STDIN_FILENO;
 		mode = O_RDONLY;
 		if (!tok[1])
-			return (ms_node_redir(parse_redir(cmd, list), path, STDIN_FILENO, mode));
+			return (ms_node_redir(parse_redir(cmd, list), path, std, mode));
 		else if (tok[1] == '<')
 			return (ms_node_heredoc(parse_redir(cmd, list), path));
 	}
 	else if (tok[0] == '>')
 	{
+		std = STDOUT_FILENO;
 		mode = O_WRONLY | O_CREAT;
 		if (!tok[1])
 			mode = mode | O_TRUNC;
 		else if (tok[1] == '>')
 			mode = mode | O_APPEND;
-		return (ms_node_redir(parse_redir(cmd, list), path, STDOUT_FILENO, mode));
+		return (ms_node_redir(parse_redir(cmd, list), path, std, mode));
 	}
 	return (cmd);
 }
@@ -57,18 +59,16 @@ static t_cmd	*parse_exec(t_list	**list)
 {
 	t_cmd_exec	*exec;
 	t_token		*token;
-	size_t		argc;
 
 	if (!ms_token_peek(list, TOK_TEXT))
 		return (NULL);
-	argc = 0;
 	exec = (t_cmd_exec *)ms_node_exec();
-	while (ms_token_peek(list, TOK_TEXT) && argc < MAX_ARGS)
+	while (ms_token_peek(list, TOK_TEXT) && exec->argc < MAX_ARGS)
 	{
 		token = ms_token_get(list);
-		exec->argv[argc++] = token->str;
+		exec->argv[exec->argc++] = token->str;
 	}
-	exec->argv[argc] = NULL;
+	exec->argv[exec->argc] = NULL;
 	return ((t_cmd *)exec);
 }
 

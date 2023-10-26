@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/25 03:01:48 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/26 16:56:19 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,9 @@ int	main(int argc, char **argv, char **env)
 	ms = ms_get();
 	while (ms->running)
 	{
-		input = readline(PROMPT);
-		if (!input || !(*input))
-		{
-			free(input);
+		input = ms_input();
+		if (!input)
 			continue ;
-		}
-		add_history(input);
 		check = 0;
 		ms_tokens_init(input, &check);
 		free(input);

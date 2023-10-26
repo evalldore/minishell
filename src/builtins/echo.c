@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:20:17 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/07 06:18:14 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/26 16:19:36 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@ void	ms_builtin_echo(char **args)
 	}
 	while (*args)
 	{
-		ft_putstr_fd(*args, 1);
-		args++;
+		ft_putstr_fd(*args++, STDOUT_FILENO);
 		if (*args)
-			ft_putchar_fd(' ', 1);
+			ft_putchar_fd(' ', STDOUT_FILENO);
 	}
 	if (nl)
-		ft_putchar_fd('\n', 1);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 }

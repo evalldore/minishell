@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/25 03:01:51 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/26 16:12:10 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static void	cmd_exec(t_cmd_exec *cmd);
 static void	cmd_pipe(t_cmd_pipe *cmd);
 static void	cmd_redir(t_cmd_redir *cmd);
-static void cmd_heredoc(t_cmd_heredoc *cmd);
+static void	cmd_heredoc(t_cmd_heredoc *cmd);
 
-static void cmd_heredoc(t_cmd_heredoc *cmd)
+static void	cmd_heredoc(t_cmd_heredoc *cmd)
 {
 	if (!cmd)
 		ms_terminate(1, "Minishell: Heredoc node is null!\n");
@@ -47,6 +47,8 @@ static void	cmd_exec(t_cmd_exec *cmd)
 	if (!cmd->argv[0])
 		ms_terminate(1, "Minishell: Exec node has no argument!\n");
 	cmd_path = ms_find_path(cmd->argv[0]);
+	if (ms_builtin_exec(cmd->argc, &cmd->argv[0]))
+		return ;
 	if (cmd_path)
 	{
 		env = ms_env_array();

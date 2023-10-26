@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:49:52 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/25 03:02:04 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/26 15:54:32 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int get_builtin(char *str)
+static int	get_builtin(char *str)
 {
 	size_t		len;
-	
+
 	len = ft_strlen(str);
 	if (ft_strncmp(str, "exit", len) == 0)
 		return (BI_EXIT);

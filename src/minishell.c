@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 22:22:40 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/15 17:14:32 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/26 16:54:18 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,22 @@ bool	ms_init(char **env)
 	}
 	//signal(SIGINT, SIG_IGN);
 	return (true);
+}
+
+char	*ms_input(void)
+{
+	char	*input;
+
+	input = readline(PROMPT);
+	if (!input)
+		return (NULL);
+	if (!input[0])
+	{
+		free(input);
+		return (NULL);
+	}
+	add_history(input);
+	return (input);
 }
 
 t_minishell	*ms_get(void)

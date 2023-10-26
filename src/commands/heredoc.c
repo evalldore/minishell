@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 14:20:03 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/25 03:01:27 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/26 15:14:46 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ms_heredoc_write(char *buffer, char *eof)
+void	ms_heredoc_write(char *buffer, char *eof)
 {
 	char	*input;
 	size_t	input_len;
@@ -26,7 +26,7 @@ void ms_heredoc_write(char *buffer, char *eof)
 		if (ft_strncmp(input, eof, input_len) == 0)
 		{
 			free(input);
-			break;
+			break ;
 		}
 		if ((buffer_len + input_len + 1) >= HEREDOC_BUFFER)
 		{
@@ -43,7 +43,7 @@ void	ms_cmd_heredoc(char *buffer, t_cmd *cmd)
 {
 	int	pipe_fd[2];
 	int	pid;
-	int status;
+	int	status;
 
 	if (pipe(pipe_fd) != 0)
 		ms_terminate(1, "Minishell: Heredoc pipe failed!\n");

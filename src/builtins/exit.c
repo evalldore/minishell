@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:28:54 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/04 01:56:39 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/26 16:20:48 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ms_builtin_exit(size_t argc, char **args)
 
 	if (argc > 2)
 	{
-		ft_putstr_fd("exit: too many arguments\n", STDOUT_FILENO);
+		ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO);
 		return ;
 	}
 	ms = ms_get();

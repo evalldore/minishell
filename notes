@@ -3,3 +3,4 @@ here docs a implémenter, expansions doit etre supporter
 expansions de strings 
 double et single quotes
 reimplementer les builtins de facon correcte sur le main process ou child
+reset signals for parent and set them for child process
