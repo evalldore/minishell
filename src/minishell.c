@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 22:22:40 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/26 16:54:18 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:35:24 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ bool	ms_init(char **env)
 	ms->running = true;
 	ms->tokens = NULL;
 	ms->status = 0;
-	ms->pid = -1;
-	ms->pid_status = -1;
 	ms->cmd = NULL;
 	if (!ms_env_init(env))
 	{

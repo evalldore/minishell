@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 15:56:24 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/25 18:56:05 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/26 19:43:23 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ t_cmd	*ms_node_exec(void)
 {
 	t_cmd_exec	*cmd;
 
-	cmd = malloc(sizeof(t_cmd_exec));
+	cmd = ft_calloc(1, sizeof(t_cmd_exec));
 	if (!cmd)
 		return (NULL);
-	ft_memset(cmd, 0, sizeof(t_cmd_exec));
 	cmd->type = CMD_EXEC;
 	return ((t_cmd *)cmd);
 }
@@ -28,10 +27,9 @@ t_cmd	*ms_node_heredoc(t_cmd *next, char *eof)
 {
 	t_cmd_heredoc	*cmd;
 
-	cmd = malloc(sizeof(t_cmd_heredoc));
+	cmd = ft_calloc(1, sizeof(t_cmd_heredoc));
 	if (!cmd)
 		return (NULL);
-	ft_memset(cmd, 0, sizeof(t_cmd_heredoc));
 	cmd->type = CMD_HEREDOC;
 	cmd->cmd = next;
 	cmd->eof = eof;
@@ -44,10 +42,9 @@ t_cmd	*ms_node_pipe(t_cmd *left, t_cmd *right)
 
 	if (!left || !right)
 		return (NULL);
-	cmd = malloc(sizeof(t_cmd_pipe));
+	cmd = ft_calloc(1, sizeof(t_cmd_pipe));
 	if (!cmd)
 		return (NULL);
-	ft_memset(cmd, 0, sizeof(t_cmd_pipe)); 
 	cmd->type = CDM_PIPE;
 	cmd->left = left;
 	cmd->right = right;
@@ -60,10 +57,9 @@ t_cmd	*ms_node_redir(t_cmd *next, char *file, int fd, int mode)
 
 	if (!next || !file)
 		return (NULL);
-	cmd = malloc(sizeof(t_cmd_redir));
+	cmd = ft_calloc(1, sizeof(t_cmd_redir));
 	if (!cmd)
 		return (NULL);
-	ft_memset(cmd, 0, sizeof(t_cmd_redir));
 	cmd->type = CMD_REDIR;
 	cmd->file = file;
 	cmd->fd = fd;

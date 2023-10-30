@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/26 16:45:28 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/28 17:43:42 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define PROMPT	COLOR_GREEN	"Minishit " COLOR_RESET "> "
 # define MAX_ARGS 1024
 # define MAX_NODE 1024
+# define PATH_BUFFER 256
 # define HEREDOC_BUFFER 1024
 # define WHITESPACES " \t\r\n\v"
 # define OPERATORS "<|>"
@@ -115,8 +116,6 @@ typedef struct s_minishell
 	uint8_t		status;
 	t_list		*tokens;
 	t_list		*env_list;
-	pid_t		pid;
-	int			pid_status;
 	t_cmd		*cmd;
 }	t_minishell;
 
@@ -165,7 +164,7 @@ char		**ms_env_array(void);
 
 void		ms_array_free(void **array);
 size_t		ms_array_count(void **array);
-char		*ms_find_path(char *cmd);
+char		*ms_path_find(char *cmd);
 
 void		ms_terminate(int status, char *msg);
 

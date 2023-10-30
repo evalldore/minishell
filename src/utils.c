@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:55:10 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/17 19:47:23 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/26 20:59:03 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ size_t	ms_array_count(void **array)
 	return (i);
 }
 
-char	*ms_find_path(char *cmd)
+char	*ms_path_find(char *cmd)
 {
 	char	*cmd_path;
 	char	**paths;
