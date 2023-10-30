@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 01:03:17 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/03 16:21:23 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:47:14 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@ void	ms_builtin_unset(const char *arg)
 {
 	if (!arg)
 		return ;
-	ms_env_del_var(arg);
+	ms_vars_del(ms_get()->env_list, arg);
 }

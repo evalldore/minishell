@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_env.c                                          :+:      :+:    :+:   */
+/*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 04:03:42 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/15 17:13:04 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/30 18:21:58 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	add_var(const char *arg, const char *var)
+static void	add_var(t_list *list, const char *arg, const char *var)
 {
 	size_t	len;
 	char	*buff;
 	t_list	*node;
 
-	if (!arg || var)
+	if (!arg || !var)
 		return ;
 	len = ft_strlen(arg) + ft_strlen(var) + 1;
 	buff = ft_calloc(len + 1, sizeof(char));
@@ -33,10 +33,10 @@ static void	add_var(const char *arg, const char *var)
 		free(buff);
 		return ;
 	}
-	ft_lstadd_back(&ms_get()->env_list, node);
+	ft_lstadd_back(&list, node);
 }
 
-void	ms_env_set_var(const char *arg, const char *var)
+void	ms_vars_set(t_list *list, const char *arg, const char *var)
 {
 	t_list	*node;
 	char	*str;
@@ -45,7 +45,7 @@ void	ms_env_set_var(const char *arg, const char *var)
 
 	if (!arg || !var)
 		return ;
-	node = ms_env_get_node(arg);
+	node = ms_vars_get_node(list, arg);
 	if (node)
 	{
 		str = node->content;
@@ -59,28 +59,26 @@ void	ms_env_set_var(const char *arg, const char *var)
 		free(str);
 	}
 	else
-		add_var(arg, var);
+		add_var(list, arg, var);
 }
 
-void	ms_env_del_var(const char *arg)
+void	ms_vars_del(t_list *list, const char *arg)
 {
 	t_list	*node;
-	t_list	*env_list;
 
 	if (!arg)
 		return ;
-	node = ms_env_get_node(arg);
-	env_list = ms_get()->env_list;
+	node = ms_vars_get_node(list, arg);
 	if (!node)
 		return ;
-	while (env_list->next)
+	while (list->next)
 	{
-		if (env_list->next && env_list->next == node)
+		if (list->next && list->next == node)
 		{
-			env_list->next = node->next;
+			list->next = node->next;
 			ft_lstdelone(node, free);
 			return ;
 		}
-		env_list = env_list->next;
+		list = list->next;
 	}
 }

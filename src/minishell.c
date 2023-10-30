@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 22:22:40 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/28 17:35:24 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/30 18:25:50 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ bool	ms_init(char **env)
 		ms_env_clear();
 		return (false);
 	}
+	ms->var_list = NULL;
 	//signal(SIGINT, SIG_IGN);
 	return (true);
 }

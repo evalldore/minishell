@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:49:52 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/26 15:54:32 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:44:29 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,17 @@ bool	ms_builtin_exec(size_t argc, char **args)
 		return (false);
 	if (bi == BI_EXIT)
 		ms_builtin_exit(argc, args);
-	if (bi == BI_CD)
+	else if (bi == BI_CD)
 		ms_builtin_cd(argc, args);
-	if (bi == BI_ECHO)
+	else if (bi == BI_ECHO)
 		ms_builtin_echo(&args[1]);
-	if (bi == BI_ENV)
+	else if (bi == BI_ENV)
 		ms_builtin_env();
-	if (bi == BI_EXPORT)
+	else if (bi == BI_EXPORT)
 		ms_builtin_export(args[1], args[2]); //export should set and add variables //export PISS=piss
-	if (bi == BI_PWD)
+	else if (bi == BI_PWD)
 		ms_builtin_pwd();
-	if (bi == BI_UNSET)
+	else if (bi == BI_UNSET)
 		ms_builtin_unset(args[1]);
 	return (true);
 }

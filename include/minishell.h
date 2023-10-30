@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/28 17:43:42 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/30 18:22:10 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define MAX_ARGS 1024
 # define MAX_NODE 1024
 # define PATH_BUFFER 256
+# define VARNAME_BUFFER 256
+# define VAR_BUFFER 512
 # define HEREDOC_BUFFER 1024
 # define WHITESPACES " \t\r\n\v"
 # define OPERATORS "<|>"
@@ -116,6 +118,7 @@ typedef struct s_minishell
 	uint8_t		status;
 	t_list		*tokens;
 	t_list		*env_list;
+	t_list		*var_list;
 	t_cmd		*cmd;
 }	t_minishell;
 
@@ -149,18 +152,19 @@ void		ms_tokens_init(char	*input, int *check);
 char		*parse_quotes(char *str, int *check);
 char		*find_separator(char *str, int i);
 char		*find_next_quote(char *str);
-bool		ms_token_peek(t_list **list, int type);
-t_token		*ms_token_get(t_list **list);
+bool		ms_tokens_peek(t_list **list, int type);
+t_token		*ms_tokens_get(t_list **list);
 void		ms_tokens_del(void	*ptr);
 
 bool		ms_env_init(char **env);
 void		ms_env_clear(void);
-t_list		*ms_env_get_node(const char *arg);
-char		*ms_env_get_var(const char *arg);
-void		ms_env_set_var(const char *arg, const char *var);
-void		ms_env_del_var(const char *arg);
 char		**ms_env_path(void);
 char		**ms_env_array(void);
+
+char		*ms_vars_get_var(t_list *list, const char *arg);
+t_list		*ms_vars_get_node(t_list *list, const char *arg);
+void		ms_vars_set(t_list *list, const char *arg, const char *var);
+void		ms_vars_del(t_list *list, const char *arg);
 
 void		ms_array_free(void **array);
 size_t		ms_array_count(void **array);

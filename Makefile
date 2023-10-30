@@ -1,25 +1,25 @@
 NAME			:= minishell
 CFLAGS			:= -Wall -Wextra -Werror -g
-SRCS			:= main.c utils.c debug.c allocator.c minishell.c
+SRCS			:= main.c utils.c debug.c allocator.c minishell.c env.c
+VARSRCS			:= get.c set.c
 TOKENSRCS		:= token.c list.c free.c quotes.c
-ENVSRCS			:= get_env.c env.c set_env.c
 BUILTSRCS		:= env.c echo.c pwd.c cd.c unset.c export.c exit.c builtins.c
 CMDSRCS			:= commands.c parsing.c pipe.c free.c heredoc.c constructors.c
 INCDIR			:= include/
 BINDIR			:= bin/
 SRCDIR			:= src/
+VARDIR			:= vars/
 TOKENDIR		:= token/
 BUILTDIR		:= builtins/
 CMDSDIR			:= commands/
-ENVDIR			:= env/
 LIBFT			:= ./lib/libft
 RM				:= rm -f
 HEADERS			:= -I ./include -I $(LIBFT)/include
 CC				:= gcc
 LIBS			:= $(LIBFT)/libft.a
 SRCS			+= $(addprefix $(TOKENDIR), $(TOKENSRCS))
-SRCS			+= $(addprefix $(ENVDIR), $(ENVSRCS))
 SRCS			+= $(addprefix $(BUILTDIR), $(BUILTSRCS))
+SRCS			+= $(addprefix $(VARDIR), $(VARSRCS))
 SRCS			+= $(addprefix $(CMDSDIR), $(CMDSRCS))
 OBJS			:= $(addprefix $(BINDIR), $(SRCS:.c=.o))
 
@@ -41,8 +41,8 @@ $(NAME) : $(BINDIR) $(OBJS)
 $(BINDIR) :
 	@mkdir $(BINDIR)
 	@mkdir $(BINDIR)$(TOKENDIR)
-	@mkdir $(BINDIR)$(ENVDIR)
 	@mkdir $(BINDIR)$(BUILTDIR)
+	@mkdir $(BINDIR)$(VARDIR)
 	@mkdir $(BINDIR)$(CMDSDIR)
 
 clean:

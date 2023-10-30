@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/26 16:11:45 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:26:58 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list)
 	t_token		*token; 
 	t_token		*path;
 
-	if (!ms_token_peek(list, TOK_REDIR))
+	if (!ms_tokens_peek(list, TOK_REDIR))
 		return (cmd);
-	token = ms_token_get(list);
-	path = ms_token_get(list);
+	token = ms_tokens_get(list);
+	path = ms_tokens_get(list);
 	if (!path || path->type != TOK_TEXT)
 		ms_terminate(1, "Minishell: No path for redirection!\n");
 	return (create_redir(cmd, list, token->str, path->str));
@@ -60,12 +60,12 @@ static t_cmd	*parse_exec(t_list	**list)
 	t_cmd_exec	*exec;
 	t_token		*token;
 
-	if (!ms_token_peek(list, TOK_TEXT))
+	if (!ms_tokens_peek(list, TOK_TEXT))
 		return (NULL);
 	exec = (t_cmd_exec *)ms_node_exec();
-	while (ms_token_peek(list, TOK_TEXT) && exec->argc < MAX_ARGS)
+	while (ms_tokens_peek(list, TOK_TEXT) && exec->argc < MAX_ARGS)
 	{
-		token = ms_token_get(list);
+		token = ms_tokens_get(list);
 		exec->argv[exec->argc++] = token->str;
 	}
 	exec->argv[exec->argc] = NULL;
@@ -101,9 +101,9 @@ t_cmd	*ms_cmd_parse(t_list	*list)
 	cmd = parse_exec(&list);
 	cmd = parse_redir(cmd, &list);
 	write_heredocs(cmd);
-	if (ms_token_peek(&list, TOK_PIPE))
+	if (ms_tokens_peek(&list, TOK_PIPE))
 	{
-		ms_token_get(&list);
+		ms_tokens_get(&list);
 		cmd = ms_node_pipe(cmd, ms_cmd_parse(list));
 	}
 	return (cmd);

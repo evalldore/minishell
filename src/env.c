@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 04:00:19 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/14 22:22:13 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/30 18:24:52 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	**ms_env_path(void)
 	size_t		index;
 	char		*paths;
 
-	paths = ms_env_get_var("PATH");
+	paths = ms_vars_get_var(ms_get()->env_list, "PATH");
 	if (!paths)
 		return (NULL);
 	arr = ft_split(paths + 5, ':');
@@ -65,4 +65,26 @@ char	**ms_env_path(void)
 		index++;
 	}
 	return (arr);
+}
+
+char	**ms_env_array(void)
+{
+	t_minishell		*ms;
+	char			**array;
+	size_t			i;
+	t_list			*env_list;
+
+	ms = ms_get();
+	env_list = ms->env_list;
+	array = malloc(sizeof(char *) * (ft_lstsize(env_list) + 1));
+	i = 0;
+	if (!array)
+		return (NULL);
+	while (env_list)
+	{
+		array[i++] = (char *)env_list->content;
+		env_list = env_list->next;
+	}
+	array[i] = NULL;
+	return (array);
 }
