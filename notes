@@ -5,4 +5,6 @@ double et single quotes
 reimplementer les builtins de facon correcte sur le main process ou child
 reset signals for parent and set them for child process
 
-https://docs.google.com/spreadsheets/d/1uJHQu0VPsjjBkR4hxOeCMEt3AOM1Hp_SmUzPFhAH-nA/edit#gid=0
+test : https://docs.google.com/spreadsheets/d/1uJHQu0VPsjjBkR4hxOeCMEt3AOM1Hp_SmUzPFhAH-nA/edit#gid=0
+
+signals : https://www-uxsup.csx.cam.ac.uk/courses/moved.Building/signals.pdf

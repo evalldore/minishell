@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/28 17:07:11 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/10/31 18:16:49 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,18 @@ void	ms_cmd_run(t_cmd *cmd)
 	ms_terminate(0, NULL);
 }
 
+static void	run_bin(char *path, char **argv)
+{
+	char		**env;
+
+	env = ms_env_array();
+	execve(path, argv, env);
+	free(env);
+}
+
 static void	cmd_exec(t_cmd_exec *cmd)
 {
 	char		*cmd_path;
-	char		**env;
 
 	if (!cmd->argv[0])
 		ms_terminate(1, "Minishell: Exec node has no argument!\n");
@@ -50,18 +58,14 @@ static void	cmd_exec(t_cmd_exec *cmd)
 		return ;
 	if (access(cmd->argv[0], F_OK | X_OK) == 0)
 	{
-		env = ms_env_array();
-		execve(cmd->argv[0], &cmd->argv[0], env);
-		free(env);
+		run_bin(cmd->argv[0], cmd->argv);
 		ms_terminate(1, "Minishell: Command failed to run!\n");
 	}
 	cmd_path = ms_path_find(cmd->argv[0]);
 	if (cmd_path)
 	{
-		env = ms_env_array();
-		execve(cmd_path, &cmd->argv[0], env);
+		run_bin(cmd_path, cmd->argv);
 		free(cmd_path);
-		free(env);
 		ms_terminate(1, "Minishell: Command failed to run!\n");
 	}
 	ms_terminate(127, "Minishell: Command doesnt exist!\n");
