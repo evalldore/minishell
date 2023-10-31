@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 02:38:37 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/30 18:08:27 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/31 02:10:27 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ bool	check_var(const char *arg, const char *env)
 
 t_list	*ms_vars_get_node(t_list *list, const char *arg)
 {
-	if (!arg)
+	if (!list || !arg)
 		return (NULL);
 	while (list)
 	{

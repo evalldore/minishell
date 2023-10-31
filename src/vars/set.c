@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 04:03:42 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/30 18:21:58 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/30 22:04:31 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	add_var(t_list *list, const char *arg, const char *var)
+static void	add_var(t_list **list, const char *arg, const char *var)
 {
 	size_t	len;
 	char	*buff;
@@ -33,10 +33,10 @@ static void	add_var(t_list *list, const char *arg, const char *var)
 		free(buff);
 		return ;
 	}
-	ft_lstadd_back(&list, node);
+	ft_lstadd_back(list, node);
 }
 
-void	ms_vars_set(t_list *list, const char *arg, const char *var)
+void	ms_vars_set(t_list **list, const char *arg, const char *var)
 {
 	t_list	*node;
 	char	*str;
@@ -45,7 +45,7 @@ void	ms_vars_set(t_list *list, const char *arg, const char *var)
 
 	if (!arg || !var)
 		return ;
-	node = ms_vars_get_node(list, arg);
+	node = ms_vars_get_node(*list, arg);
 	if (node)
 	{
 		str = node->content;

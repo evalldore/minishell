@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/30 18:45:51 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/31 01:20:37 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	exec_cmd(void)
 	if (pid == 0)
 		ms_cmd_run(ms->cmd);
 	waitpid(pid, &status, 0);
-	ms_vars_set(ms->var_list, "?", ft_itoa(status));
+	ms_vars_set(&ms->var_list, "?", ft_itoa(status));
 	ms_debug_child(pid, status);
 }
 
@@ -57,9 +57,10 @@ static bool	set_var(void)
 	ft_memset(var, 0, VAR_BUFFER);
 	ft_strlcpy(var_name, tok->str, (ft_strchr(tok->str, '=') - tok->str) + 1);
 	ft_strlcpy(var, ft_strchr(tok->str, '=') + 1, VAR_BUFFER);
-	if (var_name[0] && var[0])
-		ms_vars_set(ms->var_list, var_name, var);
-	return (var_name[0] && var[0]);
+	if (!var_name[0] || !var[0])
+		return (false);
+	ms_vars_set(&ms->var_list, var_name, var);
+	return (true);
 }
 
 int	main(int argc, char **argv, char **env)

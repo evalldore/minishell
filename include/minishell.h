@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/30 18:22:10 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/30 22:04:28 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void		ms_builtin_env(void);
 void		ms_builtin_echo(char **args);
 void		ms_builtin_exit(size_t argc, char **args);
 void		ms_builtin_cd(size_t argc, char **args);
-void		ms_builtin_export(const char *name, const char *var);
+void		ms_builtin_export(const char *str);
 void		ms_builtin_unset(const char *arg);
 void		ms_builtin_pwd(void);
 
@@ -163,7 +163,7 @@ char		**ms_env_array(void);
 
 char		*ms_vars_get_var(t_list *list, const char *arg);
 t_list		*ms_vars_get_node(t_list *list, const char *arg);
-void		ms_vars_set(t_list *list, const char *arg, const char *var);
+void		ms_vars_set(t_list **list, const char *arg, const char *var);
 void		ms_vars_del(t_list *list, const char *arg);
 
 void		ms_array_free(void **array);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:49:52 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/30 18:44:29 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/10/30 21:11:06 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ bool	ms_builtin_exec(size_t argc, char **args)
 	else if (bi == BI_ENV)
 		ms_builtin_env();
 	else if (bi == BI_EXPORT)
-		ms_builtin_export(args[1], args[2]); //export should set and add variables //export PISS=piss
+		ms_builtin_export(args[1]); //export should set and add variables //export PISS=piss
 	else if (bi == BI_PWD)
 		ms_builtin_pwd();
 	else if (bi == BI_UNSET)
