@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 20:21:18 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/31 16:39:38 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:22:08 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static int	fork_cmd(t_cmd *cmd, int fd_pipe[2], int std)
 		ms_terminate(1, "Minishell: Pipe fork failed to init!\n");
 	if (pid == 0)
 	{
-		signal(SIGPIPE, sigpipe_handler);
 		if (dup2(fd_pipe[std], std) == -1)
 		{
 			close_fds(fd_pipe);

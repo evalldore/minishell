@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/30 16:26:58 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/01 15:37:48 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,24 @@ static t_cmd	*parse_redir(t_cmd	*cmd, t_list **list)
 
 static t_cmd	*parse_exec(t_list	**list)
 {
+	t_cmd		*cmd;
 	t_cmd_exec	*exec;
 	t_token		*token;
 
-	if (!ms_tokens_peek(list, TOK_TEXT))
-		return (NULL);
-	exec = (t_cmd_exec *)ms_node_exec();
-	while (ms_tokens_peek(list, TOK_TEXT) && exec->argc < MAX_ARGS)
+	cmd = ms_node_exec();
+	exec = (t_cmd_exec *)cmd;
+	cmd = parse_redir(cmd, list);
+	while (ms_tokens_peek(list, TOK_TEXT))
 	{
 		token = ms_tokens_get(list);
-		exec->argv[exec->argc++] = token->str;
+		exec->argv[exec->argc] = token->str;
+		exec->argc++;
+		if (exec->argc >= MAX_ARGS)
+			break ;
+		cmd = parse_redir(cmd, list);
 	}
 	exec->argv[exec->argc] = NULL;
-	return ((t_cmd *)exec);
+	return (cmd);
 }
 
 static void	write_heredocs(t_cmd *cmd)
@@ -99,7 +104,6 @@ t_cmd	*ms_cmd_parse(t_list	*list)
 	if (!list)
 		ms_terminate(1, "Minishell: No tokens list to parse!\n");
 	cmd = parse_exec(&list);
-	cmd = parse_redir(cmd, &list);
 	write_heredocs(cmd);
 	if (ms_tokens_peek(&list, TOK_PIPE))
 	{
