@@ -6,11 +6,24 @@
 /*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:25:44 by aroussea          #+#    #+#             */
-/*   Updated: 2023/10/25 13:30:56 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/10/25 15:28:05 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	quote_counter(int *dquotes, int *quotes, char c)
+{
+	if (c == '\'' && *quotes == 0 && *dquotes == 0)
+		(*quotes)++;
+	else if (c == '\'' && *quotes == 1 && *dquotes == 0)
+		(*quotes)--;
+	if (c == '"' && *dquotes == 0 && *quotes == 0)
+		(*dquotes)++;
+	else if (c == '"' && *dquotes == 1 && *quotes == 0)
+		(*dquotes)--;
+	return ;
+}
 
 int	check_unclosed_quote(char *str)
 {
@@ -21,14 +34,7 @@ int	check_unclosed_quote(char *str)
 	quotes = 0;
 	while (*str != '\0')
 	{
-		if (*str == '\'' && quotes == 0 && dquotes == 0)
-			quotes++;
-		else if (*str == '\'' && quotes == 1 && dquotes == 0)
-			quotes--;
-		if (*str == '"' && dquotes == 0 && quotes == 0)
-			dquotes++;
-		else if (*str == '"' && dquotes == 1 && quotes == 0)
-			dquotes--;
+		quote_counter(&dquotes, &quotes, *str);
 		str++;
 	}
 	if (dquotes != 0 || quotes != 0)
@@ -82,6 +88,7 @@ char	*cut_quotes(char *str)
 
 	dquotes = 0;
 	quotes = 0;
+	str = check_expand(str);
 	tmp = str;
 	if (!check_if_quotes(tmp))
 		return (str);
