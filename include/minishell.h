@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/30 22:04:28 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/01 16:12:36 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,12 +149,18 @@ void		ms_builtin_unset(const char *arg);
 void		ms_builtin_pwd(void);
 
 void		ms_tokens_init(char	*input, int *check);
-char		*parse_quotes(char *str, int *check);
-char		*find_separator(char *str, int i);
-char		*find_next_quote(char *str);
 bool		ms_tokens_peek(t_list **list, int type);
 t_token		*ms_tokens_get(t_list **list);
 void		ms_tokens_del(void	*ptr);
+
+char		*find_separator(char *str);
+char		*separation(char *str);
+char		*cut_quotes(char *str);
+int			check_unclosed_quote(char *str);
+void		quote_counter(int *dquotes, int *quotes, char c);
+
+char		*expand(char *str);
+char		*check_expand(char *str);
 
 bool		ms_env_init(char **env);
 void		ms_env_clear(void);
