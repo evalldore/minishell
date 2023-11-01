@@ -6,7 +6,7 @@
 /*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/25 14:59:41 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:36:34 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*find_separator(char *str)
 
 	dquotes = 0;
 	quotes = 0;
+	while (*str && ft_strchr(OPERATORS, *str))
+		str++;
 	while (*str)
 	{
 		if ((ft_strchr(WHITESPACES, *str) || ft_strchr(OPERATORS, *str)) 
