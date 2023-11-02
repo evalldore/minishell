@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/01 16:13:40 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/01 22:36:30 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ static bool	set_var(void)
 	ft_strlcpy(var, ft_strchr(tok->str, '=') + 1, VAR_BUFFER);
 	if (!var_name[0] || !var[0])
 		return (false);
-	ms_vars_set(&ms->var_list, var_name, var);
+	if (!ms_vars_get_node(ms->env_list, var_name))
+		ms_vars_set(&ms->var_list, var_name, var);
+	else
+		ms_vars_set(&ms->env_list, var_name, var);
 	return (true);
 }
 
