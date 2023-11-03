@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 02:38:37 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/31 02:10:27 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/02 17:39:32 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,3 @@ char	*ms_vars_get_var(t_list *list, const char *arg)
 		return (ft_strchr(node->content, '=') + 1);
 	return (NULL);
 }
-

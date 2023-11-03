@@ -6,16 +6,15 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/01 22:36:30 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/02 22:40:22 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <execinfo.h>
 #include "minishell.h"
 
-static void	exec_cmd(void)
+static void	exec_cmd(t_minishell *ms)
 {
-	t_minishell		*ms;
 	t_cmd_exec		*cmd_exec;
 	int				pid;
 	int				status;
@@ -26,17 +25,13 @@ static void	exec_cmd(void)
 	{
 		cmd_exec = (t_cmd_exec *)ms->cmd;
 		if (ms_builtin_exec(cmd_exec->argc, cmd_exec->argv))
-		{
-			ms_cmd_free(ms->cmd);
-			ms->cmd = NULL;
-			return ;
-		}
+			return ms_cmd_free(&ms->cmd);
 	}
 	pid = fork();
 	if (pid == 0)
 		ms_cmd_run(ms->cmd);
 	waitpid(pid, &status, 0);
-	ms_vars_set(&ms->var_list, "?", ft_itoa(status));
+	ms_status(status);
 	ms_debug_child(pid, status);
 }
 
@@ -90,7 +85,7 @@ int	main(int argc, char **argv, char **env)
 			ft_lstclear(&ms->tokens, ms_tokens_del);
 			continue ;
 		}
-		exec_cmd();
+		exec_cmd(ms);
 		ft_lstclear(&ms->tokens, ms_tokens_del);
 	}
 	printf("exit status: %d\n", ms->status);

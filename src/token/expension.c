@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expension.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:29:30 by aroussea          #+#    #+#             */
-/*   Updated: 2023/11/01 16:16:10 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/02 21:46:51 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	*expand(char *str)
 
 	tmp = var_name(str);
 	arg = ms_vars_get_var(ms_get()->env_list, tmp);
+	if (!arg)
+		arg = ms_vars_get_var(ms_get()->var_list, tmp);
 	free(tmp);
 	if (!arg)
 		return (NULL);

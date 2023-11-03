@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 20:21:18 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/01 14:22:08 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/02 17:15:51 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,6 @@ static void	close_fds(int fd[2])
 {
 	close(fd[0]);
 	close(fd[1]);
-}
-
-void	sigpipe_handler(int sig)
-{
-	(void)sig;
-	ms_terminate(2, "Minishell: Pipe terminated!\n");
 }
 
 static int	fork_cmd(t_cmd *cmd, int fd_pipe[2], int std)
@@ -36,7 +30,7 @@ static int	fork_cmd(t_cmd *cmd, int fd_pipe[2], int std)
 		if (dup2(fd_pipe[std], std) == -1)
 		{
 			close_fds(fd_pipe);
-			ms_terminate(1, "Minishell: Pipe duping failed!\n");
+			ms_terminate(1, "Minishell: Pipe redirection failed!\n");
 		}
 		close_fds(fd_pipe);
 		ms_cmd_run(cmd);

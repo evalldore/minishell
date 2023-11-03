@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/01 16:12:36 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/02 22:39:28 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,10 +132,11 @@ void		ms_heredoc_write(char *buffer, char *eof);
 t_minishell	*ms_get(void);
 bool		ms_init(char **env);
 char		*ms_input(void);
+void		ms_status(int status);
 
 t_cmd		*ms_cmd_parse(t_list *tokens);
 void		ms_cmd_run(t_cmd *cmd);
-void		ms_cmd_free(t_cmd *cmd);
+void		ms_cmd_free(t_cmd **cmd);
 void		ms_cmd_pipe(t_cmd *left, t_cmd *right);
 void		ms_cmd_heredoc(char *buffer, t_cmd *cmd);
 
