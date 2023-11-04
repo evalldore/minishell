@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:49:52 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/03 22:01:33 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/03 22:42:48 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,13 @@ bool	ms_builtin_parse(void)
 	tokens_list = ms->tokens;
 	ft_memset(&argv, 0, sizeof(argv));
 	argc = 0;
-	while (tokens_list)
+	while (tokens_list && argc < MAX_ARGS)
 	{
-		if (ms_tokens_peek(&tokens_list, TOK_TEXT) && argc < MAX_ARGS)
+		if (ms_tokens_peek(&tokens_list, TOK_TEXT))
 			argv[argc++] = ms_tokens_get(&tokens_list)->str;
 		else
 			return (false);
 	}
+	argv[argc] = NULL;
 	return(ms_builtin_exec(argc, argv));
 }

@@ -2,7 +2,6 @@ READLINE 1.33 update a 8.2
 here docs a implémenter, expansions doit etre supporter
 expansions de strings 
 double et single quotes
-reimplementer les builtins de facon correcte sur le main process ou child
 reset signals for parent and set them for child process
 
 test : https://docs.google.com/spreadsheets/d/1uJHQu0VPsjjBkR4hxOeCMEt3AOM1Hp_SmUzPFhAH-nA/edit#gid=0
