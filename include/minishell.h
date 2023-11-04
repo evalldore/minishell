@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/03 21:43:47 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/04 16:39:31 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,6 @@ char		*expand(char *str);
 char		*check_expand(char *str);
 
 bool		ms_env_init(char **env);
-void		ms_env_clear(void);
 char		**ms_env_path(void);
 char		**ms_env_array(void);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 04:00:19 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/30 18:24:52 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:43:40 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,6 @@ bool	ms_env_init(char **env)
 		env++;
 	}
 	return (true);
-}
-
-void	ms_env_clear(void)
-{
-	t_list	*env_list;
-
-	env_list = ms_get()->env_list;
-	if (env_list)
-		ft_lstclear(&env_list, free);
 }
 
 char	**ms_env_path(void)

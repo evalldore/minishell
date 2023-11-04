@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 22:22:40 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/02 22:41:18 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/04 16:42:10 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	ms_init(char **env)
 	ms->cmd = NULL;
 	if (!ms_env_init(env))
 	{
-		ms_env_clear();
+		ft_lstclear(&ms->env_list, free);
 		return (false);
 	}
 	ms->var_list = NULL;
@@ -73,9 +73,9 @@ void	ms_terminate(int status, char	*msg)
 	ms = ms_get();
 	if (msg)
 		ft_putstr_fd(msg, 2);
-	ms_env_clear();
-	if (ms->tokens)
-		ft_lstclear(&ms->tokens, ms_tokens_del);
+	ft_lstclear(&ms->env_list, free);
+	ft_lstclear(&ms->var_list, free);
+	ft_lstclear(&ms->tokens, ms_tokens_del);
 	if (ms->cmd)
 		ms_cmd_free(&ms->cmd);
 	exit(status);
