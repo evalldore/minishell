@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:49:52 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/30 21:11:06 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/03 22:01:33 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,27 @@ bool	ms_builtin_exec(size_t argc, char **args)
 	else if (bi == BI_UNSET)
 		ms_builtin_unset(args[1]);
 	return (true);
+}
+
+bool	ms_builtin_parse(void)
+{
+	t_minishell	*ms;
+	char		*argv[MAX_ARGS];
+	size_t		argc;
+	t_list		*tokens_list;
+
+	ms = ms_get();
+	if (!ms->tokens)
+		return (NULL);
+	tokens_list = ms->tokens;
+	ft_memset(&argv, 0, sizeof(argv));
+	argc = 0;
+	while (tokens_list)
+	{
+		if (ms_tokens_peek(&tokens_list, TOK_TEXT) && argc < MAX_ARGS)
+			argv[argc++] = ms_tokens_get(&tokens_list)->str;
+		else
+			return (false);
+	}
+	return(ms_builtin_exec(argc, argv));
 }

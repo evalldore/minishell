@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:25:44 by aroussea          #+#    #+#             */
-/*   Updated: 2023/11/01 17:32:54 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/11/03 21:05:57 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*separation(char *str)
 	dst = ft_calloc(len + 1, sizeof(char));
 	if (!dst)
 	{
-		printf("Erreur, malloc!\n");
+		ft_putstr_fd("Erreur, malloc!\n", 2);
 		return (NULL);
 	}
 	ft_strlcpy(dst, str, len + 1);
@@ -105,7 +105,7 @@ char	*cut_quotes(char *str)
 			dst_tmp = ft_calloc(len + 1, sizeof(char));
 			if (!dst_tmp)
 			{
-				printf("Erreur, malloc!\n");
+				ft_putstr_fd("Erreur, malloc!\n", 2);
 				return (NULL);
 			}
 			ft_strlcpy(dst_tmp, str, len + 1);
@@ -124,7 +124,7 @@ char	*cut_quotes(char *str)
 			dst_tmp = ft_calloc(len + 1, sizeof(char));
 			if (!dst_tmp)
 			{
-				printf("Erreur, malloc!\n");
+				ft_putstr_fd("Erreur, malloc!\n", 2);
 				return (NULL);
 			}
 			ft_strlcpy(dst_tmp, str, len + 1);

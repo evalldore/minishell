@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:29:30 by aroussea          #+#    #+#             */
-/*   Updated: 2023/11/02 21:46:51 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/03 21:06:07 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*check_expand(char *str)
 			dst = ft_calloc(len + 1, sizeof(char));
 			if (!dst)
 			{
-				printf("Erreur, malloc!\n");
+				ft_putstr_fd("Erreur, malloc!\n", 2);
 				return (NULL);
 			}
 			ft_strlcpy(dst, str, len + 1);

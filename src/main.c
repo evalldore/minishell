@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/03 18:52:52 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/03 21:45:24 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,22 @@
 
 static void	exec_cmd(t_minishell *ms)
 {
-	t_cmd_exec		*cmd_exec;
 	int				pid;
 	int				status;
 
 	ms = ms_get();
-	ms->cmd = ms_cmd_parse(ms->tokens);
-	if (ms->cmd->type == CMD_EXEC)
-	{
-		cmd_exec = (t_cmd_exec *)ms->cmd;
-		if (ms_builtin_exec(cmd_exec->argc, cmd_exec->argv))
-			return ms_cmd_free(&ms->cmd);
-	}
+	if (ms_builtin_parse())
+		return ;
 	pid = fork();
 	if (pid == 0)
+	{
+		ms->cmd = ms_cmd_parse(ms->tokens);
 		ms_cmd_run(ms->cmd);
+	}
 	waitpid(pid, &status, 0);
 	ms_status(status);
 	ms_debug_child(pid, status);
-	ms_cmd_free(&ms->cmd);
+
 }
 
 static bool	set_var(void)
