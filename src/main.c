@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/03 21:45:24 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/03 22:48:43 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	exec_cmd(t_minishell *ms)
 	waitpid(pid, &status, 0);
 	ms_status(status);
 	ms_debug_child(pid, status);
-
 }
 
 static bool	set_var(void)
