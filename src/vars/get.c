@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 02:38:37 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/02 17:39:32 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/04 22:55:53 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,19 @@ t_list	*ms_vars_get_node(t_list *list, const char *arg)
 		list = list->next;
 	}
 	return (NULL);
+}
+
+bool	ms_vars_parse(t_var *var, const char *str)
+{
+	if (!var || !str || !ft_strchr(str, '='))
+		return (false);
+	ft_memset(var->name, 0, VARNAME_BUFFER);
+	ft_memset(var->value, 0, VAR_BUFFER);
+	ft_strlcpy(var->name, str, (ft_strchr(str, '=') - str) + 1);
+	ft_strlcpy(var->value, ft_strchr(str, '=') + 1, VAR_BUFFER);
+	if (!var->name[0] || !var->value[0])
+		return (false);
+	return (true);
 }
 
 char	*ms_vars_get_var(t_list *list, const char *arg)

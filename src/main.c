@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/03 22:48:43 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/04 22:47:22 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,18 @@ static bool	set_var(void)
 {
 	t_minishell		*ms;
 	t_token			*tok;
-	char			var_name[VARNAME_BUFFER];
-	char			var[VAR_BUFFER];
+	t_var			var;
 
 	ms = ms_get();
 	if (!ms_tokens_peek(&ms->tokens, TOK_TEXT))
 		return (false);
 	tok = ms->tokens->content;
-	if (!ft_strchr(tok->str, '='))
+	if (!ms_vars_parse(&var, tok->str))
 		return (false);
-	ft_memset(var_name, 0, VARNAME_BUFFER);
-	ft_memset(var, 0, VAR_BUFFER);
-	ft_strlcpy(var_name, tok->str, (ft_strchr(tok->str, '=') - tok->str) + 1);
-	ft_strlcpy(var, ft_strchr(tok->str, '=') + 1, VAR_BUFFER);
-	if (!var_name[0] || !var[0])
-		return (false);
-	if (!ms_vars_get_node(ms->env_list, var_name))
-		ms_vars_set(&ms->var_list, var_name, var);
+	if (!ms_vars_get_node(ms->env_list, var.name))
+		ms_vars_set(&ms->var_list, var.name, var.value);
 	else
-		ms_vars_set(&ms->env_list, var_name, var);
+		ms_vars_set(&ms->env_list, var.name, var.value);
 	return (true);
 }
 

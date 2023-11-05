@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 00:58:57 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/01 23:18:45 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/04 22:56:29 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,28 @@ static void transfer_top(t_list *node)
 	ft_lstadd_back(&(ms_get()->env_list), node);
 }
 
+static bool set(const char *str)
+{
+	t_var		var;
+	t_minishell	*ms;
+
+	if (!str)
+		return (false);
+	ms = ms_get();
+	if (ms_vars_parse(&var, str))
+	{
+		ms_vars_set(&ms->env_list, var.name, var.value);
+		return (true);
+	}
+	return (false);
+}
+
 void	ms_builtin_export(const char *str)
 {
 	t_list			*node;
 	t_list			*list;
 
-	if (!str)
+	if (!str || set(str))
 		return ;
 	list = ms_get()->var_list;
 	node = ms_vars_get_node(list, str);

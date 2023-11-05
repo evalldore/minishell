@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/04 16:39:31 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/04 22:46:04 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,12 @@ typedef struct s_token
 	int				type;
 }	t_token;
 
+typedef struct s_var
+{
+	char	name[VARNAME_BUFFER];
+	char	value[VAR_BUFFER];
+}	t_var;
+
 typedef struct s_minishell
 {
 	bool		running;
@@ -172,6 +178,7 @@ char		*ms_vars_get_var(t_list *list, const char *arg);
 t_list		*ms_vars_get_node(t_list *list, const char *arg);
 void		ms_vars_set(t_list **list, const char *arg, const char *var);
 void		ms_vars_del(t_list *list, const char *arg);
+bool		ms_vars_parse(t_var *var, const char *str);
 
 void		ms_array_free(void **array);
 size_t		ms_array_count(void **array);
