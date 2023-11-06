@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/04 22:47:22 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/05 21:25:03 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	exec_cmd(t_minishell *ms)
 	int				status;
 
 	ms = ms_get();
-	if (ms_builtin_parse())
+	if (ms_builtin())
 		return ;
 	pid = fork();
 	if (pid == 0)

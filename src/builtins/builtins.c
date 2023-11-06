@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:49:52 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/03 22:42:48 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/05 21:25:05 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ bool	ms_builtin_exec(size_t argc, char **args)
 	return (true);
 }
 
-bool	ms_builtin_parse(void)
+bool	ms_builtin(void)
 {
 	t_minishell	*ms;
 	char		*argv[MAX_ARGS];
