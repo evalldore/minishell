@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/05 21:25:03 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/06 13:38:36 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static void	exec_cmd(t_minishell *ms)
 		ms_cmd_run(ms->cmd);
 	}
 	waitpid(pid, &status, 0);
-	ms_status(status);
+	if (WIFEXITED(status))
+		ms_status(WEXITSTATUS(status));
 	ms_debug_child(pid, status);
 }
 
