@@ -28,7 +28,11 @@ OBJS			:= $(addprefix $(BINDIR), $(SRCS:.c=.o))
 
 all : libraries $(NAME)
 
-readline :
+debug : CFLAGS += -g -DDEBUG=1
+
+debug : all
+
+readline : 
 	cd $(READLINE) && \
 	./configure --prefix=$$PWD && \
 	make install
