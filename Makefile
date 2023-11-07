@@ -14,11 +14,12 @@ VARDIR			:= vars/
 TOKENDIR		:= token/
 BUILTDIR		:= builtins/
 CMDSDIR			:= commands/
-LIBFT			:= ./lib/libft
+LIBFT			:= lib/libft/
+READLINE		:= lib/readline/
 RM				:= rm -f
-HEADERS			:= -I ./include -I $(LIBFT)/include
+HEADERS			:= -I ./include -I $(LIBFT)/include -I $(READLINE)/include
 CC				:= gcc
-LIBS			:= $(LIBFT)/libft.a
+LIBS			:= $(LIBFT)/libft.a $(READLINE)/libreadline.a $(READLINE)/libhistory.a
 SRCS			+= $(addprefix $(TOKENDIR), $(TOKENSRCS))
 SRCS			+= $(addprefix $(BUILTDIR), $(BUILTSRCS))
 SRCS			+= $(addprefix $(VARDIR), $(VARSRCS))
@@ -27,10 +28,18 @@ OBJS			:= $(addprefix $(BINDIR), $(SRCS:.c=.o))
 
 all : libraries $(NAME)
 
+readline :
+	cd $(READLINE) && \
+	./configure --prefix=$$PWD && \
+	make install
+
 leaks:
 	valgrind --track-fds=yes --show-leak-kinds=all --show-reachable=no --trace-children=yes --leak-check=full ./minishell
 
-libraries :
+libft : 
+	@$(MAKE) -C $(LIBFT)
+
+libraries : libft readline
 	@$(MAKE) -C $(LIBFT)
 
 $(BINDIR)%.o : $(SRCDIR)%.c
@@ -38,7 +47,7 @@ $(BINDIR)%.o : $(SRCDIR)%.c
 
 $(NAME) : $(BINDIR) $(OBJS)
 	@echo $(NAME): Compiling!
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(HEADERS) -lreadline
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(HEADERS) -lncurses
 
 $(BINDIR) :
 	@mkdir $(BINDIR)
@@ -49,6 +58,8 @@ $(BINDIR) :
 
 clean:
 	@$(MAKE) -C $(LIBFT) fclean
+	@$(MAKE) -C $(READLINE) uninstall
+	@$(MAKE) -C $(READLINE) clean
 	@echo $(NAME): Deleting binaries.
 	@rm -r $(BINDIR)
 

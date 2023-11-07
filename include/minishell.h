@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/05 21:25:06 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/06 23:22:05 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define MINISHELL_H
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <libft.h>
 # include <stdbool.h>
-# include <stdio.h>
 # include <signal.h>
 # define COLOR_RED "\x1b[31m"
 # define COLOR_GREEN "\x1b[32m"
@@ -36,6 +36,9 @@
 # define HEREDOC_BUFFER 1024
 # define WHITESPACES " \t\r\n\v"
 # define OPERATORS "<|>"
+# ifndef DEBUG
+	# define DEBUG 0
+# endif
 
 enum	e_cmd
 {
