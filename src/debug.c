@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 16:33:12 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/07 00:04:14 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/08 14:15:58 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ms_debug_child(int pid, int status)
 	int		sig;
 
 	if (!DEBUG)
-		return;
+		return ;
 	if (WIFEXITED(status))
 	{
 		exit = WEXITSTATUS(status);

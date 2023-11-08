@@ -1,8 +1,6 @@
 NAME			:= minishell
 CFLAGS			:= -Wall -Wextra -Werror -g
-SRCS			:= main.c utils.c debug.c allocator.c minishell.c env.c
 VARSRCS			:= get.c set.c
-TOKENSRCS		:= token.c list.c free.c quotes.c
 SRCS			:= main.c utils.c debug.c allocator.c minishell.c env.c
 TOKENSRCS		:= token.c list.c free.c quotes.c expension.c
 BUILTSRCS		:= env.c echo.c pwd.c cd.c unset.c export.c exit.c builtins.c
@@ -32,10 +30,11 @@ debug : CFLAGS += -g -DDEBUG=1
 
 debug : all
 
-readline : 
+$(READLINE)/libreadline.a : 
 	cd $(READLINE) && \
 	./configure --prefix=$$PWD && \
-	make install
+	make install && \
+	cd ../..
 
 leaks:
 	valgrind --track-fds=yes --show-leak-kinds=all --show-reachable=no --trace-children=yes --leak-check=full ./minishell
@@ -43,8 +42,7 @@ leaks:
 libft : 
 	@$(MAKE) -C $(LIBFT)
 
-libraries : libft readline
-	@$(MAKE) -C $(LIBFT)
+libraries : libft $(READLINE)/libreadline.a
 
 $(BINDIR)%.o : $(SRCDIR)%.c
 	@$(CC) -c $(CFLAGS) -o $@ $^ $(HEADERS)
@@ -72,3 +70,5 @@ fclean: clean
 	@rm -f $(NAME)
 
 re : fclean all
+
+.PHONY : re fclean clean all libft leaks libraries readline debug
