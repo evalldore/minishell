@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/11/05 22:24:15 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/08 17:50:18 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ t_cmd	*ms_cmd_parse(t_list	*list)
 	if (ms_tokens_peek(&list, TOK_PIPE))
 	{
 		ms_tokens_get(&list);
+		if (cmd->type == CMD_EXEC && !((t_cmd_exec *)cmd)->argv[0])
+			ms_terminate(1, "Minishell: Pipe invalid command!\n");
 		cmd = ms_node_pipe(cmd, ms_cmd_parse(list));
 	}
 	return (cmd);
