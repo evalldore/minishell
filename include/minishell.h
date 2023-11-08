@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/06 23:22:05 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/08 16:47:46 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define COLOR_MAGENTA "\x1b[35m"
 # define COLOR_CYAN "\x1b[36m"
 # define COLOR_RESET "\x1b[0m"
-# define PROMPT	COLOR_GREEN	"Minishit " COLOR_RESET "> "
+# define PROMPT	"\x1b[32mMinishit\x1b[0m> "
 # define MAX_ARGS 1024
 # define MAX_NODE 1024
 # define PATH_BUFFER 256
@@ -37,7 +37,7 @@
 # define WHITESPACES " \t\r\n\v"
 # define OPERATORS "<|>"
 # ifndef DEBUG
-	# define DEBUG 0
+#  define DEBUG 0
 # endif
 
 enum	e_cmd

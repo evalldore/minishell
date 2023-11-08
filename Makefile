@@ -63,7 +63,7 @@ clean:
 	@$(MAKE) -C $(READLINE) uninstall
 	@$(MAKE) -C $(READLINE) clean
 	@echo $(NAME): Deleting binaries.
-	@rm -r $(BINDIR)
+	@rm -rf $(BINDIR)
 
 fclean: clean
 	@echo $(NAME): Deleting program.

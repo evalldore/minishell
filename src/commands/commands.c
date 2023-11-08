@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/31 18:16:49 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:31:52 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	run_bin(char *path, char **argv)
 	env = ms_env_array();
 	execve(path, argv, env);
 	free(env);
+	ms_terminate(1, "Minishell: Command failed to run!\n");
 }
 
 static void	cmd_exec(t_cmd_exec *cmd)
@@ -57,16 +58,12 @@ static void	cmd_exec(t_cmd_exec *cmd)
 	if (ms_builtin_exec(cmd->argc, &cmd->argv[0]))
 		return ;
 	if (access(cmd->argv[0], F_OK | X_OK) == 0)
-	{
 		run_bin(cmd->argv[0], cmd->argv);
-		ms_terminate(1, "Minishell: Command failed to run!\n");
-	}
 	cmd_path = ms_path_find(cmd->argv[0]);
 	if (cmd_path)
 	{
 		run_bin(cmd_path, cmd->argv);
 		free(cmd_path);
-		ms_terminate(1, "Minishell: Command failed to run!\n");
 	}
 	ms_terminate(127, "Minishell: Command doesnt exist!\n");
 }

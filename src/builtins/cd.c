@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:10:46 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/03 23:18:02 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/08 16:47:32 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ms_builtin_cd(size_t argc, char	**args)
 	if (!path || (path[0] == '~' && !path[1]))
 		path = ms_vars_get_var(ms_get()->env_list, "HOME");
 	if (chdir(path) != 0)
-		return perror("cd");
+		return (perror("cd"));
 	node = ms_vars_get_node(ms_get()->env_list, "PWD");
 	if (node)
 		ms_vars_set(&(ms_get()->env_list), "OLDPWD", (char *)node->content);

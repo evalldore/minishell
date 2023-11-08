@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/06 13:38:36 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/08 16:50:39 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,5 @@ int	main(int argc, char **argv, char **env)
 		exec_cmd(ms);
 		ft_lstclear(&ms->tokens, ms_tokens_del);
 	}
-	printf("exit status: %d\n", ms->status);
 	ms_terminate(ms->status, NULL);
 }

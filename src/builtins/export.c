@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 00:58:57 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/04 22:56:29 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/08 15:28:04 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void transfer_top(t_list *node)
+static void	transfer_top(t_list *node)
 {
 	ms_get()->var_list = node->next;
 	node->next = NULL;
 	ft_lstadd_back(&(ms_get()->env_list), node);
 }
 
-static bool set(const char *str)
+static bool	set(const char *str)
 {
 	t_var		var;
 	t_minishell	*ms;
@@ -47,7 +47,7 @@ void	ms_builtin_export(const char *str)
 	if (!list || !node)
 		return ;
 	if (list == node)
-		return transfer_top(node);
+		return (transfer_top(node));
 	while (list)
 	{
 		if (list->next == node)
