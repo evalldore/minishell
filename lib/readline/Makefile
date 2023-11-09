@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /Users/evallee-/student/minishell/lib/readline
+BUILD_DIR = /home/niceguy/c/minishell/lib/readline
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
@@ -48,7 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /Users/evallee-/student/minishell/lib/readline
+prefix = /home/niceguy/c/minishell/lib/readline
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share

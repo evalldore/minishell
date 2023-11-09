@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/08 16:50:39 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/08 20:29:00 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	main(int argc, char **argv, char **env)
 	ms = ms_get();
 	while (ms->running)
 	{
+		ft_lstclear(&ms->tokens, ms_tokens_del);
 		input = ms_input();
 		if (!input)
 			continue ;
@@ -72,12 +73,8 @@ int	main(int argc, char **argv, char **env)
 		ms_tokens_init(input, &check);
 		free(input);
 		if (check != 0 || set_var())
-		{
-			ft_lstclear(&ms->tokens, ms_tokens_del);
 			continue ;
-		}
 		exec_cmd(ms);
-		ft_lstclear(&ms->tokens, ms_tokens_del);
 	}
 	ms_terminate(ms->status, NULL);
 }
