@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:49:52 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/08 15:28:17 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/08 23:38:06 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,23 +60,19 @@ bool	ms_builtin_exec(size_t argc, char **args)
 	return (true);
 }
 
-bool	ms_builtin(void)
+bool	ms_builtin(t_list *tokens)
 {
-	t_minishell	*ms;
 	char		*argv[MAX_ARGS];
 	size_t		argc;
-	t_list		*tokens_list;
 
-	ms = ms_get();
-	if (!ms->tokens)
-		return (NULL);
-	tokens_list = ms->tokens;
+	if (!tokens)
+		return (false);
 	ft_memset(&argv, 0, sizeof(argv));
 	argc = 0;
-	while (tokens_list && argc < MAX_ARGS)
+	while (tokens && argc < MAX_ARGS)
 	{
-		if (ms_tokens_peek(&tokens_list, TOK_TEXT))
-			argv[argc++] = ms_tokens_get(&tokens_list)->str;
+		if (ms_tokens_peek(&tokens, TOK_TEXT))
+			argv[argc++] = ms_tokens_get(&tokens)->str;
 		else
 			return (false);
 	}

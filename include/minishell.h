@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/08 17:31:58 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/08 23:36:42 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void		ms_builtin_cd(size_t argc, char **args);
 void		ms_builtin_export(const char *str);
 void		ms_builtin_unset(const char *arg);
 void		ms_builtin_pwd(void);
-bool		ms_builtin(void);
+bool		ms_builtin(t_list *tokens);
 
 void		ms_tokens_init(char	*input, int *check);
 bool		ms_tokens_peek(t_list **list, int type);
