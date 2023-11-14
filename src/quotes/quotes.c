@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:25:44 by aroussea          #+#    #+#             */
-/*   Updated: 2023/11/14 14:44:40 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:51:14 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ char	*quotes_handler(char *str)
 			continue ;
 		if ((dquotes == 1 && *tmp == '"') || (quotes == 1 && *tmp == '\''))
 			continue ;
+		if (*tmp == 0)
+			return (str);
 		tmp++;
 	}
 	return (str);

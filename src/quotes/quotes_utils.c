@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:20:11 by aroussea          #+#    #+#             */
-/*   Updated: 2023/11/14 14:44:32 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:29:54 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ char	*separation(char *str)
 	if (!nsep)
 	{
 		dst = ft_calloc(ft_strlen(str) + 1, sizeof(char));
+		if (!dst)
+		{
+			ft_putstr_fd("Erreur, malloc!\n", 2);
+			return (NULL);
+		}
 		ft_strlcpy(dst, str, ft_strlen(str) + 1);
 		return (dst);
 	}

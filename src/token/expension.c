@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 14:29:30 by aroussea          #+#    #+#             */
-/*   Updated: 2023/11/14 15:47:54 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:43:14 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ char	*expand(char *str)
 static char	*combine(char *first, char *s)
 {
 	char	*dst;
+	char	*temp;
 
+	temp = s;
 	while (*s)
 	{
 		if (*s == '$')
@@ -64,6 +66,7 @@ static char	*combine(char *first, char *s)
 		&& !ft_strchr(WHITESPACES, *s))
 		s++;
 	dst = ft_strjoin(first, s);
+	free(temp);
 	return (dst);
 }
 
@@ -71,6 +74,7 @@ static	char	*expand_operation(char **str, char *tmp)
 {
 	size_t	len;
 	char	*dst;
+	char	*dst_join;
 
 	len = ft_strlen(*str) - ft_strlen(tmp);
 	dst = ft_calloc(len + 1, sizeof(char));
@@ -84,7 +88,12 @@ static	char	*expand_operation(char **str, char *tmp)
 	if (!tmp)
 		*str = combine(dst, *str);
 	else
-		*str = combine(ft_strjoin(dst, tmp), *str);
+	{
+		dst_join = ft_strjoin(dst, tmp);
+		*str = combine(dst_join, *str);
+		free(dst_join);
+	}
+	free(dst);
 	return (*str);
 }
 
@@ -104,6 +113,8 @@ char	*check_expand(char *str)
 			tmp = expand_operation(&str, tmp);
 		if (*tmp == '$' && quotes == 0)
 			continue ;
+		if (*tmp == 0)
+			return (str);
 		tmp++;
 	}
 	return (str);
