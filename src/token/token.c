@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/03 21:05:21 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/14 14:41:56 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*find_separator(char *str)
 {
 	int	dquotes;
-	int quotes;
+	int	quotes;
 
 	dquotes = 0;
 	quotes = 0;
@@ -57,7 +57,7 @@ static t_token	*create_token(char *str, int *check)
 		*check = 1;
 		ft_putstr_fd("Minishell : Unclosed quotes!\n", 2);
 	}
-	sub = cut_quotes(separation(str));
+	sub = quotes_handler(separation(str));
 	token = ft_calloc(1, sizeof(t_token));
 	if (!token)
 	{

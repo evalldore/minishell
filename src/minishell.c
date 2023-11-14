@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 22:22:40 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/04 16:42:10 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/14 14:41:02 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ bool	ms_init(char **env)
 	}
 	ms->var_list = NULL;
 	ms_status(0);
-	//signal(SIGINT, SIG_IGN);
 	return (true);
 }
 
@@ -49,8 +48,8 @@ char	*ms_input(void)
 
 	input = readline(PROMPT);
 	if (!input)
-		return (NULL);
-	if (!input[0])
+		ms_terminate(0, "exit\n");
+	if (!*input)
 	{
 		free(input);
 		return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/06 23:22:05 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/14 11:14:40 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void		ms_tokens_del(void	*ptr);
 
 char		*find_separator(char *str);
 char		*separation(char *str);
-char		*cut_quotes(char *str);
+char		*quotes_handler(char *str);
 int			check_unclosed_quote(char *str);
 void		quote_counter(int *dquotes, int *quotes, char c);
 
@@ -193,5 +193,8 @@ void		ms_debug_child(int pid, int status);
 
 void		*ms_alloc(size_t size);
 void		ms_alloc_reset(void);
+
+void 		sig_init();
+void		sig_handler(int sig);
 
 #endif

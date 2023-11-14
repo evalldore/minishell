@@ -35,11 +35,48 @@ $(BINDIR) :
 	@mkdir $(BINDIR)
 
 clean :
-	@echo LIBFT: Clearing binaries
+	@echo "$(BLUE)LIBFT: $(GREEN)Clearing binaries$(END_COLOR)"
 	@$(RM) -r $(BINDIR)
 
 fclean : clean
-	@echo LIBFT: Deleting library.
+	@echo "$(BLUE)LIBFT: $(GREEN)Deleting library.$(END_COLOR)"
 	@$(RM) $(NAME)
 
 re : fclean all
+
+# **************************************************************************** #
+# Colors
+
+BLACK		=\033[30m
+RED			=\033[31m
+GREEN		=\033[32m
+YELLOW		=\033[33m
+BLUE		=\033[34m
+PURPLE		=\033[35m
+CYAN		=\033[36m
+WHITE		=\033[37m
+
+# # Text
+
+ERASE		=\033[2K\r
+END_COLOR	=\033[0m
+BOLD		=\033[1m
+FAINT		=\033[2m
+ITALIC		=\033[3m
+UNDERLINE	=\033[4m
+
+# # Background
+
+BG_BLACK	=\033[40m
+BG_RED		=\033[41m
+BG_GREEN	=\033[42m
+BG_YELLOW	=\033[43m
+BG_BLUE		=\033[44m
+BG_PURPLE	=\033[45m
+BG_CYAN		=\033[46m
+BG_WHITE	=\033[47m
+
+# highlight color
+
+HI=\033[7m
+# **************************************************************************** #
