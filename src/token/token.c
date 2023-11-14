@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/08 16:55:30 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/14 16:36:37 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*find_separator(char *str)
 
 static int	token_type(char *str)
 {
-	if (!str || !*str)
+	if (!str)
 		return (TOK_NONE);
 	if (*str == '>')
 		return (TOK_REDIR);
@@ -57,7 +57,7 @@ static t_token	*create_token(char *str, int *check)
 		*check = 1;
 		ft_putstr_fd("Minishell : Unclosed quotes!\n", 2);
 	}
-	sub = cut_quotes(separation(str));
+	sub = quotes_handler(separation(str));
 	token = ft_calloc(1, sizeof(t_token));
 	if (!token)
 	{

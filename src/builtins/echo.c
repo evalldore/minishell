@@ -6,18 +6,36 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 20:20:17 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/08 15:35:54 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:00:34 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static bool	is_param(char	*str)
+{
+	size_t		i;
+	const char	*p;
+
+	if (!str)
+		return (false);
+	i = 0;
+	p = "-n";
+	while (p[i])
+	{
+		if (p[i] != str[i])
+			return (false);
+		i++;
+	}
+	return (true);
+}
 
 void	ms_builtin_echo(char **args)
 {
 	bool	nl;
 
 	nl = true;
-	if (ft_strncmp(*args, "-n", ft_strlen(*args)) == 0)
+	if (is_param(*args))
 	{
 		nl = false;
 		args++;

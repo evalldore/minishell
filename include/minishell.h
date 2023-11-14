@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/14 15:39:29 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:46:56 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void		ms_tokens_del(void	*ptr);
 
 char		*find_separator(char *str);
 char		*separation(char *str);
-char		*cut_quotes(char *str);
+char		*quotes_handler(char *str);
 int			check_unclosed_quote(char *str);
 void		quote_counter(int *dquotes, int *quotes, char c);
 
