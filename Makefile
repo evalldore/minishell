@@ -1,7 +1,7 @@
 NAME			:= minishell
 CFLAGS			:= -Wall -Wextra -Werror -g
 VARSRCS			:= get.c set.c
-SRCS			:= main.c utils.c debug.c allocator.c minishell.c env.c
+SRCS			:= main.c utils.c debug.c allocator.c minishell.c env.c signals.c
 TOKENSRCS		:= token.c list.c free.c quotes.c expension.c
 BUILTSRCS		:= env.c echo.c pwd.c cd.c unset.c export.c exit.c builtins.c
 CMDSRCS			:= commands.c parsing.c pipe.c free.c heredoc.c constructors.c

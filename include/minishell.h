@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/08 23:36:42 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/13 16:39:05 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_cmd_heredoc
 	char	*eof;
 }	t_cmd_heredoc;
 
-
 typedef struct s_cmd_exec
 {
 	int			type;
@@ -85,6 +84,13 @@ typedef struct s_cmd_pipe
 	t_cmd	*left;
 	t_cmd	*right;
 }	t_cmd_pipe;
+
+enum	e_mode
+{
+	MODE_DEFAULT,
+	MODE_MAIN,
+	MODE_HEREDOC
+};
 
 enum	e_token
 {
@@ -193,5 +199,7 @@ void		ms_debug_child(int pid, int status);
 
 void		*ms_alloc(size_t size);
 void		ms_alloc_reset(void);
+
+void		ms_signal_set(int mode);
 
 #endif

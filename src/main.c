@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/08 23:35:52 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/13 18:48:51 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ static void	exec_cmd(t_minishell *ms)
 	ms = ms_get();
 	if (ms_builtin(ms->tokens))
 		return ;
+	ms_signal_set(MODE_MAIN);
 	pid = fork();
+	if (pid == -1)
+		ms_terminate(1, "Minishell: Couldnt fork command process!\n");
 	if (pid == 0)
 	{
 		ms->cmd = ms_cmd_parse(ms->tokens);
@@ -65,6 +68,7 @@ int	main(int argc, char **argv, char **env)
 	ms = ms_get();
 	while (ms->running)
 	{
+		ms_signal_set(MODE_DEFAULT);
 		ft_lstclear(&ms->tokens, ms_tokens_del);
 		input = ms_input();
 		if (!input)

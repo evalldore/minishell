@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 14:20:03 by evallee-          #+#    #+#             */
-/*   Updated: 2023/10/30 15:34:18 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:48:00 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ void	ms_heredoc_write(char *buffer, char *eof)
 	while (true)
 	{
 		input = readline("> ");
+		if (!input)
+			return ((void)ft_putstr_fd("Closed heredoc\n", 2));
 		input_len = ft_strlen(input);
 		buffer_len = ft_strlen(buffer);
 		if (ft_strncmp(input, eof, input_len) == 0)
-		{
-			free(input);
-			break ;
-		}
+			return (free(input));
 		if ((buffer_len + input_len + 1) >= HEREDOC_BUFFER)
 		{
 			free(input);
