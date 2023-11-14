@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:33:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/13 18:49:37 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/13 19:55:21 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,18 @@ void	terminate(int sig)
 	ms_terminate(130, NULL);
 }
 
-void	clear_input_redis(int sig)
-{
-	(void)sig;
-	ft_putchar_fd('\n', STDOUT_FILENO);
-	rl_replace_line("", 1);
-	rl_on_new_line();
-	rl_redisplay();
-}
-
 void	clear_input(int sig)
 {
 	(void)sig;
 	ft_putchar_fd('\n', STDOUT_FILENO);
 	rl_replace_line("", 1);
 	rl_on_new_line();
+}
+
+void	clear_input_redis(int sig)
+{
+	clear_input(sig);
+	rl_redisplay();
 }
 
 static void	set_signal(int sig, int flags, void (*func)(int))
@@ -58,7 +55,7 @@ void	ms_signal_set(int mode)
 	else if (mode == MODE_MAIN)
 	{
 		set_signal(SIGINT, 0, clear_input);
-		set_signal(SIGQUIT, 0, SIG_IGN);
+		set_signal(SIGQUIT, SA_RESTART, terminate);
 	}
 	else if (mode == MODE_HEREDOC)
 	{

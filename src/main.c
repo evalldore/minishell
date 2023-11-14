@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/13 18:48:51 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/13 19:41:51 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static void	exec_cmd(t_minishell *ms)
 	ms = ms_get();
 	if (ms_builtin(ms->tokens))
 		return ;
-	ms_signal_set(MODE_MAIN);
 	pid = fork();
 	if (pid == -1)
 		ms_terminate(1, "Minishell: Couldnt fork command process!\n");
 	if (pid == 0)
 	{
+		ms_signal_set(MODE_MAIN);
 		ms->cmd = ms_cmd_parse(ms->tokens);
 		ms_cmd_run(ms->cmd);
 	}
