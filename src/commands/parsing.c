@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/11/13 18:14:13 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:47:50 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,23 +100,13 @@ static void	write_heredocs(t_cmd *cmd)
 t_cmd	*ms_cmd_parse(t_list	*list)
 {
 	t_cmd	*cmd;
-	int		pid[2];
 
 	if (!list)
 		ms_terminate(1, "Minishell: No tokens list to parse!\n");
 	cmd = parse_exec(&list);
-	pid[0] = fork();
-	if (pid[0] == -1)
-		ms_terminate(1, "Minishell: Oh shit\n");
-	if (pid[0] == 0)
-	{
-		ms_signal_set(MODE_HEREDOC);
-		write_heredocs(cmd);
-		ms_terminate(0, NULL);
-	}
-	waitpid(pid[0], &pid[1], 0);
-	if (WEXITSTATUS(pid[1]) == 130)
-		ms_terminate(130, "Minishell: Heredoc interrupt\n");
+	ms_signal_set(MODE_HEREDOC);
+	write_heredocs(cmd);
+	ms_signal_set(MODE_MAIN);
 	if (ms_tokens_peek(&list, TOK_PIPE))
 	{
 		ms_tokens_get(&list);

@@ -6,18 +6,11 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:33:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/13 19:55:21 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:39:25 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	terminate(int sig)
-{
-	(void)sig;
-	ft_putchar_fd('\n', STDOUT_FILENO);
-	ms_terminate(130, NULL);
-}
 
 void	clear_input(int sig)
 {
@@ -25,42 +18,43 @@ void	clear_input(int sig)
 	ft_putchar_fd('\n', STDOUT_FILENO);
 	rl_replace_line("", 1);
 	rl_on_new_line();
-}
-
-void	clear_input_redis(int sig)
-{
-	clear_input(sig);
 	rl_redisplay();
 }
 
-static void	set_signal(int sig, int flags, void (*func)(int))
+void	terminate(int sig)
 {
-	struct sigaction	sa;
+	int	status;
 
-	ft_memset(&sa, 0, sizeof(sa));
-	sigemptyset(&sa.sa_mask);
-	sigaddset(&sa.sa_flags, sig);
-	sa.sa_flags = flags;
-	sa.sa_handler = func;
-	sigaction(sig, &sa, NULL);
+	status = 0;
+	if (sig == SIGINT)
+		status = 130;
+	else if (sig == SIGQUIT)
+		status = 131;
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	ms_terminate(status, NULL);
 }
 
 void	ms_signal_set(int mode)
 {
 	if (mode == MODE_DEFAULT)
 	{
-		set_signal(SIGINT, 0, clear_input_redis);
-		set_signal(SIGQUIT, 0, SIG_IGN);
+		signal(SIGINT, clear_input);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (mode == MODE_IGN)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (mode == MODE_MAIN)
 	{
-		set_signal(SIGINT, 0, clear_input);
-		set_signal(SIGQUIT, SA_RESTART, terminate);
+		signal(SIGINT, terminate);
+		signal(SIGQUIT, terminate);
 	}
 	else if (mode == MODE_HEREDOC)
 	{
-		set_signal(SIGINT, SA_RESTART, terminate);
-		set_signal(SIGQUIT, 0, SIG_IGN);
+		signal(SIGINT, terminate);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	else
 		ft_putstr_fd("Minishell: Signal mode invalid\n", 2);
