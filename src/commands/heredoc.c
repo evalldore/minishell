@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 14:20:03 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/15 15:17:42 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/15 15:58:42 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,6 @@ static char	*heredoc_input(void)
 	return (input);
 }
 
-static bool	is_delim(char *input, char *delim)
-{
-	size_t	i;
-
-	if (!input || !delim)
-		return (false);
-	i = 0;
-	while (delim[i])
-	{
-		if (delim[i] != input[i])
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
 void	ms_heredoc_write(char *buffer, char *eof)
 {
 	char	*input;
@@ -55,7 +39,7 @@ void	ms_heredoc_write(char *buffer, char *eof)
 			return ;
 		input_len = ft_strlen(input);
 		buffer_len = ft_strlen(buffer);
-		if (is_delim(input, eof))
+		if (*input && ft_strncmp(input, eof, input_len) == 0)
 			return (free(input));
 		if ((buffer_len + input_len + 1) >= HEREDOC_BUFFER)
 		{
