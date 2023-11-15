@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 00:58:57 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/15 17:41:31 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:03:46 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ms_builtin_export(const char *str)
 	t_list			*list;
 
 	if (!str)
-		print_env();
+		return (print_env());
 	if (set(str))
 		return ;
 	list = ms_get()->var_list;
