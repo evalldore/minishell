@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:25:44 by aroussea          #+#    #+#             */
-/*   Updated: 2023/11/14 17:51:14 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/15 14:55:16 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*cut_quotes(char *str, char **tmp)
 	char	*dst_tmp;
 	char	*rep;
 
-	len = ft_strlen(str) - ft_strlen(*tmp);
+	len = *tmp - str;
 	(*tmp)++;
 	dst_tmp = ft_calloc(len + 1, sizeof(char));
 	if (!dst_tmp)
@@ -40,6 +40,8 @@ static char	*cut_quotes(char *str, char **tmp)
 	ft_strlcpy(dst_tmp, str, len + 1);
 	rep = ft_strjoin(dst_tmp, *tmp);
 	free(dst_tmp);
+	free(str);
+	*tmp = rep + len;
 	return (rep);
 }
 
