@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/14 15:46:56 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:16:19 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void		ms_builtin_echo(char **args);
 void		ms_builtin_exit(size_t argc, char **args);
 void		ms_builtin_cd(size_t argc, char **args);
 void		ms_builtin_export(const char *str);
-void		ms_builtin_unset(const char *arg);
+void		ms_builtin_unset(char **arg);
 void		ms_builtin_pwd(void);
 bool		ms_builtin(t_list *tokens);
 

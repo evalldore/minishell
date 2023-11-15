@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:49:52 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/14 23:25:38 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/15 18:15:06 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool	ms_builtin_exec(size_t argc, char **args)
 	else if (bi == BI_PWD)
 		ms_builtin_pwd();
 	else if (bi == BI_UNSET)
-		ms_builtin_unset(args[1]);
+		ms_builtin_unset(&args[1]);
 	return (true);
 }
 
