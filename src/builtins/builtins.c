@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:49:52 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/14 22:49:52 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/14 23:25:38 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ bool	ms_builtin_exec(size_t argc, char **args)
 	bi = get_builtin(args[0]);
 	if (bi == BI_NONE)
 		return (false);
+	ms_status(0);
 	if (bi == BI_EXIT)
 		ms_builtin_exit(argc, args);
 	else if (bi == BI_CD)
@@ -57,7 +58,6 @@ bool	ms_builtin_exec(size_t argc, char **args)
 		ms_builtin_pwd();
 	else if (bi == BI_UNSET)
 		ms_builtin_unset(args[1]);
-	ms_status(0);
 	return (true);
 }
 
@@ -77,9 +77,9 @@ bool	ms_builtin(t_list *tokens)
 		{
 			token = ms_tokens_get(&tokens);
 			argv[argc++] = token->str;
-			continue ;
 		}
-		return (false);
+		else
+			return (false);
 	}
 	argv[argc] = NULL;
 	return (ms_builtin_exec(argc, argv));

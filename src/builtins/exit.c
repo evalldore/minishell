@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:28:54 by niceguy           #+#    #+#             */
-/*   Updated: 2023/10/26 16:20:48 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/14 23:24:31 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ void	ms_builtin_exit(size_t argc, char **args)
 	}
 	ms = ms_get();
 	ms->running = false;
-	ms->status = ft_atoi(args[1]);
+	ms->status = (uint8_t)ft_atoi(args[1]);
 }
