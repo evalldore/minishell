@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/14 16:27:24 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/14 23:05:23 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void	exec_cmd(t_minishell *ms)
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		ms_status(WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+		ms_status(WTERMSIG(status) + 128);
 	ms_debug_child(pid, status);
 }
 

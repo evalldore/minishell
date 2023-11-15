@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:33:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/14 15:39:25 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/14 22:30:41 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	ms_signal_set(int mode)
 	}
 	else if (mode == MODE_MAIN)
 	{
-		signal(SIGINT, terminate);
-		signal(SIGQUIT, terminate);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 	}
 	else if (mode == MODE_HEREDOC)
 	{

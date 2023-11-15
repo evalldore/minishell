@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 16:52:43 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/14 15:30:46 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/14 23:03:13 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,12 @@ void	ms_cmd_run(t_cmd *cmd)
 
 static void	run_bin(char *path, char **argv)
 {
-	int			pid;
-	int			status;
 	char		**env;
 
-	pid = fork();
-	if (pid == -1)
-		ms_terminate(1, "Minishell: Fork binary failed\n");
-	if (pid == 0)
-	{
-		env = ms_env_array();
-		execve(path, argv, env);
-		free(env);
-		ms_terminate(1, "Minishell: Command failed to run!\n");
-	}
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		return (ms_terminate(WEXITSTATUS(status), NULL));
-	ms_terminate(1, NULL);
+	env = ms_env_array();
+	execve(path, argv, env);
+	free(env);
+	ms_terminate(126, "Minishell: Command failed to exec!\n");
 }
 
 static void	cmd_exec(t_cmd_exec *cmd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:53:23 by aroussea          #+#    #+#             */
-/*   Updated: 2023/11/14 15:47:27 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/14 22:46:36 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ static t_cmd	*parse_exec(t_list	**list)
 	while (ms_tokens_peek(list, TOK_TEXT))
 	{
 		token = ms_tokens_get(list);
-		exec->argv[exec->argc] = token->str;
-		exec->argc++;
+		exec->argv[exec->argc++] = token->str;
 		if (exec->argc >= (MAX_ARGS - 1))
 			break ;
 		cmd = parse_redir(cmd, list);
