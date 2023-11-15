@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 00:58:57 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/08 15:28:04 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:41:31 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,26 @@ static bool	set(const char *str)
 	return (false);
 }
 
+static void	print_env(void)
+{
+	t_list	*env_list;
+
+	env_list = ms_get()->env_list;
+	while (env_list)
+	{
+		printf("declare -x %s\n", (char *)env_list->content);
+		env_list = env_list->next;
+	}
+}
+
 void	ms_builtin_export(const char *str)
 {
 	t_list			*node;
 	t_list			*list;
 
-	if (!str || set(str))
+	if (!str)
+		print_env();
+	if (set(str))
 		return ;
 	list = ms_get()->var_list;
 	node = ms_vars_get_node(list, str);

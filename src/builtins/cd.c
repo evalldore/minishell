@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 17:10:46 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/08 16:47:32 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:47:36 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,26 @@
 
 void	ms_builtin_cd(size_t argc, char	**args)
 {
-	t_list	*node;
-	char	pwd[PATH_BUFFER];
-	char	*path;
+	t_minishell	*ms;
+	char		pwd[PATH_BUFFER];
+	char		*path;
+	char		*curr;
 
 	if (argc > 2)
 	{
 		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
 		return ;
 	}
+	ms = ms_get();
 	path = args[1];
 	if (!path || (path[0] == '~' && !path[1]))
-		path = ms_vars_get_var(ms_get()->env_list, "HOME");
+		path = ms_vars_get_var(ms->env_list, "HOME");
 	if (chdir(path) != 0)
 		return (perror("cd"));
-	node = ms_vars_get_node(ms_get()->env_list, "PWD");
-	if (node)
-		ms_vars_set(&(ms_get()->env_list), "OLDPWD", (char *)node->content);
-	ms_vars_set(&(ms_get()->env_list), "PWD", getcwd(pwd, PATH_BUFFER));
+	if (ms_vars_get_node(ms->env_list, "PWD"))
+	{
+		curr = ms_vars_get_var(ms->env_list, "PWD");
+		ms_vars_set(&ms->env_list, "OLDPWD", curr);
+	}
+	ms_vars_set(&ms->env_list, "PWD", getcwd(pwd, PATH_BUFFER));
 }
