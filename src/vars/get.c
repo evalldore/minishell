@@ -6,7 +6,7 @@
 /*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 02:38:37 by niceguy           #+#    #+#             */
-/*   Updated: 2023/11/04 22:55:53 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/16 00:47:06 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,16 @@ t_list	*ms_vars_get_node(t_list *list, const char *arg)
 
 bool	ms_vars_parse(t_var *var, const char *str)
 {
+	size_t	varname_size;
+
 	if (!var || !str || !ft_strchr(str, '='))
 		return (false);
 	ft_memset(var->name, 0, VARNAME_BUFFER);
 	ft_memset(var->value, 0, VAR_BUFFER);
-	ft_strlcpy(var->name, str, (ft_strchr(str, '=') - str) + 1);
+	varname_size = (ft_strchr(str, '=') - str) + 1;
+	if (varname_size > VARNAME_BUFFER)
+		varname_size = VARNAME_BUFFER;
+	ft_strlcpy(var->name, str, varname_size);
 	ft_strlcpy(var->value, ft_strchr(str, '=') + 1, VAR_BUFFER);
 	if (!var->name[0] || !var->value[0])
 		return (false);
