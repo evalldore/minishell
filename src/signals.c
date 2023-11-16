@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:33:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/15 14:39:17 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/15 19:29:49 by niceguy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@ void	clear_input(int sig)
 	rl_replace_line("", 1);
 	rl_on_new_line();
 	rl_redisplay();
-}
-
-void	interrupt(int sig)
-{
-	(void)sig;
-	ft_putchar_fd('\n', STDOUT_FILENO);
-	ms_terminate(130, NULL);
 }
 
 void	ms_signal_set(int mode)
@@ -47,7 +40,7 @@ void	ms_signal_set(int mode)
 	}
 	else if (mode == MODE_HEREDOC)
 	{
-		signal(SIGINT, interrupt);
+		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_IGN);
 	}
 	else
