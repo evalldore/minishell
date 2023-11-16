@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/14 15:46:56 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:13:24 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ bool		ms_tokens_peek(t_list **list, int type);
 t_token		*ms_tokens_get(t_list **list);
 void		ms_tokens_del(void	*ptr);
 
-char		*find_separator(char *str);
+char		*find_separator(char *str, int i);
 char		*separation(char *str);
 char		*quotes_handler(char *str);
 int			check_unclosed_quote(char *str);

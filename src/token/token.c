@@ -6,27 +6,36 @@
 /*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/15 14:49:09 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:40:14 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*find_separator(char *str)
+char	*find_separator(char *str, int i)
 {
-	int	dquotes;
-	int	quotes;
+	int	quotes[2];
+	int	x;
 
-	dquotes = 0;
-	quotes = 0;
-	while (*str && ft_strchr(OPERATORS, *str))
-		str++;
+	quotes[0] = 0;
+	quotes[1] = 0;
+	x = 0;
+	if (i != 0 && (quotes[0] == 0 && quotes[1] == 0))
+	{
+		while (*str && ft_strchr(OPERATORS, *str))
+		{
+			str++;
+			x = 1;
+		}
+		if (x == 1)
+			return (str);
+	}
 	while (*str)
 	{
 		if ((ft_strchr(WHITESPACES, *str) || ft_strchr(OPERATORS, *str)) 
-			&& quotes == 0 && dquotes == 0)
+			&& quotes[0] == 0 && quotes[1] == 0)
 			return (str);
-		quote_counter(&dquotes, &quotes, *str);
+		quote_counter(&quotes[1], &quotes[0], *str);
 		str++;
 	}
 	return (NULL);
@@ -58,7 +67,13 @@ static t_token	*create_token(char *str, int *check)
 		ft_putstr_fd("Minishell : Unclosed quotes!\n", 2);
 		return (NULL);
 	}
-	sub = quotes_handler(separation(str));
+	sub = separation(str);
+	if (!sub)
+	{
+		*check = 1;
+		return (NULL);
+	}
+	sub = quotes_handler(sub);
 	token = ft_calloc(1, sizeof(t_token));
 	if (!token)
 	{
@@ -94,7 +109,7 @@ void	ms_tokens_init(char	*input, int *check)
 		if (!node)
 			ms_terminate(1, "Minishell: Couldnt allocate memory for token!\n");
 		ft_lstadd_back(&list, node);
-		input = find_separator(input);
+		input = find_separator(input, 1);
 	}
 	ms->tokens = list;
 }
