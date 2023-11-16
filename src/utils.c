@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:55:10 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/01 23:24:04 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/16 15:37:44 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ms_free_token_init(char *input, t_token *token, t_list **list)
+{
+	free(input);
+	if (token)
+		ms_tokens_del(token);
+	ft_lstclear(list, ms_tokens_del);
+	ms_terminate(1, "Minishell: Couldnt allocate memory for token!\n");
+}
 
 void	ms_array_free(void **array)
 {

@@ -3,30 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/15 14:49:09 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:57:09 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*find_separator(char *str)
+char	*find_separator(char *str, int i)
 {
-	int	dquotes;
-	int	quotes;
+	int	quotes[2];
+	int	x;
 
-	dquotes = 0;
-	quotes = 0;
-	while (*str && ft_strchr(OPERATORS, *str))
-		str++;
+	quotes[0] = 0;
+	quotes[1] = 0;
+	x = 0;
+	if (i != 0 && (quotes[0] == 0 && quotes[1] == 0))
+	{
+		while (*str && ft_strchr(OPERATORS, *str))
+		{
+			str++;
+			x = 1;
+		}
+		if (x == 1)
+			return (str);
+	}
 	while (*str)
 	{
 		if ((ft_strchr(WHITESPACES, *str) || ft_strchr(OPERATORS, *str)) 
-			&& quotes == 0 && dquotes == 0)
+			&& quotes[0] == 0 && quotes[1] == 0)
 			return (str);
-		quote_counter(&dquotes, &quotes, *str);
+		quote_counter(&quotes[1], &quotes[0], *str);
 		str++;
 	}
 	return (NULL);
@@ -45,9 +54,23 @@ static int	token_type(char *str)
 	return (TOK_TEXT);
 }
 
-static t_token	*create_token(char *str, int *check)
+static t_token	*alloc_token(char *str)
 {
 	t_token	*token;
+
+	token = ft_calloc(1, sizeof(t_token));
+	if (!token)
+	{
+		free(str);
+		return (NULL);
+	}
+	token->type = token_type(str);
+	token->str = str;
+	return (token);
+}
+
+static t_token	*create_token(char *str, int *check)
+{
 	char	*sub;
 
 	if (!str)
@@ -58,16 +81,14 @@ static t_token	*create_token(char *str, int *check)
 		ft_putstr_fd("Minishell : Unclosed quotes!\n", 2);
 		return (NULL);
 	}
-	sub = quotes_handler(separation(str));
-	token = ft_calloc(1, sizeof(t_token));
-	if (!token)
+	sub = separation(str);
+	if (!sub)
 	{
-		free(sub);
+		*check = 1;
 		return (NULL);
 	}
-	token->type = token_type(sub);
-	token->str = sub;
-	return (token);
+	sub = quotes_handler(sub);
+	return (alloc_token(sub));
 }
 
 void	ms_tokens_init(char	*input, int *check)
@@ -89,12 +110,12 @@ void	ms_tokens_init(char	*input, int *check)
 		if (*check != 0)
 			break ;
 		if (!token)
-			ms_terminate(1, "Minishell: Couldnt allocate memory for token!\n");
+			ms_free_token_init(input, token, &list);
 		node = ft_lstnew(token);
 		if (!node)
-			ms_terminate(1, "Minishell: Couldnt allocate memory for token!\n");
+			ms_free_token_init(input, token, &list);
 		ft_lstadd_back(&list, node);
-		input = find_separator(input);
+		input = find_separator(input, 1);
 	}
 	ms->tokens = list;
 }

@@ -6,7 +6,7 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/15 18:16:19 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:26:05 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define COLOR_MAGENTA "\x1b[35m"
 # define COLOR_CYAN "\x1b[36m"
 # define COLOR_RESET "\x1b[0m"
-# define PROMPT	"\x1b[32mMinishit\x1b[0m > "
+# define PROMPT "\x1b[32mMinishit\x1b[0m > "
 # define MAX_ARGS 1024
 # define MAX_NODE 1024
 # define PATH_BUFFER 256
@@ -170,8 +170,9 @@ void		ms_tokens_init(char	*input, int *check);
 bool		ms_tokens_peek(t_list **list, int type);
 t_token		*ms_tokens_get(t_list **list);
 void		ms_tokens_del(void	*ptr);
+void		ms_free_token_init(char *input, t_token *token, t_list **list);
 
-char		*find_separator(char *str);
+char		*find_separator(char *str, int i);
 char		*separation(char *str);
 char		*quotes_handler(char *str);
 int			check_unclosed_quote(char *str);

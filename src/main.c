@@ -6,11 +6,10 @@
 /*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/16 13:56:54 by evallee-         ###   ########.fr       */
+/*   Updated: 2023/11/16 16:26:38 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <execinfo.h>
 #include "minishell.h"
 
 static void	exec_cmd(t_minishell *ms)
