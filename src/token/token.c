@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/16 15:39:10 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:57:09 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,23 @@ static int	token_type(char *str)
 	return (TOK_TEXT);
 }
 
-static t_token	*create_token(char *str, int *check)
+static t_token	*alloc_token(char *str)
 {
 	t_token	*token;
+
+	token = ft_calloc(1, sizeof(t_token));
+	if (!token)
+	{
+		free(str);
+		return (NULL);
+	}
+	token->type = token_type(str);
+	token->str = str;
+	return (token);
+}
+
+static t_token	*create_token(char *str, int *check)
+{
 	char	*sub;
 
 	if (!str)
@@ -74,15 +88,7 @@ static t_token	*create_token(char *str, int *check)
 		return (NULL);
 	}
 	sub = quotes_handler(sub);
-	token = ft_calloc(1, sizeof(t_token));
-	if (!token)
-	{
-		free(sub);
-		return (NULL);
-	}
-	token->type = token_type(sub);
-	token->str = sub;
-	return (token);
+	return (alloc_token(sub));
 }
 
 void	ms_tokens_init(char	*input, int *check)
