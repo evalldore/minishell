@@ -6,7 +6,7 @@
 /*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 14:30:49 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/16 14:40:14 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:39:10 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,10 @@ void	ms_tokens_init(char	*input, int *check)
 		if (*check != 0)
 			break ;
 		if (!token)
-			ms_terminate(1, "Minishell: Couldnt allocate memory for token!\n");
+			ms_free_token_init(input, token, &list);
 		node = ft_lstnew(token);
 		if (!node)
-			ms_terminate(1, "Minishell: Couldnt allocate memory for token!\n");
+			ms_free_token_init(input, token, &list);
 		ft_lstadd_back(&list, node);
 		input = find_separator(input, 1);
 	}

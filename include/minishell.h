@@ -6,7 +6,7 @@
 /*   By: aroussea <aroussea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:07 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/16 14:13:24 by aroussea         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:38:07 by aroussea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ void		ms_tokens_init(char	*input, int *check);
 bool		ms_tokens_peek(t_list **list, int type);
 t_token		*ms_tokens_get(t_list **list);
 void		ms_tokens_del(void	*ptr);
+void		ms_free_token_init(char *input, t_token *token, t_list **list);
 
 char		*find_separator(char *str, int i);
 char		*separation(char *str);
