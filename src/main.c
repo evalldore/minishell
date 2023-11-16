@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niceguy <niceguy@student.42.fr>            +#+  +:+       +#+        */
+/*   By: evallee- <evallee-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:50:51 by evallee-          #+#    #+#             */
-/*   Updated: 2023/11/15 21:24:23 by niceguy          ###   ########.fr       */
+/*   Updated: 2023/11/16 13:56:54 by evallee-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,23 @@ static void	exec_cmd(t_minishell *ms)
 	ms_debug_child(pid, status);
 }
 
-static bool	set_var(void)
+static bool	set_var(t_list	*tokens)
 {
 	t_minishell		*ms;
 	t_token			*tok;
 	t_var			var;
 
 	ms = ms_get();
-	if (!ms_tokens_peek(&ms->tokens, TOK_TEXT))
+	if (!tokens || !ms_tokens_peek(&tokens, TOK_TEXT))
 		return (false);
-	tok = ms->tokens->content;
+	tok = tokens->content;
 	if (!ms_vars_parse(&var, tok->str))
 		return (false);
 	if (!ms_vars_get_node(ms->env_list, var.name))
 		ms_vars_set(&ms->var_list, var.name, var.value);
 	else
 		ms_vars_set(&ms->env_list, var.name, var.value);
+	set_var(tokens->next);
 	return (true);
 }
 
@@ -82,7 +83,7 @@ int	main(int argc, char **argv, char **env)
 		check = 0;
 		ms_tokens_init(input, &check);
 		free(input);
-		if (check != 0 || set_var())
+		if (check != 0 || set_var(ms->tokens))
 			continue ;
 		exec_cmd(ms);
 	}
